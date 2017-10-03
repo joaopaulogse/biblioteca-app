@@ -9,7 +9,8 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {AngularFireModule} from 'angularfire2'
-import configFirebase from '../config/configFirebase' 
+import configFirebase from '../config/configFirebase'
+import { AuthProvider } from '../providers/auth/auth'; 
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import configFirebase from '../config/configFirebase'
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {}
