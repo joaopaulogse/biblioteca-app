@@ -15,32 +15,21 @@ export class AuthProvider {
 
   user: Observable<firebase.User>;
   
-    constructor(private firebaseAuth: AngularFireAuth) {
+    constructor(public firebaseAuth: AngularFireAuth) {
       this.user = firebaseAuth.authState;
     }
   
     signup(email: string, password: string) {
-      this.firebaseAuth
+      return this.firebaseAuth
         .auth
         .createUserWithEmailAndPassword(email, password)
-        .then(value => {
-          console.log('Cadastrado!', value);
-        })
-        .catch(err => {
-          console.log('Erro ao cadastrar',err.message);
-        });    
+         
     }
   
     login(email: string, password: string) {
-      this.firebaseAuth
+      return this.firebaseAuth
         .auth
         .signInWithEmailAndPassword(email, password)
-        .then(value => {
-          console.log('Logado!');
-        })
-        .catch(err => {
-          console.log('Erro ao Logar: ',err.message);
-        });
     }
   
     logout() {

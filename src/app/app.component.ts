@@ -9,11 +9,11 @@ import { LoginPage } from "../pages/login/login";
 })
 export class MyApp {
 
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-
+    this.rootPage = LoginPage;
   }
 
   initializeApp() {
