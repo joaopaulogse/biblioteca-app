@@ -10,11 +10,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {AngularFireModule} from 'angularfire2'
 import configFirebase from '../config/configFirebase'
 import { AuthProvider } from '../providers/auth/auth'; 
+import { HomePage } from '../pages/home/home';
+import { CadastroPage } from '../pages/cadastro/cadastro';
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage
+    LoginPage,
+    HomePage,
+    CadastroPage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { AuthProvider } from '../providers/auth/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage
+    LoginPage,
+    HomePage,
+    CadastroPage
   ],
   providers: [
     StatusBar,

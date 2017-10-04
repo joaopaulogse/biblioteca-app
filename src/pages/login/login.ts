@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from "../../providers/auth/auth";
 import { AngularFireAuth } from "angularfire2/auth";
+import { CadastroPage } from '../cadastro/cadastro';
 
 /**
  * Generated class for the LoginPage page.
@@ -28,5 +29,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-
+  paginaCadastro(){
+    this.navCtrl.push(CadastroPage)
+  }
 }
