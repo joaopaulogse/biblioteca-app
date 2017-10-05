@@ -11,15 +11,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-cadastro',
-  templateUrl: 'cadastro.html',
+  templateUrl: 'cadastro.html'
 })
 export class CadastroPage {
-
+  usuario = {}
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroPage');
+  }
+
+  enviaImage(event){
+    var image = document.querySelector('#imageCadastro')
+    image.src = URL.createObjectURL(event.target.files[0])
   }
 
 }

@@ -14,5 +14,41 @@
 
 
 <ion-content padding>
+  <form>
+      <ion-card>
+          
+        <a clear block onclick="document.getElementById('selectFoto').click()">
+          <img src="assets/images/contact.svg" id="imageCadastro" style='height: 100%;background-color:#FFFFFF; width: 100%;'>
+        </a>
+        <input type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+        <ion-card-content>
+          <ion-card-title>
+            Cadastro
+          </ion-card-title>
+          <p>
+            Seja djsklf adf asfa sdfkljda s;fkladjs f;kl djas;
+          </p>
+        </ion-card-content>
+        <ion-row>
 
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="email" [(ngModel)]="usuario.email" name="email" placeholder="Email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Senha"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="usuario.conf_password" name="conf_password" placeholder="Confirme a Senha"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full type="submit" >Enviar</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+  </form>
 </ion-content>
