@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from "../../providers/auth/auth";
 import { AngularFireAuth } from "angularfire2/auth";
 import { CadastroPage } from '../cadastro/cadastro';
+import { HomePage } from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -31,5 +32,9 @@ export class LoginPage {
 
   paginaCadastro(){
     this.navCtrl.push(CadastroPage)
+  }
+
+  login(){
+    this.navCtrl.setRoot(HomePage)
   }
 }
