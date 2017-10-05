@@ -23,8 +23,6 @@ export class CadastroPage {
   }
 
   enviaImage(event){
-    var image = document.querySelector('#imageCadastro')
-    image.src = URL.createObjectURL(event.target.files[0])
+    (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0])
   }
-
 }
