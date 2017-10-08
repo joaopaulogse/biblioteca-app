@@ -4,6 +4,7 @@ import { AuthProvider } from "../../providers/auth/auth";
 import { AngularFireAuth } from "angularfire2/auth";
 import { CadastroPage } from '../cadastro/cadastro';
 import { HomePage } from "../home/home";
+import { UsuarioModel } from '../../models/UsuarioModel';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,7 +20,7 @@ import { HomePage } from "../home/home";
   providers:[AuthProvider, AngularFireAuth]
 })
 export class LoginPage {
-
+  usuario = {};
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,6 +36,11 @@ export class LoginPage {
   }
 
   login(){
-    this.navCtrl.setRoot(HomePage)
+    let user = new UsuarioModel(this.usuario)
+    this.serviceAuth.login(user.email, user.password)
+        .then(user=>{
+          console.log(user)
+          this.navCtrl.setRoot(HomePage)
+        })
   }
 }

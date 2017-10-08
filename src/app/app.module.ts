@@ -12,6 +12,7 @@ import configFirebase from '../config/configFirebase'
 import { AuthProvider } from '../providers/auth/auth'; 
 import { HomePage } from '../pages/home/home';
 import { CadastroPage } from '../pages/cadastro/cadastro';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CadastroPage } from '../pages/cadastro/cadastro';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}

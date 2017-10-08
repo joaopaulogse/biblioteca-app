@@ -41,12 +41,19 @@
             <ion-input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Senha"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input type="text" [(ngModel)]="usuario.conf_password" name="conf_password" placeholder="Confirme a Senha"></ion-input>
+            <ion-input type="password" [(ngModel)]="usuario.conf_password" name="conf_password" placeholder="Confirme a Senha"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Sexo:</ion-label>
+            <ion-select [(ngModel)]="usuario.sexo" name="sexo" okText="Ok">
+              <ion-option value="m" >Masculino</ion-option>
+              <ion-option value="f">Feminino</ion-option>
+            </ion-select>
           </ion-item>
         </ion-row>
         <ion-row>
           <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full type="submit" >Enviar</button>
+            <button ion-button class="submit-btn" full type="submit" (click)="cadastrarUsuario()" >Enviar</button>
           </ion-col>
         </ion-row>
       </ion-card>

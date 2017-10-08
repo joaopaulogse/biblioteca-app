@@ -7,29 +7,31 @@
 <ion-content padding>
 
       <ion-title>Biblioteca</ion-title>
+      <form>
 
-      <ion-row>
-        <ion-col>
-          <ion-list inset>
-            
-            <ion-item>
-              <ion-input type="text" placeholder="Email" name="email"  required></ion-input>
-            </ion-item>
-            
-            <ion-item>
-              <ion-input type="password" placeholder="Senha" name="password" required></ion-input>
-            </ion-item>
-            
-          </ion-list>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" (click)="login()">Login</button>
-          <button ion-button class="register-btn" block clear (click)="paginaCadastro()">Crie um nova conta</button>
-        </ion-col>
-      </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              
+              <ion-item>
+                <ion-input type="email" [(ngModel)]="usuario.email" placeholder="Email" name="email" ></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-input type="password" [(ngModel)]="usuario.password" placeholder="Senha" name="password"></ion-input>
+              </ion-item>
+              
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full (click)="login()">Login</button>
+            <button ion-button class="register-btn" block clear (click)="paginaCadastro()">Crie um nova conta</button>
+          </ion-col>
+        </ion-row>
+      </form>
       <ion-row>
         <ion-col>
           <button ion-button color="blue" round>

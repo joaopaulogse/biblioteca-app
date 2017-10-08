@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -11,18 +11,22 @@ import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit{
+  ngOnInit() {
+
+    if(this.user){
+      console.log(this.user)
+      this.rootPage = HomePage
+    }else{
+      this.rootPage = LoginPage;
+    }
+  }
 
   rootPage: any;
   user: Observable<firebase.User>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-    if(this.user){
-      this.rootPage = HomePage
-    }else{
-      this.rootPage = LoginPage;
-    }
   }
 
   initializeApp() {
