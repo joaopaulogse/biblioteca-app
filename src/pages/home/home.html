@@ -17,12 +17,6 @@
       Biblioteca
     </ion-title>
 
-    <ion-buttons end>
-      <button ion-button icon-only disabled>
-      <ion-icon name='notifications'></ion-icon>
-    </button>
-    </ion-buttons>
-
   </ion-navbar>
 
 </ion-header>
@@ -54,4 +48,12 @@
 </ion-menu>
 <ion-content padding>
   <ion-nav #mycontent [root]="rootPage" swipe-back-enabled="false"></ion-nav>
+  <ion-fab right bottom>
+    <button ion-fab color="black" black padding>
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab><ion-icon name="md-book"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
