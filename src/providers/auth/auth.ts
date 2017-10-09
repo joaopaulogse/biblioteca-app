@@ -32,6 +32,25 @@ export class AuthProvider {
         .signInWithEmailAndPassword(email, password)
     }
   
+    isLogged(){
+        // if(!!this.user){
+
+        // this.user.subscribe(val => {
+        //   console.log(val)
+        //     if (val.email) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        // });
+        // return true;
+        // }else{
+        //   return false;
+        // }
+        return this.user;
+        
+    }
+
     logout() {
       this.firebaseAuth
         .auth

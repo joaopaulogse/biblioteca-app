@@ -22,9 +22,10 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    menu: MenuController,
+    public menu: MenuController,
     public serviceAuth:AuthProvider
   ) {
+    this.menu.enable(false);
   }
 
   ionViewDidLoad() {

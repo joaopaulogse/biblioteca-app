@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { AuthProvider } from "../../providers/auth/auth";
 import { AngularFireAuth } from "angularfire2/auth";
 import { CadastroPage } from '../cadastro/cadastro';
@@ -21,10 +21,12 @@ import { UsuarioModel } from '../../models/UsuarioModel';
 })
 export class LoginPage {
   usuario = {};
+  loading: Loading;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public serviceAuth: AuthProvider
+    public serviceAuth: AuthProvider,
+    public ldCtrl: LoadingController
   ) { }
 
   ionViewDidLoad() {
@@ -36,6 +38,11 @@ export class LoginPage {
   }
 
   login(){
+    this.loading = this.ldCtrl.create({
+      content: 'Logando...',
+      duration:1000
+    });
+    this.loading.present();
     let user = new UsuarioModel(this.usuario)
     this.serviceAuth.login(user.email, user.password)
         .then(user=>{
