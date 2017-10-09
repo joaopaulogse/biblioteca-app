@@ -5,8 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from "../pages/login/login";
 
-import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase'
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from "../providers/auth/auth";
 @Component({
