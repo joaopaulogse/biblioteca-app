@@ -15,7 +15,6 @@ import { AuthProvider } from "../providers/auth/auth";
 export class MyApp implements OnInit{
 
   rootPage: any;
-  user: Observable<firebase.User>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authProvider:AuthProvider) {
     this.initializeApp();
