@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MyApp } from '../../app/app.component';
-
+import * as firebase from 'firebase/app'
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the HomePage page.
  *
@@ -19,13 +20,17 @@ import { MyApp } from '../../app/app.component';
 })
 export class HomePage {
   rootPage: any;
+  user: Observable<firebase.User>;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public menu: MenuController,
-    public serviceAuth:AuthProvider
+    public serviceAuth:AuthProvider,
+    public authFB:AngularFireAuth
   ) {
     this.menu.enable(false);
+    this.user = authFB.authState
+    console.log("Usuario:", this.user)
   }
 
   ionViewDidLoad() {

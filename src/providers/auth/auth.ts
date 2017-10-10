@@ -20,20 +20,25 @@ export class AuthProvider {
     }
   
     signup(email: string, password: string) {
-      return this.firebaseAuth
+       return this.firebaseAuth
         .auth
-        .createUserWithEmailAndPassword(email, password)
-         
+        .createUserWithEmailAndPassword(email, password);
+
     }
   
     login(email: string, password: string) {
       return this.firebaseAuth
         .auth
-        .signInWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(email, password);
+       
     }
   
     isLogged(){
         return this.user;
+    }
+
+    logginGoogle(){
+      return this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
     logout() {

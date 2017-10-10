@@ -33,13 +33,26 @@
       <!-- <ion-title></ion-title>   -->
     </ion-toolbar>
   </ion-header>
-
+  
   <ion-content>
+      <ion-card primary>
+          
+            <ion-item>
+                <ion-avatar item-start>
+                  <img src="{{(user|async)?.photoURL}}">
+                </ion-avatar>
+                <h3>{{(user|async)?.displayName}}</h3>
+                <h4> {{(user|async)?.email}} </h4>
+            </ion-item>
+            <ion-card-content>
+              
+              <button ion-item>
+                <ion-icon name="create"></ion-icon> Perfil
+              </button>
+            </ion-card-content>
+      </ion-card>
     <br>
     <ion-list>
-    <button ion-item>
-      <ion-icon name="create"></ion-icon> Perfil
-    </button>
     <button ion-item (click)="logOut()">
       <ion-icon name="log-out"></ion-icon> Log out
     </button>

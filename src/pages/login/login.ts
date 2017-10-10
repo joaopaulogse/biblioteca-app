@@ -40,11 +40,23 @@ export class LoginPage {
   login(){
     this.loading = this.ldCtrl.create({
       content: 'Logando...',
-      duration:1000
+      dismissOnPageChange:true
     });
     this.loading.present();
     let user = new UsuarioModel(this.usuario)
     this.serviceAuth.login(user.email, user.password)
+        .then(user=>{
+          console.log("@ID:",user.uid)
+          this.navCtrl.setRoot(HomePage)
+        })
+  }
+
+  loginGoogle(){
+    this.loading = this.ldCtrl.create({
+      content: 'Logando...',
+      dismissOnPageChange:true
+    });
+    this.serviceAuth.logginGoogle()
         .then(user=>{
           console.log(user)
           this.navCtrl.setRoot(HomePage)
