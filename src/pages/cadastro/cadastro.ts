@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,11 +21,13 @@ import { MyApp } from '../../app/app.component';
 export class CadastroPage {
   usuario = {}
   foto:any
+  loading: Loading;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public authService:AuthProvider,
-    public authFB:AngularFireAuth
+    public authFB:AngularFireAuth,
+    public ldCtrl: LoadingController
   ) {  }
 
   ionViewDidLoad() {
@@ -40,11 +42,14 @@ export class CadastroPage {
   }
 
   cadastrarUsuario(){
-    // console.log(this.usuario)
+    this.loading = this.ldCtrl.create({
+      content: 'Carregando...',
+      dismissOnPageChange:true
+    });
     let user = new UsuarioModel(this.usuario)
     this.toBase64(this.foto).then(foto=>{
       user.photoURL = foto.toString()
-    })
+    }).catch(err=>console.log(err))
     console.log(user)
     this.authService.signup(user.email, user.password).then((usuario:firebase.User)=>{
      usuario.updateProfile({
@@ -54,18 +59,21 @@ export class CadastroPage {
       this.navCtrl.setRoot(MyApp)
     })
   }
-  toBase64(file){
-    var reader = new FileReader();
+  toBase64(file:File){
+    let reader = new FileReader();
+    console.log(file)
     return new Promise((resolve, reject)=>{
-      
+      if(file.size > 2000000){
+        reject({error:"Imagem superior a 2MB, tente uma menor"})
+      }
       reader.readAsDataURL(file);
-      reader.onload = function () {
+      reader.onload = function (e) {
         resolve(reader.result);
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);
         reject(error);
       };
-    })
+    })    
   }
 }
