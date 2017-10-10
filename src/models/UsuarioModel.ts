@@ -10,7 +10,6 @@ export class Livro{
 export class UsuarioModel{
     email:string;
     password:string;
-    sexo:string;
     username:string;
     photoURL:string;
     livros:[Livro];
@@ -18,7 +17,6 @@ export class UsuarioModel{
     constructor(usuario: any, livros?:[Livro], lista_desejos?:[Livro]){
         this.email = usuario.email;
         this.password = usuario.password;
-        this.sexo = usuario.sexo;
         this.username = usuario.username;
         this.photoURL = usuario.photoURL;
         this.livros = livros;
