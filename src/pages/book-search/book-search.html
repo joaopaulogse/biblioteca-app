@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <ion-card *ngFor="let book of list_books">
-        <img [src]="'book.volumeInfo.imagesLinks.thumbnail'"/>
+        <img src={{book.volumeInfo.imageLinks.thumbnail}}/>
         <!--<img src="../assets/images/json_img.jpg" alt="">-->
         <ion-card-content>
           <ion-card-title>
