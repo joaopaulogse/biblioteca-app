@@ -34,12 +34,9 @@ import { AngularFireDatabaseProvider } from 'angularfire2/database';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(configFirebase),
-<<<<<<< HEAD
     ReactiveFormsModule,
-    FormsModule
-=======
-    HttpModule
->>>>>>> 9af4dcf979a2926a78065b22c3a154c1aa79860d
+    FormsModule,
+    HttpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
