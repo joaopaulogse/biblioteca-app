@@ -13,32 +13,39 @@ import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { BooksProvider } from '../providers/books/books';
+import { BookSearchPage } from '../pages/book-search/book-search';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     HomePage,
-    CadastroPage
+    CadastroPage,
+    BookSearchPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(configFirebase)
+    AngularFireModule.initializeApp(configFirebase),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     LoginPage,
     HomePage,
-    CadastroPage
+    CadastroPage,
+    BookSearchPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    AngularFireAuth
+    AngularFireAuth,
+    BooksProvider
   ]
 })
 export class AppModule {}

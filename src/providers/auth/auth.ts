@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import {AngularFireAuth} from 'angularfire2/auth';
-import * as firebase from 'firebase';
+import { Injectable } from "@angular/core";
+import "rxjs/add/operator/map";
+import { Observable } from "rxjs/Observable";
+import { AngularFireAuth } from "angularfire2/auth";
+import * as firebase from "firebase";
+import { ToastController } from "ionic-angular";
 
 /*
   Generated class for the AuthProvider provider.
@@ -12,39 +13,34 @@ import * as firebase from 'firebase';
 */
 @Injectable()
 export class AuthProvider {
-
   user: Observable<firebase.User>;
-  
-    constructor(public firebaseAuth: AngularFireAuth) {
-      this.user = firebaseAuth.authState;
-    }
-  
-    signup(email: string, password: string) {
-       return this.firebaseAuth
-        .auth
-        .createUserWithEmailAndPassword(email, password);
 
-    }
-  
-    login(email: string, password: string) {
-      return this.firebaseAuth
-        .auth
-        .signInWithEmailAndPassword(email, password);
-       
-    }
-  
-    isLogged(){
-        return this.user;
-    }
+  constructor(
+    public firebaseAuth: AngularFireAuth,
+    public toastCtrl: ToastController
+  ) {
+    this.user = firebaseAuth.authState;
+  }
 
-    logginGoogle(){
-      return this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    }
+  signup(email: string, password: string) {
+     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
+  }
 
-    logout() {
-      this.firebaseAuth
-        .auth
-        .signOut();
-    }
+  login(email: string, password: string) {
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+  }
 
+  isLogged() {
+    return this.user;
+  }
+
+  logginGoogle() {
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
+  }
+
+  logout() {
+    this.firebaseAuth.auth.signOut();
+  }
 }
