@@ -5,6 +5,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { MyApp } from '../../app/app.component';
 import * as firebase from 'firebase/app'
 import { Observable } from 'rxjs/Observable';
+import { BookSearchPage } from '../book-search/book-search';
+import { BookRegisterPage } from '../book-register/book-register';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the HomePage page.
  *
@@ -16,7 +20,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers:[AngularFireAuth]
+  providers:[AngularFireAuth, AngularFireDatabase]
 })
 export class HomePage {
   rootPage: any;
@@ -26,11 +30,14 @@ export class HomePage {
     public navParams: NavParams, 
     public menu: MenuController,
     public serviceAuth:AuthProvider,
-    public authFB:AngularFireAuth
+    public authFB:AngularFireAuth,
+    public dbProvider:DatabaseProvider
   ) {
     this.menu.enable(false);
     this.user = authFB.authState
-    console.log("Usuario:", this.user)
+    this.user.subscribe(user=>{
+      this.dbProvider.regiterUserInDatabase(user);
+    })
   }
 
   ionViewDidLoad() {
@@ -42,4 +49,12 @@ export class HomePage {
     this.navCtrl.setRoot(MyApp);
   }
 
+  public goToBookSearch(){
+    this.navCtrl.push(BookSearchPage)
+  }
+
+  goToBookRegister(){
+    this.navCtrl.push(BookRegisterPage,{user:this.user})
+  }
+  
 }

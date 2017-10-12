@@ -14,34 +14,51 @@ import { AuthProvider } from '../providers/auth/auth';
 import { HomePage } from '../pages/home/home';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { BooksProvider } from '../providers/books/books';
+import { BookSearchPage } from '../pages/book-search/book-search';
+import { HttpModule } from '@angular/http';
+import { BookRegisterPage } from '../pages/book-register/book-register';
+import { DatabaseProvider } from '../providers/database/database';
+import { AngularFireDatabaseProvider } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     HomePage,
-    CadastroPage
+    CadastroPage,
+    BookSearchPage,
+    BookRegisterPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(configFirebase),
+<<<<<<< HEAD
     ReactiveFormsModule,
     FormsModule
+=======
+    HttpModule
+>>>>>>> 9af4dcf979a2926a78065b22c3a154c1aa79860d
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     LoginPage,
     HomePage,
-    CadastroPage
+    CadastroPage,
+    BookSearchPage,
+    BookRegisterPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    AngularFireAuth
+    AngularFireAuth,
+    BooksProvider,
+    DatabaseProvider,
+    AngularFireDatabaseProvider
   ]
 })
 export class AppModule {}
