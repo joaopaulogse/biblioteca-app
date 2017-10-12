@@ -16,6 +16,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { BooksProvider } from '../providers/books/books';
 import { BookSearchPage } from '../pages/book-search/book-search';
 import { HttpModule } from '@angular/http';
+import { BookRegisterPage } from '../pages/book-register/book-register';
+import { DatabaseProvider } from '../providers/database/database';
+import { AngularFireDatabaseProvider } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { HttpModule } from '@angular/http';
     LoginPage,
     HomePage,
     CadastroPage,
-    BookSearchPage
+    BookSearchPage,
+    BookRegisterPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { HttpModule } from '@angular/http';
     LoginPage,
     HomePage,
     CadastroPage,
-    BookSearchPage
+    BookSearchPage,
+    BookRegisterPage
   ],
   providers: [
     StatusBar,
@@ -45,7 +50,9 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     AngularFireAuth,
-    BooksProvider
+    BooksProvider,
+    DatabaseProvider,
+    AngularFireDatabaseProvider
   ]
 })
 export class AppModule {}
