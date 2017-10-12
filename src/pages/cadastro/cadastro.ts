@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms'
 import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
@@ -22,13 +23,22 @@ export class CadastroPage {
   usuario = {}
   foto:any
   loading: Loading;
+  meuForm: FormGroup;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public authService:AuthProvider,
     public authFB:AngularFireAuth,
-    public ldCtrl: LoadingController
-  ) {  }
+    public ldCtrl: LoadingController,
+    public fb: FormBuilder
+  ) { 
+    this.meuForm = fb.group({
+      username:  ['', Validators.required],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      email: ['', Validators.required],
+      foto: ['']
+    })
+   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroPage');
@@ -54,7 +64,7 @@ export class CadastroPage {
     this.authService.signup(user.email, user.password).then((usuario:firebase.User)=>{
      usuario.updateProfile({
        displayName:user.username,
-       photoURL:user.photoURL
+       photoURL:user.photoURL,
      });
       this.navCtrl.setRoot(MyApp)
     })

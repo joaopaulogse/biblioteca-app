@@ -11,10 +11,10 @@
   </ion-navbar>
 
 </ion-header>
-
+<!-- TENTAR FAZER USO DE TOAST OU CRIAR OUTRO TIPO DE MENSAGEM!!! -->
 
 <ion-content padding>
-  <form>
+  <form [formGroup]="meuForm" (ngSubmit) ="cadastrarUsuario($event)">
       <ion-card>
         <ion-item>
           <ion-avatar item-start>
@@ -25,26 +25,37 @@
                 onclick="document.getElementById('selectFoto').click()">
           </ion-avatar>
         </ion-item>
-        <input type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+        <input formControlName="foto" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
         <ion-card-content>
           <ion-row>
-            
+             
             <ion-item>
-              <ion-input type="text" [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário"></ion-input>
+                <input ion-input type="" formControlName="username" 
+                  [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário">
+                <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>               
+              </ion-item>
+            <ion-item>
+              <input ion-input type="" formControlName="email" type="email" 
+                [(ngModel)]="usuario.email" name="email" placeholder="Email">
+                <span *ngIf="meuForm.controls.email.invalid" class="alert"><br>*E-mail é obrigatório.</span>
             </ion-item>
             <ion-item>
-              <ion-input type="email" [(ngModel)]="usuario.email" name="email" placeholder="Email"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Senha"></ion-input>
+              <input ion-input formControlName="password" type="password" 
+                [(ngModel)]="usuario.password" name="password" placeholder="Senha">
+              <div *ngIf="meuForm.controls.password.invalid">
+                  <span *ngIf="meuForm.controls.password.errors.required" 
+                    class="alert">*A senha é obrigatória.</span>
+                  <span *ngIf="meuForm.controls.password.errors.minlength" 
+                    class="alert">Mínimo de 6 caracteres.</span>                    
+              </div>              
             </ion-item>
           </ion-row>
           <ion-row>
             <ion-col class="signup-col">
-              <button ion-button class="submit-btn" full type="submit" (click)="cadastrarUsuario()" >Enviar</button>
+              <button ion-button class="submit-btn" full (click)="cadastrarUsuario()" [disabled]="meuForm.invalid" >Enviar</button>
             </ion-col>
           </ion-row>
         </ion-card-content>
       </ion-card>
-  </form>
+    </form>
 </ion-content>
