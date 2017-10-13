@@ -30,17 +30,17 @@
           <ion-row>
              
             <ion-item>
-                <input ion-input type="" formControlName="username" 
+                <input ion-input class="input-text" formControlName="username" 
                   [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário">
                 <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>               
               </ion-item>
             <ion-item>
-              <input ion-input type="" formControlName="email" type="email" 
+              <input ion-input class="input-text" formControlName="email" type="email" 
                 [(ngModel)]="usuario.email" name="email" placeholder="Email">
                 <span *ngIf="meuForm.controls.email.invalid" class="alert"><br>*E-mail é obrigatório.</span>
             </ion-item>
             <ion-item>
-              <input ion-input formControlName="password" type="password" 
+              <input ion-input class="input-text" formControlName="password" type="password" 
                 [(ngModel)]="usuario.password" name="password" placeholder="Senha">
               <div *ngIf="meuForm.controls.password.invalid">
                   <span *ngIf="meuForm.controls.password.errors.required" 
