@@ -5,36 +5,58 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Cadastro</ion-title>
   </ion-navbar>
-
 </ion-header>
-<!-- TENTAR FAZER USO DE TOAST OU CRIAR OUTRO TIPO DE MENSAGEM!!! -->
 
 <ion-content padding>
   <form [formGroup]="meuForm" (ngSubmit) ="cadastrarUsuario($event)">
-      <ion-card>
-        <ion-item>
+        
+      <ion-item>
           <ion-avatar item-start>
-              <img 
-                src="assets/images/contact.svg" 
-                id="imageCadastro" 
-                style='height: 50%;background-color:#FFFFFF; width: 50%;'
-                onclick="document.getElementById('selectFoto').click()">
+            <img 
+              src="assets/images/contact.svg" 
+              id="imageCadastro" 
+              style='height: 50%;background-color:#FFFFFF; width: 50%;'
+              onclick="document.getElementById('selectFoto').click()">
           </ion-avatar>
         </ion-item>
         <input formControlName="foto" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
-        <ion-card-content>
+                
+        <ion-item>
+          <ion-input type="text" formControlName="username" name="username"
+            [(ngModel)]="usuario.username" placeholder="Nome de Usuário"></ion-input><br>
+          </ion-item>
           <ion-row>
-             
-            <ion-item>
+            <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>                                  
+          </ion-row>
+          
+          <ion-item>
+            <ion-input type="email" formControlName="email" name="email"
+              [(ngModel)]="usuario.email" placeholder="E-mail"></ion-input>
+          </ion-item>
+          <ion-row>
+            <span class="alert" *ngIf="meuForm.controls.email.invalid"><br>*E-mail é obrigatório.</span>                                               
+          </ion-row>
+
+          <ion-item>
+            <ion-input type="text" formControlName="password" name="password"
+              [(ngModel)]="usuario.password" placeholder="Senha"></ion-input>
+          </ion-item>
+          <div *ngIf="meuForm.controls.password.invalid">
+            <span style="color: red; padding-left: 16px;"
+              *ngIf="meuForm.controls.password.errors.required" >*A senha é obrigatória.</span>
+            <span style="color: red; padding-left: 16px" 
+              *ngIf="meuForm.controls.password.errors.minlength" >*Mínimo de 6 caracteres.</span>                    
+          </div> 
+           <!--
+              <ion-item>
                 <input ion-input class="input-text" formControlName="username" 
                   [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário">
                 <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>               
-              </ion-item>
-            <ion-item>
+              </ion-item> 
+             <ion-item>
               <input ion-input class="input-text" formControlName="email" type="email" 
                 [(ngModel)]="usuario.email" name="email" placeholder="Email">
                 <span *ngIf="meuForm.controls.email.invalid" class="alert"><br>*E-mail é obrigatório.</span>
@@ -48,14 +70,11 @@
                   <span *ngIf="meuForm.controls.password.errors.minlength" 
                     class="alert">Mínimo de 6 caracteres.</span>                    
               </div>              
-            </ion-item>
-          </ion-row>
+            </ion-item>-->
           <ion-row>
             <ion-col class="signup-col">
               <button ion-button class="submit-btn" full (click)="cadastrarUsuario()" [disabled]="meuForm.invalid" >Enviar</button>
             </ion-col>
           </ion-row>
-        </ion-card-content>
-      </ion-card>
-    </form>
+    </form> 
 </ion-content>
