@@ -9,6 +9,7 @@ import { BookSearchPage } from '../book-search/book-search';
 import { BookRegisterPage } from '../book-register/book-register';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
+import { DataForSearchPage } from '../data-for-search/data-for-search';
 /**
  * Generated class for the HomePage page.
  *
@@ -50,7 +51,8 @@ export class HomePage {
   }
 
   public goToBookSearch(){
-    this.navCtrl.push(BookSearchPage)
+    //this.navCtrl.push(BookSearchPage)
+    this.navCtrl.push(DataForSearchPage)
   }
 
   goToBookRegister(){

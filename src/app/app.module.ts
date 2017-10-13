@@ -20,6 +20,7 @@ import { HttpModule } from '@angular/http';
 import { BookRegisterPage } from '../pages/book-register/book-register';
 import { DatabaseProvider } from '../providers/database/database';
 import { AngularFireDatabaseProvider } from 'angularfire2/database';
+import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AngularFireDatabaseProvider } from 'angularfire2/database';
     HomePage,
     CadastroPage,
     BookSearchPage,
-    BookRegisterPage
+    BookRegisterPage,
+    DataForSearchPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { AngularFireDatabaseProvider } from 'angularfire2/database';
     AngularFireModule.initializeApp(configFirebase),
     ReactiveFormsModule,
     FormsModule,
-    HttpModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,7 +47,8 @@ import { AngularFireDatabaseProvider } from 'angularfire2/database';
     HomePage,
     CadastroPage,
     BookSearchPage,
-    BookRegisterPage
+    BookRegisterPage,
+    DataForSearchPage
   ],
   providers: [
     StatusBar,
