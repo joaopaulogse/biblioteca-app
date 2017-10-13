@@ -5,7 +5,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MyApp } from '../../app/app.component';
-
+import * as firebase from 'firebase'
 /**
  * Generated class for the CadastroPage page.
  *
