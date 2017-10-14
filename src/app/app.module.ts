@@ -21,6 +21,7 @@ import { BookRegisterPage } from '../pages/book-register/book-register';
 import { DatabaseProvider } from '../providers/database/database';
 import { AngularFireDatabaseProvider } from 'angularfire2/database';
 import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
     AngularFireAuth,
     BooksProvider,
     DatabaseProvider,
-    AngularFireDatabaseProvider
+    AngularFireDatabaseProvider,
+    Camera
   ]
 })
 export class AppModule {}
