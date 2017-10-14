@@ -17,7 +17,8 @@
       <ion-list *ngFor="let book of list_books">
           <ion-item>
             <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks !== underfined">
-              <img src={{book.volumeInfo.imageLinks.thumbnail}}>
+              <img src={{book.volumeInfo.imageLinks.thumbnail}}
+              style='height: auto;background-color:#FFFFFF; width:auto;'>
             </ion-thumbnail>
             <h2>{{ book.volumeInfo.title }}</h2>
             <p><strong *ngFor="let author of book.volumeInfo.authors">{{author}}</strong> </p>
