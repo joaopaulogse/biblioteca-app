@@ -19,6 +19,7 @@ import { BookSearchPage } from '../pages/book-search/book-search';
 import { HttpModule } from '@angular/http';
 import { BookRegisterPage } from '../pages/book-register/book-register';
 import { DatabaseProvider } from '../providers/database/database';
+import { BarcodeScannerPage } from '../pages/barcode-scanner/barcode-scanner';
 import { AngularFireDatabaseProvider } from 'angularfire2/database';
 import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
 import { Camera } from '@ionic-native/camera';
@@ -31,7 +32,8 @@ import { Camera } from '@ionic-native/camera';
     CadastroPage,
     BookSearchPage,
     BookRegisterPage,
-    DataForSearchPage
+    DataForSearchPage,
+    BarcodeScannerPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { Camera } from '@ionic-native/camera';
     CadastroPage,
     BookSearchPage,
     BookRegisterPage,
-    DataForSearchPage
+    DataForSearchPage,
+    BarcodeScannerPage
   ],
   providers: [
     StatusBar,

@@ -10,6 +10,7 @@ import { BookRegisterPage } from '../book-register/book-register';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
+import { BarcodeScannerPage } from '../barcode-scanner/barcode-scanner';
 /**
  * Generated class for the HomePage page.
  *
@@ -51,8 +52,11 @@ export class HomePage {
   }
 
   public goToBookSearch(){
-    //this.navCtrl.push(BookSearchPage);
     this.navCtrl.push(DataForSearchPage);
+  }
+
+  public goToBarcode(){
+    this.navCtrl.push(BarcodeScannerPage);
   }
 
   goToBookRegister(){
