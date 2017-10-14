@@ -13,13 +13,13 @@ export class BooksProvider {
 
   private baseApiProvider:string = "https://www.googleapis.com/books/v1/volumes?q=";
  // https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
-  // private key:string = "1J-mM30lzJO0DyvkEBixd4ro";
+  private key:string = "12d916b1345813fcdd9b5b2805841ee1e754d112";
   constructor(public http: Http) {
 
   }
 
   public getLivroPorIsbn(isbn):any{
-    return this.http.get(this.baseApiProvider + isbn);
+    return this.http.get(this.baseApiProvider + isbn + `&maxResults=40`);
   }
 
 }

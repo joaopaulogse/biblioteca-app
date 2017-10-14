@@ -56,6 +56,7 @@ export class LoginPage {
       content: 'Logando...',
       dismissOnPageChange:true
     });
+    this.loading.present();
     this.serviceAuth.logginGoogle()
         .then(user=>{
           console.log(user)
@@ -68,6 +69,7 @@ export class LoginPage {
       content: 'Logando...',
       dismissOnPageChange:true
     });
+    this.loading.present();
     this.serviceAuth.logginFacebook()
     .then(user =>{
       console.log(user)

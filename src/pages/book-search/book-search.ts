@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -25,17 +25,23 @@ import { BookRegisterPage } from '../book-register/book-register';
 export class BookSearchPage {
 
   public list_books = new Array<any>();
-
+  loading:Loading
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public serviceAuth:AuthProvider,
     public authFB:AngularFireAuth,
     public booksProvider: BooksProvider,
+    public ldCtrl: LoadingController
   ) {
   }
 
   ionViewDidLoad() {
+    this.loading = this.ldCtrl.create({
+      content: 'Search...',
+      dismissOnPageChange:true
+    });
+    this.loading.present();
     let isbn:number = this.navParams.get('isbn');
     let title:string = this.navParams.get('title');
     let autor:string = this.navParams.get('author')
