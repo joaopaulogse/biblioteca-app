@@ -23,7 +23,7 @@
             <h2>{{ book.volumeInfo.title }}</h2>
             <p><strong *ngFor="let author of book.volumeInfo.authors">{{author}}</strong> </p>
             <p>• {{book.volumeInfo.publishedDate}}</p>
-            <button ion-button clear item-end>View</button>
+            <button ion-button clear item-end (click)="directToRegister(book)">View</button>
           </ion-item>
         </ion-list>
 

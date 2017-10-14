@@ -4,6 +4,7 @@ import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
+import { BookRegisterPage } from '../book-register/book-register';
 
 /**
  * Generated class for the BookSearchPage page.
@@ -48,6 +49,10 @@ export class BookSearchPage {
         },erro=>{
           console.log("Erro na busca",erro);
         })
+    }
+
+    public directToRegister(book:any):any{
+      this.navCtrl.push(BookRegisterPage,book);
     }
         
         // const response = (data as any);
