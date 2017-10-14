@@ -40,6 +40,12 @@ export class AuthProvider {
     );
   }
 
+  logginFacebook(){
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider()
+    );
+  }
+
   logout() {
     this.firebaseAuth.auth.signOut();
   }

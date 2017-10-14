@@ -62,4 +62,16 @@ export class LoginPage {
           this.navCtrl.setRoot(HomePage)
         })
   }
+  
+  loginFacebook(){
+    this.loading = this.ldCtrl.create({
+      content: 'Logando...',
+      dismissOnPageChange:true
+    });
+    this.serviceAuth.logginFacebook()
+    .then(user =>{
+      console.log(user)
+      this.navCtrl.setRoot(HomePage)
+    })
+  }
 }
