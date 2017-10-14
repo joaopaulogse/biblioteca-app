@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {Validators, FormBuilder, FormGroup} from '@angular/forms'
+import {Validators, FormBuilder, FormGroup, AbstractControl} from '@angular/forms'
 import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {ValidadorDeEmail} from './ValidadorDeEmail';
 import { MyApp } from '../../app/app.component';
 import * as firebase from 'firebase'
 /**
@@ -35,7 +36,7 @@ export class CadastroPage {
     this.meuForm = fb.group({
       username:  ['', Validators.required],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, ValidadorDeEmail.validador])],
       foto: ['']
     })
    }

@@ -37,7 +37,17 @@
               [(ngModel)]="usuario.email" placeholder="E-mail"></ion-input>
           </ion-item>
           <ion-row>
-            <span class="alert" *ngIf="meuForm.controls.email.invalid"><br>*E-mail é obrigatório.</span>                                               
+            <div *ngIf="meuForm.controls.email.invalid">
+              <ion-row>
+                <span style="color: red; padding-left: 16px; margin-top: -15px;"
+                  *ngIf="meuForm.controls.email.errors.required"><br>*E-mail é obrigatório.</span>
+              </ion-row>
+              <ion-row>
+                <span style="color: red; padding-left: 16px; margin-top:2px;"
+                  *ngIf="meuForm.controls.email.errors.incorrectFormatoDeEmail 
+                    && !meuForm.controls.email.errors.required">*E-mail inválido.</span>
+              </ion-row>
+            </div>                                            
           </ion-row>
 
           <ion-item>
