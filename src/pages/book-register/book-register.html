@@ -20,7 +20,7 @@
   </ion-item>
   <ion-item>
     <ion-label floating>Autor</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]= "livro.authors"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Descrição</ion-label>
@@ -28,7 +28,7 @@
   </ion-item>
   <ion-item>
     <ion-label floating>Categoria</ion-label>
-    <ion-input type="text" [(ngModel)]="livro.title"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.categories"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Nº de páginas</ion-label>
@@ -40,7 +40,7 @@
   </ion-item>
   <ion-item>
     <ion-label floating>Data de publicação</ion-label>
-    <ion-input type="text" [(ngModel)]="livro.publisherDate"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.publishedDate"></ion-input>
   </ion-item>
 
 

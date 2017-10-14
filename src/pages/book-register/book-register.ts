@@ -31,6 +31,4 @@ export class BookRegisterPage {
   ionViewDidLoad() {
     console.log(this.livro);
   }
-
-
 }
