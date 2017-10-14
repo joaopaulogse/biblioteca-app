@@ -12,25 +12,28 @@ Filders for search
 
 
 <ion-content padding>
-  <ion-list>
-    <!--input isbn-->
-    <ion-item>
-      <ion-label floating>ISBN</ion-label>
-      <ion-input type="number" [(ngModel)]="dados.isbn"></ion-input>
-    </ion-item>
+  <form (submit)="receivingDataFromUser(dados)">
 
-    <!--input titulo or autor-->
-    <ion-item>
-      <ion-label floating>Título</ion-label>
-      <ion-input type="text" [(ngModel)]="dados.title"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Autor</ion-label>
-      <ion-input type="text" [(ngModel)]="dados.author"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button round icon-start (click)="receivingDataFromUser(dados)">
-    <ion-icon name='search'></ion-icon>
-    Pesquisar
-  </button>
+    <ion-list>
+      <!--input isbn-->
+      <ion-item>
+        <ion-label floating>ISBN</ion-label>
+        <ion-input type="number" name="isbn" [(ngModel)]="dados.isbn"></ion-input>
+      </ion-item>
+      
+      <!--input titulo or autor-->
+      <ion-item>
+        <ion-label floating>Título</ion-label>
+        <ion-input type="text" name="title" [(ngModel)]="dados.title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Autor</ion-label>
+        <ion-input type="text" name="author" [(ngModel)]="dados.author"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button round icon-start type="submit">
+      <ion-icon name='search'></ion-icon>
+      Pesquisar
+    </button>
+  </form>
 </ion-content>

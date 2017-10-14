@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="meuForm" (ngSubmit) ="cadastrarUsuario($event)">
+  <form [formGroup]="meuForm" (submit)="cadastrarUsuario($event)">
         
       <ion-item>
           <ion-avatar item-start>
@@ -51,7 +51,7 @@
           </ion-row>
 
           <ion-item>
-            <ion-input type="text" formControlName="password" name="password"
+            <ion-input type="password" formControlName="password" name="password"
               [(ngModel)]="usuario.password" placeholder="Senha"></ion-input>
           </ion-item>
           <div *ngIf="meuForm.controls.password.invalid">
@@ -83,7 +83,7 @@
             </ion-item>-->
           <ion-row>
             <ion-col class="signup-col">
-              <button ion-button class="submit-btn" full (click)="cadastrarUsuario()" [disabled]="meuForm.invalid" >Enviar</button>
+              <button ion-button class="submit-btn" full type="submit" [disabled]="meuForm.invalid" >Enviar</button>
             </ion-col>
           </ion-row>
     </form> 

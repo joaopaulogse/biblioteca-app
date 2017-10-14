@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Validators, FormBuilder, FormGroup, AbstractControl} from '@angular/forms'
+import {Validators, FormBuilder, FormGroup} from '@angular/forms'
 import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
@@ -68,6 +68,8 @@ export class CadastroPage {
        photoURL:user.photoURL,
      });
       this.navCtrl.setRoot(MyApp)
+    }).catch(err=>{
+      console.log("Erro no firebase", err);
     })
   }
   toBase64(file:File){

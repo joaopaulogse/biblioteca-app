@@ -23,7 +23,8 @@ export class DatabaseProvider {
     //nao pode enviar a foto
     return this.database.object(`users/${user.uid}`).set({
       username:user.displayName,
-      email:user.email
+      email:user.email,
+      lastLogin: new Date().toLocaleString()
     })
   }
 }

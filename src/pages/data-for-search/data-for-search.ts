@@ -17,7 +17,7 @@ import { BookSearchPage } from '../book-search/book-search';
 export class DataForSearchPage {
 
   public dados = {};
-
+ 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -39,5 +39,5 @@ export class DataForSearchPage {
     //console.log(dados);
     this.navCtrl.push(BookSearchPage, this.getDados());
   }
-
+  
 }
