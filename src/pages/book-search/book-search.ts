@@ -35,20 +35,31 @@ export class BookSearchPage {
   }
 
   ionViewDidLoad() {
-    //let name = navParams.get('name');
-    this.booksProvider.getLivroPorIsbn(this.navParams.get('isbn')).subscribe(
-      data=>{
-        const response = (data as any);
-        const obj_retorno = JSON.parse(response._body);
-        this.list_books = obj_retorno.items;
-        console.log(this.list_books);
-      }, error=>{
-        console.log(error);
-      }
+    let isbn:number = this.navParams.get('isbn');
+    let title:string = this.navParams.get('title');
+    let autor:string = this.navParams.get('author')
+    let search = !!isbn ? isbn : !!title ? title : !!autor ? autor : '';
+    
+    this.booksProvider.getLivroPorIsbn(search)
+        .subscribe(data=>{
+          const items = data.json();
+            !!items ? this.list_books = items.items :'';
+            console.log(items)
+        },erro=>{
+          console.log("Erro na busca",erro);
+        })
+    }
+        
+        // const response = (data as any);
+        // const obj_retorno = JSON.parse(response._body);
+        // this.list_books = obj_retorno.items;
+      //   console.log(this.list_books);
+      // }, error=>{
+      //   console.log(error);
+      // }
 
-    )
+    // )
     //console.log(this.navParams.get('isbn'));
-  }
 
   /*public getLivro(dados){
     //if(data.isbn){

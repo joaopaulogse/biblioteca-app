@@ -13,7 +13,7 @@ export class BooksProvider {
 
   private baseApiProvider:string = "https://www.googleapis.com/books/v1/volumes?q=";
  // https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
-  private key:string = "1J-mM30lzJO0DyvkEBixd4ro";
+  // private key:string = "1J-mM30lzJO0DyvkEBixd4ro";
   constructor(public http: Http) {
 
   }

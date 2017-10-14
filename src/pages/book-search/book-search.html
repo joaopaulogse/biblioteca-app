@@ -14,17 +14,16 @@
 
 
 <ion-content padding>
-    <ion-card *ngFor="let book of list_books">
-        <img src={{book.volumeInfo.imageLinks.thumbnail}}/>
-        <!--<img src="../assets/images/json_img.jpg" alt="">-->
-        <ion-card-content>
-          <ion-card-title>
-            {{ book.volumeInfo.title }}
-            </ion-card-title>
-          <p>
-            {{ book.volumeInfo.description }}
-          </p>
-        </ion-card-content>
-      </ion-card>
+      <ion-list *ngFor="let book of list_books">
+          <ion-item>
+            <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks !== underfined">
+              <img src={{book.volumeInfo.imageLinks.thumbnail}}>
+            </ion-thumbnail>
+            <h2>{{ book.volumeInfo.title }}</h2>
+            <p><strong *ngFor="let author of book.volumeInfo.authors">{{author}}</strong> </p>
+            <p>• {{book.volumeInfo.publishedDate}}</p>
+            <button ion-button clear item-end>View</button>
+          </ion-item>
+        </ion-list>
 
 </ion-content>
