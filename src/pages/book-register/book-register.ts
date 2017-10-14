@@ -15,16 +15,22 @@ import * as firebase from 'firebase';
   templateUrl: 'book-register.html',
 })
 export class BookRegisterPage {
+
   user: Observable<firebase.User>;
+  public livro;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams
   ) {
     this.user = this.navParams.get("user")//usuario da home
+    this.livro = this.navParams.get("volumeInfo"); //livro que o usuário escolhe na bookSearch
   }
 
+  //public book:string = this.livro.title
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BookRegisterPage');
+    console.log(this.livro);
   }
+
 
 }

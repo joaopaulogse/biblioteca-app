@@ -16,7 +16,7 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Título</ion-label>
-    <ion-input type="text" value="teste"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.title"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Autor</ion-label>
@@ -24,23 +24,23 @@
   </ion-item>
   <ion-item>
     <ion-label floating>Descrição</ion-label>
-    <ion-textarea type="text"></ion-textarea>
+    <ion-textarea type="text" [(ngModel)]="livro.description"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label floating>Categoria</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.title"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Nº de páginas</ion-label>
-    <ion-input type="number"></ion-input>
+    <ion-input type="number" [(ngModel)]="livro.pageCount"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Editora</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.publisher"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>Data de publicação</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="livro.publisherDate"></ion-input>
   </ion-item>
 
 

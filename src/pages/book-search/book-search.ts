@@ -51,8 +51,15 @@ export class BookSearchPage {
         })
     }
 
-    public directToRegister(book:any):any{
-      this.navCtrl.push(BookRegisterPage,book);
+    public livro = {};
+    public redirectToRegister(book:any):any{
+      this.livro = book;
+      console.log(this.livro);
+      console.log(book);
+      this.navCtrl.push(BookRegisterPage,this.livro);
+    }
+    public addToWishList(book:any):any{
+      //redirecionar à lista de desejos 
     }
     public buscaAuthor(author:string){
       this.navCtrl.push(BookSearchPage, {"author":author});
