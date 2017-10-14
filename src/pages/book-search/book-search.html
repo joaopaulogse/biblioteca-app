@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Pesquisa por Livros</ion-title>
+    <ion-title>Search for Books</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,7 +35,8 @@
               </strong> 
             </p>
             <p>• {{book.volumeInfo.publishedDate}}</p>
-            <button ion-button clear (click)="directToRegister(book)">Adicionar?</button>
+            <button ion-button clear (click)="redirectToRegister(book)">Adicionar à Biblioteca</button><br>
+            <button ion-button clear (click)="addToWishList(book)">Adicionar à lista de desejos</button>
           </ion-item>
         </ion-card>
       </ion-list>
