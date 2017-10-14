@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
+import { DataForSearchPage } from '../data-for-search/data-for-search';
 
 /**
  * Generated class for the BookSearchPage page.
@@ -29,13 +30,13 @@ export class BookSearchPage {
     public navParams: NavParams,
     public serviceAuth:AuthProvider,
     public authFB:AngularFireAuth,
-    private booksProvider: BooksProvider
+    public booksProvider: BooksProvider,
   ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BookSearchPage');
-    this.booksProvider.getLivroPorIsbn().subscribe(
+    //let name = navParams.get('name');
+    this.booksProvider.getLivroPorIsbn(this.navParams.get('isbn')).subscribe(
       data=>{
         const response = (data as any);
         const obj_retorno = JSON.parse(response._body);
@@ -46,6 +47,23 @@ export class BookSearchPage {
       }
 
     )
+    //console.log(this.navParams.get('isbn'));
   }
+
+  /*public getLivro(dados){
+    //if(data.isbn){
+      this.booksProvider.getLivroPorIsbn(dados.isbn).subscribe(
+        data=>{
+          const response = (data as any);
+          const obj_retorno = JSON.parse(response._body);
+          this.list_books = obj_retorno.items;
+          console.log(this.list_books);
+        }, error=>{
+          console.log(error);
+        }
+  
+      )
+    //}
+  }*/
 
 }

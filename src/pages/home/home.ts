@@ -42,7 +42,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    //console.log('ionViewDidLoad HomePage');
   }
 
   logOut(){
@@ -51,8 +51,8 @@ export class HomePage {
   }
 
   public goToBookSearch(){
-    //this.navCtrl.push(BookSearchPage)
-    this.navCtrl.push(DataForSearchPage)
+    //this.navCtrl.push(BookSearchPage);
+    this.navCtrl.push(DataForSearchPage);
   }
 
   goToBookRegister(){

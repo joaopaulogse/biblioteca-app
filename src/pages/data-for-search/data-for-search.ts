@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BookSearchPage } from '../book-search/book-search';
 
 /**
  * Generated class for the DataForSearchPage page.
@@ -15,11 +16,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DataForSearchPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public dados = {};
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DataForSearchPage');
+   // console.log('ionViewDidLoad DataForSearchPage');
+   
+  }
+
+  public getDados():any{
+    //console.log(dados);
+    return this.dados;
+  }
+
+  public receivingDataFromUser(dados){
+    //console.log("dados vindos do formulário");
+    //console.log(dados);
+    this.navCtrl.push(BookSearchPage, this.getDados());
   }
 
 }

@@ -15,11 +15,11 @@ export class BooksProvider {
  // https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
   private key:string = "1J-mM30lzJO0DyvkEBixd4ro";
   constructor(public http: Http) {
-    //console.log('Hello BooksProvider Provider');
+
   }
 
-  public getLivroPorIsbn():any{
-    return this.http.get(this.baseApiProvider + "9788575224519")
+  public getLivroPorIsbn(isbn):any{
+    return this.http.get(this.baseApiProvider + isbn);
   }
 
 }
