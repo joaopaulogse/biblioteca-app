@@ -17,14 +17,14 @@ import * as firebase from 'firebase';
 export class BookRegisterPage {
 
   user: Observable<firebase.User>;
-  public livro;
+  livro = {};
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams
   ) {
     this.user = this.navParams.get("user")//usuario da home
-    this.livro = this.navParams.get("volumeInfo"); //livro que o usuário escolhe na bookSearch
+    this.livro = !!this.navParams.get("volumeInfo") ? this.navParams.get("volumeInfo"):'' //livro que o usuário escolhe na bookSearch
   }
 
   //public book:string = this.livro.title

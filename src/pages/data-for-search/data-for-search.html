@@ -14,7 +14,6 @@ Filders for search
 <ion-content padding>
   <form (submit)="receivingDataFromUser(dados)">
 
-<<<<<<< HEAD
     <ion-list>
       <!--input isbn-->
       <ion-item>
@@ -37,20 +36,5 @@ Filders for search
       Pesquisar
     </button>
   </form>
-=======
-    <!--input title or author-->
-    <ion-item>
-      <ion-label floating>Título</ion-label>
-      <ion-input type="text" [(ngModel)]="dados.title"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Autor</ion-label>
-      <ion-input type="text" [(ngModel)]="dados.author"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button round icon-start (click)="receivingDataFromUser(dados)">
-    <ion-icon name='search'></ion-icon>
-    Pesquisar
-  </button>
->>>>>>> 07c259ac40b00d5a51318a0987fbdcbd671600ba
+
 </ion-content>
