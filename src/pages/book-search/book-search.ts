@@ -54,32 +54,8 @@ export class BookSearchPage {
     public directToRegister(book:any):any{
       this.navCtrl.push(BookRegisterPage,book);
     }
-        
-        // const response = (data as any);
-        // const obj_retorno = JSON.parse(response._body);
-        // this.list_books = obj_retorno.items;
-      //   console.log(this.list_books);
-      // }, error=>{
-      //   console.log(error);
-      // }
-
-    // )
-    //console.log(this.navParams.get('isbn'));
-
-  /*public getLivro(dados){
-    //if(data.isbn){
-      this.booksProvider.getLivroPorIsbn(dados.isbn).subscribe(
-        data=>{
-          const response = (data as any);
-          const obj_retorno = JSON.parse(response._body);
-          this.list_books = obj_retorno.items;
-          console.log(this.list_books);
-        }, error=>{
-          console.log(error);
-        }
-  
-      )
-    //}
-  }*/
+    public buscaAuthor(author:string){
+      this.navCtrl.push(BookSearchPage, {"author":author});
+    }
 
 }
