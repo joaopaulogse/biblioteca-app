@@ -13,14 +13,10 @@ export class BooksProvider {
   }
 
   public getLivro(search):any{
-    if(search.isbn !== undefined){
-      return this.http.get(this.baseApiProvider + search.isbn + `&maxResults=40`);
-    }else if(search.title !== undefined && search.author === undefined){
-      return this.http.get(this.baseApiProvider + "intitle:" + encodeURI(search.title) + `&maxResults=40`);
-    } else if(search.title === undefined && search.author !== undefined){
-      return this.http.get(this.baseApiProvider + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
-    } else {
-      return this.http.get(this.baseApiProvider + encodeURI(search.title) + "+inauthor:" + encodeURI(search.author) + `&maxResults=40`);
-    }
+    return this.http.get(`${this.baseApiProvider}
+                ${!!search.isbn ? search.isbn
+                  :!!search.title && !!!search.author ? "intitle:"+encodeURI(search.title)
+                  :!!search.author && !!!search.title ? "inauthor:" + encodeURI(search.author)
+                  :encodeURI(search.title) + "+inauthor:" + encodeURI(search.author)}&maxResults=40`);
   }
 }
