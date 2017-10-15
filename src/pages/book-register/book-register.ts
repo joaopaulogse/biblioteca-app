@@ -24,7 +24,7 @@ export class BookRegisterPage {
     public navParams: NavParams
   ) {
     this.user = this.navParams.get("user")//usuario da home
-    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro"):'' //livro que o usuário escolhe na bookSearch
+    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:'' //livro que o usuário escolhe na bookSearch
   }
 
   //public book:string = this.livro.title
