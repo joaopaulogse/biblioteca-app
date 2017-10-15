@@ -10,7 +10,8 @@ import { BookRegisterPage } from '../book-register/book-register';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
-import { BarcodeScannerPage } from '../barcode-scanner/barcode-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera } from '@ionic-native/camera';
 /**
  * Generated class for the HomePage page.
  *
@@ -22,7 +23,7 @@ import { BarcodeScannerPage } from '../barcode-scanner/barcode-scanner';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers:[AngularFireAuth, AngularFireDatabase]
+  providers:[AngularFireAuth, AngularFireDatabase,Camera, BarcodeScanner]
 })
 export class HomePage {
   rootPage: any;
@@ -33,7 +34,8 @@ export class HomePage {
     public menu: MenuController,
     public serviceAuth:AuthProvider,
     public authFB:AngularFireAuth,
-    public dbProvider:DatabaseProvider
+    public dbProvider:DatabaseProvider,
+    public barcodeScanner: BarcodeScanner
   ) {
     this.menu.enable(false);
     this.user = authFB.authState
@@ -56,7 +58,11 @@ export class HomePage {
   }
 
   public goToBarcode(){
-    this.navCtrl.push(BarcodeScannerPage);
+    this.barcodeScanner.scan().then((barcodeData) => {
+      this.navCtrl.push(BookSearchPage, {"isbn":barcodeData.text});
+    }, (err) => {
+        // An error occurred
+    });
   }
 
   goToBookRegister(){
