@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
+import { BookSearchPage } from '../book-search/book-search';
 
 /**
  * Generated class for the BarcodeScannerPage page.
@@ -29,10 +30,10 @@ export class BarcodeScannerPage {
   }
 
   ionViewDidLoad() {
-    let isbn = this.barcodeScanner.scan().then((barcodeData) => {
-        alert(isbn);
-     }, (err) => {
+    this.barcodeScanner.scan().then((barcodeData) => {
+        this.navCtrl.push(BookSearchPage, barcodeData);
+    }, (err) => {
          // An error occurred
-     });
-    }
+    });
+  }
 }
