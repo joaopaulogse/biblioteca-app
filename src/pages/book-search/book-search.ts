@@ -38,8 +38,7 @@ export class BookSearchPage {
 
   ionViewDidLoad() {
     this.loading = this.ldCtrl.create({
-      content: 'Search...',
-      dismissOnPageChange:true
+      content: 'Search...'
     });
     this.loading.present();
     let _isbn:number = this.navParams.get('isbn');
@@ -53,11 +52,13 @@ export class BookSearchPage {
     }
     
     this.booksProvider.getLivro(search)
-        .subscribe(data=>{
-          const items = data.json();
-            !!items ? this.list_books = items.items :'';
+    .subscribe(data=>{
+      const items = data.json();
+      !!items ? this.list_books = items.items :'';
+      this.loading.dismiss();
             console.log(items)
         },erro=>{
+          this.loading.dismiss();
           console.log("Erro na busca",erro);
         })
     }
@@ -67,7 +68,7 @@ export class BookSearchPage {
       this.livro = book;
       console.log(this.livro);
       console.log(book);
-      this.navCtrl.push(BookRegisterPage,this.livro);
+      this.navCtrl.push(BookRegisterPage,{"livro":this.livro});
     }
     public addToWishList(book:any):any{
       //redirecionar à lista de desejos 

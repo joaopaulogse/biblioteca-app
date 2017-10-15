@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BookSearchPage } from '../book-search/book-search';
 
 @IonicPage()
@@ -14,6 +14,7 @@ export class DataForSearchPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public alert:AlertController
   ) {
   }
 
@@ -27,7 +28,17 @@ export class DataForSearchPage {
   }
 
   public receivingDataFromUser(dados){
-    this.navCtrl.push(BookSearchPage, this.getDados());
+    if(!!dados.isbn){
+       this.navCtrl.push(BookSearchPage, {"isbn":dados.isbn})
+    }else if(!!dados.title || !!dados.author){
+      this.navCtrl.push(BookSearchPage, {"title":dados.title, "author":dados.author})
+    }else{
+      this.alert.create({
+        title:'ERRO',
+        message:'Wrong fields',
+        buttons:['OK']
+      }).present()
+    }
   }
   
 }
