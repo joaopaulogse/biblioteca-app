@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the BooksProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class BooksProvider {
 
@@ -26,8 +20,6 @@ export class BooksProvider {
     } else if(search.title === undefined && search.author !== undefined){
       return this.http.get(this.baseApiProvider + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
     } else {
-      console.log(1111);
-      console.log(this.baseApiProvider + encodeURI(search.title) + "+inauthor:" + encodeURI(search.author));
       return this.http.get(this.baseApiProvider + encodeURI(search.title) + "+inauthor:" + encodeURI(search.author) + `&maxResults=40`);
     }
   }
