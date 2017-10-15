@@ -26,7 +26,9 @@ export class BooksProvider {
     } else if(search.title === undefined && search.author !== undefined){
       return this.http.get(this.baseApiProvider + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
     } else {
-      return this.http.get(this.baseApiProvider + "intitle:" + encodeURI(search.title) + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
+      console.log(1111);
+      console.log(this.baseApiProvider + encodeURI(search.title) + "+inauthor:" + encodeURI(search.author));
+      return this.http.get(this.baseApiProvider + encodeURI(search.title) + "+inauthor:" + encodeURI(search.author) + `&maxResults=40`);
     }
   }
 }
