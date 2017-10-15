@@ -18,8 +18,15 @@ export class BooksProvider {
 
   }
 
-  public getLivroPorIsbn(isbn):any{
-    return this.http.get(this.baseApiProvider + isbn + `&maxResults=40`);
+  public getLivro(search):any{
+    if(search.isbn !== undefined){
+      return this.http.get(this.baseApiProvider + search.isbn + `&maxResults=40`);
+    }else if(search.title !== undefined && search.author === undefined){
+      return this.http.get(this.baseApiProvider + "intitle:" + encodeURI(search.title) + `&maxResults=40`);
+    } else if(search.title === undefined && search.author !== undefined){
+      return this.http.get(this.baseApiProvider + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
+    } else {
+      return this.http.get(this.baseApiProvider + "intitle:" + encodeURI(search.title) + "inauthor:" + encodeURI(search.author) + `&maxResults=40`);
+    }
   }
-
 }

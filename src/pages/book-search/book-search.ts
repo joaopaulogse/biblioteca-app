@@ -42,12 +42,17 @@ export class BookSearchPage {
       dismissOnPageChange:true
     });
     this.loading.present();
-    let isbn:number = this.navParams.get('isbn');
-    let title:string = this.navParams.get('title');
-    let autor:string = this.navParams.get('author')
-    let search = !!isbn ? isbn : !!title ? title : !!autor ? autor : '';
+    let _isbn:number = this.navParams.get('isbn');
+    let _title:string = this.navParams.get('title');
+    let _author:string = this.navParams.get('author')
+    //let search = !!isbn ? isbn : !!title ? title : !!autor ? autor : '';
+    let search = {
+      isbn: _isbn,
+      title: _title,
+      author: _author
+    }
     
-    this.booksProvider.getLivroPorIsbn(search)
+    this.booksProvider.getLivro(search)
         .subscribe(data=>{
           const items = data.json();
             !!items ? this.list_books = items.items :'';
