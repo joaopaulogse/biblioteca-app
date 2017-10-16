@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -33,7 +33,8 @@ export class BookSearchPage {
     public authFB:AngularFireAuth,
     public booksProvider: BooksProvider,
     public ldCtrl: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -78,13 +79,13 @@ export class BookSearchPage {
       this.livro = book;
       console.log(this.livro);
       console.log(book);
-      this.navCtrl.push(BookRegisterPage,{"livro":this.livro});
+      this.modalCtrl.create(BookRegisterPage,{"livro":this.livro}).present();
     }
     public addToWishList(book:any):any{
       //redirecionar à lista de desejos 
     }
     public buscaAuthor(author:string){
-      this.navCtrl.push(BookSearchPage, {"author":author});
+      this.modalCtrl.create(BookSearchPage, {"author":author}).present();
     }
 
 }

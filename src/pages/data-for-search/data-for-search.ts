@@ -19,8 +19,6 @@ export class DataForSearchPage {
   }
 
   ionViewDidLoad() {
-   // console.log('ionViewDidLoad DataForSearchPage');
-   
   }
 
   public getDados():any{

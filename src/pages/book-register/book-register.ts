@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 /**
@@ -21,7 +21,9 @@ export class BookRegisterPage {
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public alertCtrl: AlertController
   ) {
     this.user = this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:'' //livro que o usuário escolhe na bookSearch
@@ -30,5 +32,24 @@ export class BookRegisterPage {
   //public book:string = this.livro.title
   ionViewDidLoad() {
     console.log(this.livro);
+  }
+
+  public cancelRegister(event){
+    event.preventDefault();
+    this.alertCtrl.create({
+      title: "Do you want cancel?",
+      message: "asdlfalnds",
+      buttons: [
+        {
+          text: "Cancel",
+        },
+        {
+          text: "Confirm",
+          handler: () => {
+            this.viewCtrl.dismiss();
+          }
+        }
+      ]
+    })
   }
 }
