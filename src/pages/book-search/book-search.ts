@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -32,7 +32,8 @@ export class BookSearchPage {
     public serviceAuth:AuthProvider,
     public authFB:AngularFireAuth,
     public booksProvider: BooksProvider,
-    public ldCtrl: LoadingController
+    public ldCtrl: LoadingController,
+    public alertCtrl: AlertController
   ) {
   }
 
@@ -56,11 +57,20 @@ export class BookSearchPage {
       const items = data.json();
       !!items ? this.list_books = items.items :'';
       this.loading.dismiss();
-            console.log(items)
-        },erro=>{
-          this.loading.dismiss();
-          console.log("Erro na busca",erro);
-        })
+            //console.log(items);
+            if(items.totalItems == 0){
+                const alert = this.alertCtrl.create({
+                  title: "No results",
+                  subTitle: "Sorry! Search with no results.",
+                  buttons: ["OK"]
+                });
+                alert.present();
+                this.navCtrl.pop();
+            }
+      },erro=>{
+        this.loading.dismiss();
+        console.log("Erro na busca",erro);
+      })
     }
 
     public livro = {};

@@ -7,7 +7,7 @@ export class ValidadorDeEmail{
         if(control.value != ""  && !email_regex.test(control.value)){
             return {"incorrectFormatoDeEmail": true};            
         }else{
-            return {"correctFormatoDeEmail": false};
+            return null;
             
         }
        

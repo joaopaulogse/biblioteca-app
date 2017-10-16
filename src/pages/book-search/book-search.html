@@ -22,6 +22,10 @@
               <img src="{{book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail}}"
               style='height: auto;background-color:#FFFFFF; width:auto;'>
             </ion-thumbnail>
+            <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks === underfined">
+              <img src="../assets/images/unknown-cover-page.jpg"
+              style='height: 140px;background-color:#FFFFFF; width:125px;'>
+            </ion-thumbnail>
             <h2>{{ book.volumeInfo.title }}</h2>
             <p>
               <strong *ngFor="let author of book.volumeInfo.authors">
