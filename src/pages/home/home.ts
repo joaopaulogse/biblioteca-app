@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MyApp } from '../../app/app.component';
@@ -12,12 +12,6 @@ import { DatabaseProvider } from '../../providers/database/database';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -35,7 +29,8 @@ export class HomePage {
     public serviceAuth:AuthProvider,
     public authFB:AngularFireAuth,
     public dbProvider:DatabaseProvider,
-    public barcodeScanner: BarcodeScanner
+    public barcodeScanner: BarcodeScanner,
+    public alertCtrl: AlertController
   ) {
     this.menu.enable(false);
     this.user = authFB.authState
@@ -53,18 +48,41 @@ export class HomePage {
     this.navCtrl.setRoot(MyApp);
   }
 
+  // this method takes to DataForSearchPage
   public goToBookSearch(){
     this.navCtrl.push(DataForSearchPage);
   }
 
+  /* this method try scanner some barcode
+     if it can, the isbn is redirected to book search page
+     else, an alert will be shown to user
+  */
   public goToBarcode(){
     this.barcodeScanner.scan().then((barcodeData) => {
-      this.navCtrl.push(BookSearchPage, {"isbn":barcodeData.text});
+      !!barcodeData.text ? 
+      this.navCtrl.push(BookSearchPage, {"isbn":barcodeData.text}): 
+      _alert => {
+        const alert = this.alertCtrl.create({
+          title: "No capture",
+          subTitle: "The scanner couldn't capture a barcode",
+          buttons: ["OK"]
+        });
+        alert.present();
+        this.navCtrl.popTo(HomePage);
+      }
     }, (err) => {
-        // An error occurred
-    });
+      _alert => {
+        const alert = this.alertCtrl.create({
+          title: "An error occurred",
+          subTitle: "The scanner couldn't capture a barcode",
+          buttons: ["OK"]
+        });
+        alert.present();
+        this.navCtrl.popTo(HomePage);
+      }});
   }
 
+  //this method redirect to book register page
   goToBookRegister(){
     this.navCtrl.push(BookRegisterPage,{user:this.user})
   }
