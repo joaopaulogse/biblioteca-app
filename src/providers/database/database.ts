@@ -27,4 +27,9 @@ export class DatabaseProvider {
       lastLogin: new Date().toLocaleString()
     })
   }
+  registerBookInUser(idUser, objeto){
+    return this.database.object(`users/${idUser}`).set({
+      livros:[objeto]
+    })
+  }
 }
