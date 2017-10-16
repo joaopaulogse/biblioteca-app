@@ -50,6 +50,6 @@ export class BookRegisterPage {
           }
         }
       ]
-    })
+    }).present();
   }
 }
