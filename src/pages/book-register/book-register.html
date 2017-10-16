@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form (submit)="registerBook(dados)">
+  <form (submit)="registerBook($event, livro)">
     <ion-item>
       <ion-label floating>Título</ion-label>
       <ion-input type="text" name="title" [(ngModel)]="livro.title"></ion-input>
@@ -42,6 +42,10 @@
     <ion-item>
       <ion-label floating>Data de publicação</ion-label>
       <ion-input type="text" name="publishedDate" [(ngModel)]="livro.publishedDate"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lido</ion-label>
+      <ion-checkbox name="lido" [(ngModel)]="livro.read" disable="true" ></ion-checkbox>
     </ion-item>
     <div align="right">
       <button ion-button round icon-start type="submit">

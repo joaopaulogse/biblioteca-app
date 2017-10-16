@@ -21,15 +21,15 @@ export class DatabaseProvider {
   }
   regiterUserInDatabase(user:firebase.User){
     //nao pode enviar a foto
-    return this.database.object(`users/${user.uid}`).set({
+    return this.database.object(`users/${user.uid}`).update({
       username:user.displayName,
       email:user.email,
       lastLogin: new Date().toLocaleString()
     })
   }
   registerBookInUser(idUser, objeto){
-    return this.database.object(`users/${idUser}`).set({
-      livros:[objeto]
-    })
+    const book = []
+    book.push(objeto)
+    return this.database.list(`users/${idUser}/livros`).push(objeto)
   }
 }

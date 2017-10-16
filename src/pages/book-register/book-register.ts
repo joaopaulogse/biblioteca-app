@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
+import { DatabaseProvider } from '../../providers/database/database';
+import { HomePage } from '../home/home';
+import { AngularFireAuth } from 'angularfire2/auth';
 /**
  * Generated class for the BookRegisterPage page.
  *
@@ -13,6 +16,7 @@ import * as firebase from 'firebase';
 @Component({
   selector: 'page-book-register',
   templateUrl: 'book-register.html',
+  providers:[DatabaseProvider]
 })
 export class BookRegisterPage {
 
@@ -23,15 +27,30 @@ export class BookRegisterPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public authFB:AngularFireAuth,
+    public db:DatabaseProvider
   ) {
-    this.user = this.navParams.get("user")//usuario da home
-    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:'' //livro que o usuário escolhe na bookSearch
+    this.user = authFB.authState;//this.navParams.get("user")//usuario da home
+    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:''; //livro que o usuário escolhe na bookSearch
   }
 
   //public book:string = this.livro.title
   ionViewDidLoad() {
     console.log(this.livro);
+  }
+  
+  registerBook(event, livro){
+    event.preventDefault();
+    const {title, authors, description, categories, pageCount, publisher, publishedDate, read } = livro;
+    const book = {title, authors, description, categories, pageCount, publisher, publishedDate, read};
+    this.user.subscribe(user=>{
+      this.db.registerBookInUser(user.uid, book).then(obj=>{
+        this.navCtrl.setRoot(HomePage);
+        console.log(obj);
+      });
+    });
+    
   }
 
   public cancelRegister(event){

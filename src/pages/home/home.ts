@@ -40,7 +40,6 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad HomePage');
   }
 
   logOut(){
@@ -62,22 +61,20 @@ export class HomePage {
       !!barcodeData.text ? 
       this.navCtrl.push(BookSearchPage, {"isbn":barcodeData.text}): 
       _alert => {
-        const alert = this.alertCtrl.create({
+        this.alertCtrl.create({
           title: "No capture",
           subTitle: "The scanner couldn't capture a barcode",
           buttons: ["OK"]
-        });
-        alert.present();
+        }).present();
         this.navCtrl.popTo(HomePage);
       }
     }, (err) => {
       _alert => {
-        const alert = this.alertCtrl.create({
+        this.alertCtrl.create({
           title: "An error occurred",
           subTitle: "The scanner couldn't capture a barcode",
           buttons: ["OK"]
-        });
-        alert.present();
+        }).present();
         this.navCtrl.popTo(HomePage);
       }});
   }
