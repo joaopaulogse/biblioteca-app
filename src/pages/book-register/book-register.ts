@@ -68,8 +68,8 @@ export class BookRegisterPage {
   public cancelRegister(event){
     event.preventDefault();
     this.alertCtrl.create({
-      title: "Do you want cancel?",
-      message: "asdlfalnds",
+      title: "Do you want to cancel?",
+      message: "If you cancel, your changes will be lost.",
       buttons: [
         {
           text: "Cancel",
