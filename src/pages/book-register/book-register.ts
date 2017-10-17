@@ -43,7 +43,15 @@ export class BookRegisterPage {
   registerBook(event, livro){
     event.preventDefault();
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read } = livro;
-    const book = {title, authors, description, categories, pageCount, publisher, publishedDate, read};
+    const book = {
+      title, 
+      authors, 
+      description, 
+      categories, 
+      pageCount, 
+      publisher: !!publisher?publisher:"", 
+      publishedDate: !!publishedDate?publishedDate:"", 
+      read: !!read?read:false};
     this.user.subscribe(user=>{
       this.db.registerBookInUser(user.uid, book).then(obj=>{
         this.navCtrl.setRoot(HomePage);

@@ -85,7 +85,7 @@ export class BookSearchPage {
       //redirecionar à lista de desejos 
     }
     public buscaAuthor(author:string){
-      this.modalCtrl.create(BookSearchPage, {"author":author}).present();
+      this.navCtrl.push(BookSearchPage, {"author":author});
     }
 
 }

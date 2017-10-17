@@ -28,8 +28,6 @@ export class DatabaseProvider {
     })
   }
   registerBookInUser(idUser, objeto){
-    const book = []
-    book.push(objeto)
     return this.database.list(`users/${idUser}/livros`).push(objeto)
   }
 }
