@@ -26,6 +26,7 @@ import { BooksUserPage } from '../pages/books-user/books-user';
 import { BookDetailsPage } from '../pages/book-details/book-details';
 import { BooksReadPage } from '../pages/books-read/books-read';
 import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
+import { WishListPage } from '../pages/wish-list/wish-list';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
     BooksUserPage,
     BookDetailsPage,
     BooksReadPage,
-    BooksNoReadPage
+    BooksNoReadPage,
+    WishListPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
     BooksUserPage,
     BookDetailsPage,
     BooksReadPage,
-    BooksNoReadPage
+    BooksNoReadPage,
+    WishListPage
   ],
   providers: [
     StatusBar,
