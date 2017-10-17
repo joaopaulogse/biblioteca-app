@@ -4,6 +4,8 @@ import { DatabaseProvider } from '../../providers/database/database';
 import * as firebase from 'firebase'
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { BooksReadPage } from '../books-read/books-read';
+import { BooksNoReadPage } from '../books-no-read/books-no-read';
 /**
  * Generated class for the BooksUserPage page.
  *
@@ -20,7 +22,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class BooksUserPage {
   user:Observable<firebase.User>
   books = []
-
+  read = BooksReadPage;
+  noRead = BooksNoReadPage;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,

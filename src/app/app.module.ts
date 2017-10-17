@@ -24,6 +24,8 @@ import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
 import { Camera } from '@ionic-native/camera';
 import { BooksUserPage } from '../pages/books-user/books-user';
 import { BookDetailsPage } from '../pages/book-details/book-details';
+import { BooksReadPage } from '../pages/books-read/books-read';
+import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { BookDetailsPage } from '../pages/book-details/book-details';
     BookRegisterPage,
     DataForSearchPage,
     BooksUserPage,
-    BookDetailsPage
+    BookDetailsPage,
+    BooksReadPage,
+    BooksNoReadPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ import { BookDetailsPage } from '../pages/book-details/book-details';
     BookRegisterPage,
     DataForSearchPage,
     BooksUserPage,
-    BookDetailsPage
+    BookDetailsPage,
+    BooksReadPage,
+    BooksNoReadPage
   ],
   providers: [
     StatusBar,

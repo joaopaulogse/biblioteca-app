@@ -39,9 +39,10 @@ export class HomePage {
       this.dbProvider.regiterUserInDatabase(user);
     })
   }
-
+  ngOnInit(){
+    this.rootPage = BooksUserPage;
+  }
   ionViewDidLoad() {
-    this.rootPage = BooksUserPage
   }
 
   logOut(){
