@@ -44,14 +44,15 @@ export class BookRegisterPage {
     event.preventDefault();
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read } = livro;
     const book = {
-      title, 
-      authors, 
-      description, 
-      categories, 
-      pageCount, 
-      publisher: !!publisher?publisher:"", 
-      publishedDate: !!publishedDate?publishedDate:"", 
-      read: !!read?read:false};
+      title: !!title ? title:"", 
+      authors: !!authors ? authors:[], 
+      description: !!description ? description:"", 
+      categories: !!categories ? categories: "", 
+      pageCount: !!pageCount ? pageCount: 0, 
+      publisher: !!publisher ? publisher: "", 
+      publishedDate: !!publishedDate ? publishedDate: "", 
+      read: !!read ? read: false
+    };
     this.user.subscribe(user=>{
       this.db.registerBookInUser(user.uid, book).then(obj=>{
         this.navCtrl.setRoot(HomePage);
