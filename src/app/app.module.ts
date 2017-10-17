@@ -22,6 +22,7 @@ import { DatabaseProvider } from '../providers/database/database';
 import { AngularFireDatabaseProvider } from 'angularfire2/database';
 import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
 import { Camera } from '@ionic-native/camera';
+import { BooksUserPage } from '../pages/books-user/books-user';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { Camera } from '@ionic-native/camera';
     CadastroPage,
     BookSearchPage,
     BookRegisterPage,
-    DataForSearchPage
+    DataForSearchPage,
+    BooksUserPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { Camera } from '@ionic-native/camera';
     CadastroPage,
     BookSearchPage,
     BookRegisterPage,
-    DataForSearchPage
+    DataForSearchPage,
+    BooksUserPage
   ],
   providers: [
     StatusBar,
