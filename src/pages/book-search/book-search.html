@@ -14,35 +14,34 @@
 
 
 <ion-content>
-      <ion-list *ngFor="let book of list_books">
-        <ion-card>
+  <ion-list *ngFor="let book of list_books">
+    <ion-card>
 
-          <ion-item>
-            <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks !== underfined">
-              <img src="{{book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail}}"
-              style='height: auto;background-color:#FFFFFF; width:auto;'>
-            </ion-thumbnail>
-            <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks === underfined">
-              <img src="../assets/images/unknown-cover-page.jpg"
-              style='height: 140px;background-color:#FFFFFF; width:125px;'>
-            </ion-thumbnail>
-            <h2>{{ book.volumeInfo.title }}</h2>
-            <p>
-              <strong *ngFor="let author of book.volumeInfo.authors">
-                <button ion-button clear item-end icon-left small 
-                    (click)="buscaAuthor(author)"
-                    style="margin: 0;">
-                    <ion-icon name="person"></ion-icon>
-                    {{author}}
-                  </button>
-                <span *ngIf="book.volumeInfo.authors?.length > 0"><br></span>
-              </strong> 
-            </p>
-            <p>• {{book.volumeInfo.publishedDate}}</p>
-            <button ion-button clear (click)="redirectToRegister(book)">Adicionar à Biblioteca</button><br>
-            <button ion-button clear (click)="addToWishList(book)">Adicionar à lista de desejos</button>
-          </ion-item>
-        </ion-card>
-      </ion-list>
+      <ion-item>
+        <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks !== underfined">
+          <img src="{{book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail}}" style='height: auto;background-color:#FFFFFF; width:auto;'>
+        </ion-thumbnail>
+        <ion-thumbnail item-start *ngIf="book.volumeInfo.imageLinks === underfined">
+          <span id="unknown-img">?</span>
+        </ion-thumbnail>
+        <h2>{{ book.volumeInfo.title }}</h2>
+        <p>
+          <strong *ngFor="let author of book.volumeInfo.authors">
+            <button ion-button clear item-end icon-left small (click)="buscaAuthor(author)" style="margin: 0;">
+              <ion-icon name="person"></ion-icon>
+              {{author}}
+            </button>
+            <span *ngIf="book.volumeInfo.authors?.length > 0">
+              <br>
+            </span>
+          </strong>
+        </p>
+        <p>• {{book.volumeInfo.publishedDate}}</p>
+        <button ion-button clear (click)="redirectToRegister(book)">Adicionar à Biblioteca</button>
+        <br>
+        <button ion-button clear (click)="addToWishList(book)">Adicionar à lista de desejos</button>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 
 </ion-content>
