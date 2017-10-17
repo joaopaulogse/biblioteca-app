@@ -30,4 +30,8 @@ export class DatabaseProvider {
   registerBookInUser(idUser, objeto){
     return this.database.list(`users/${idUser}/livros`).push(objeto)
   }
+  getBooksInTheUser(idUser){
+    return this.database.list(`users/${idUser}/livros`).valueChanges();
+  }
+
 }

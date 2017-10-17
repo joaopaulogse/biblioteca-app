@@ -42,7 +42,7 @@ export class BookRegisterPage {
   
   registerBook(event, livro){
     event.preventDefault();
-    const {title, authors, description, categories, pageCount, publisher, publishedDate, read } = livro;
+    const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks } = livro;
     const book = {
       title: !!title ? title:"", 
       authors: !!authors ? authors:[], 
@@ -51,7 +51,10 @@ export class BookRegisterPage {
       pageCount: !!pageCount ? pageCount: 0, 
       publisher: !!publisher ? publisher: "", 
       publishedDate: !!publishedDate ? publishedDate: "", 
-      read: !!read ? read: false
+      read: !!read ? read: false,
+      isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
+      isbn_13:!!industryIdentifiers?industryIdentifiers[0].identifier:"",
+      image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail:""
     };
     this.user.subscribe(user=>{
       this.db.registerBookInUser(user.uid, book).then(obj=>{

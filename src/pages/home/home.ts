@@ -12,6 +12,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
+import { BooksUserPage } from '../books-user/books-user';
 
 @IonicPage()
 @Component({
@@ -40,6 +41,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    this.rootPage = BooksUserPage
   }
 
   logOut(){

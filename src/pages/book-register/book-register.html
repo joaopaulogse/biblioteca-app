@@ -15,6 +15,10 @@
 
 <ion-content padding>
   <form (submit)="registerBook($event, livro)">
+    <div *ngIf="livro.imageLinks !== underfined">
+      <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks" ></ion-input>
+    </div>
+    <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
       <ion-label floating>Título</ion-label>
       <ion-input type="text" name="title" [(ngModel)]="livro.title"></ion-input>
