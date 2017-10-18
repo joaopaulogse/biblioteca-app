@@ -27,6 +27,7 @@ import { BookDetailsPage } from '../pages/book-details/book-details';
 import { BooksReadPage } from '../pages/books-read/books-read';
 import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
 import { WishListPage } from '../pages/wish-list/wish-list';
+import { CallBooksProvider } from '../providers/call-books/call-books';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { WishListPage } from '../pages/wish-list/wish-list';
     BooksProvider,
     DatabaseProvider,
     AngularFireDatabaseProvider,
-    Camera
+    Camera,
+    CallBooksProvider
   ]
 })
 export class AppModule {}

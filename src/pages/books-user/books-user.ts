@@ -31,12 +31,7 @@ export class BooksUserPage {
     public authFB:AngularFireAuth
   ) {
     this.user = authFB.authState;
-    this.user.subscribe(user=>{
-      this.db.getBooksInTheUser(user.uid).subscribe(books=>{
-        this.books = books
-        console.log(books);
-      })
-    })
+    
   }
 
   ionViewDidLoad() {

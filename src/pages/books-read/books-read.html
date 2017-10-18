@@ -4,35 +4,17 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <!-- <ion-navbar>
-    <ion-title>books-read</ion-title>
-  </ion-navbar> -->
-
-</ion-header>
-
-
 <ion-content padding>
-<!-- <ion-grid style="">
-        <ion-row>
-          <ion-list *ngFor="let book of books" style="width: auto;
-          margin: 0 auto;
-          ">
-            <ion-col>
-              <ion-card style="">
-                  <ion-thumbnail *ngIf="!!book.image;else imageDefault ">
+          <ion-list *ngFor="let book of books">
+              <ion-card *ngIf="book.read === true">
+                  <ion-thumbnail item-start *ngIf="!!book.image;else imageDefault ">
                     <img src="{{book.image}}"
                     style='height: auto;background-color:#FFFFFF; width:auto;'>
                   </ion-thumbnail>
-                  <ng-template #imageDefault>
-                    <img src="../assets/images/unknown-cover-page.jpg"
-                    style='height: 140px;background-color:#FFFFFF; width:125px;'>
+                  <ng-template item-start #imageDefault>
+                    <span id="unknown-img">?</span>
                   </ng-template>
                   <h2>{{ book.title }}</h2>
               </ion-card>
-            </ion-col>
           </ion-list>
-      </ion-row>
-  </ion-grid> -->
 </ion-content>
