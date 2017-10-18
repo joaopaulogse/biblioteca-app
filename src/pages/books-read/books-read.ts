@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { DatabaseProvider } from '../../providers/database/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { CallBooksProvider } from '../../providers/call-books/call-books';
+import * as firebase from 'firebase'
+
 
 /**
  * Generated class for the BooksReadPage page.
