@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { BookSearchPage } from '../book-search/book-search';
 
 @IonicPage()
@@ -14,7 +14,8 @@ export class DataForSearchPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public alert:AlertController
+    public alert:AlertController,
+    public toastCtrl: ToastController
   ) {
   }
 
@@ -37,6 +38,14 @@ export class DataForSearchPage {
         buttons:['OK']
       }).present()
     }
+  }
+
+  public help(){
+    this.toastCtrl.create({
+      message: "A pesquisa será realizada com os parâmetros digitados acima. No entando, a pesquisa prioriza o ISBN, que é o código único do  livro. ",
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    }).present();
   }
   
 }

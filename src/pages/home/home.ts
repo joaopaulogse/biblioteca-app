@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MyApp } from '../../app/app.component';
@@ -13,6 +13,7 @@ import { DataForSearchPage } from '../data-for-search/data-for-search';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { BooksUserPage } from '../books-user/books-user';
+import { WishListPage } from '../wish-list/wish-list';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class HomePage {
     public authFB:AngularFireAuth,
     public dbProvider:DatabaseProvider,
     public barcodeScanner: BarcodeScanner,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController
   ) {
     this.menu.enable(false);
     this.user = authFB.authState
@@ -43,6 +45,12 @@ export class HomePage {
     this.rootPage = BooksUserPage;
   }
   ionViewDidLoad() {
+  }
+
+  public redirectToHome(){
+  }
+  public redirectToWishList(){
+    this.modalCtrl.create(WishListPage).present();
   }
 
   logOut(){

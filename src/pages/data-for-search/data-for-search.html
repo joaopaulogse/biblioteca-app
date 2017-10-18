@@ -6,6 +6,11 @@ Filders for search
 
   <ion-navbar>
     <ion-title>Data for Search</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only round (click)="help()">
+        <ion-icon name="help"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -20,7 +25,7 @@ Filders for search
         <ion-label floating>ISBN</ion-label>
         <ion-input type="number" name="isbn" [(ngModel)]="dados.isbn"></ion-input>
       </ion-item>
-      
+
       <!--input titulo or autor-->
       <ion-item>
         <ion-label floating>Título</ion-label>
@@ -35,6 +40,8 @@ Filders for search
       <ion-icon name='search'></ion-icon>
       Pesquisar
     </button>
+
   </form>
-  
+
+
 </ion-content>
