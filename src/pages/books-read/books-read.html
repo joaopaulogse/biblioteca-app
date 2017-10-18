@@ -4,7 +4,8 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content>
+
+<!--<ion-content>
     <ion-list *ngFor="let book of books" style="margin: 0; padding: 0">
         <ion-card>
           <ion-item *ngIf="book.read === true">
@@ -25,4 +26,22 @@
         </ion-item>
       </ion-card>
     </ion-list>
+</ion-content>-->
+<ion-content padding class="grid">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let book of books">
+        <div *ngIf="book.read === true">
+          <ion-thumbnail item-start *ngIf="!!book.image;else imageDefault ">
+            <img src="{{book.image}}" style='height: 145px;background-color:#FFFFFF; width:90px;'>
+          </ion-thumbnail>
+          <ng-template item-start #imageDefault>
+            <span id="unknown-img">?</span>
+          </ng-template>
+          <h2>{{ book.title }}</h2>
+          <h3>{{ book.authors }}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 </ion-content>
