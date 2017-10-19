@@ -8,23 +8,23 @@ page-books-read {
     -ms-user-select: none;
     user-select: none;
   }
-  page-books-read {
-    #unknown-img {
-      color: #488aff;
-      text-align: center;
-      padding-left: 35px;
-      padding-right: 55px;
-      font-size: 500%;
-      -ms-user-select: none;
-      user-select: none;
+  h2 {
+    font-size: large;
+    font-family: sans-serif;
+  }
+  h3 {
+    font-size: medium;
+    font-family: monospace;
+  }
+  .no-scroll {
+    scroll-content {
+        overflow-y: hidden;
     }
-    h2 {
-      font-size: large;
-      font-family: sans-serif;
-    }
-    h3 {
-      font-size: medium;
-      font-family: monospace;
-    }
+  }
+
+  .scroll {
+      scroll-content {
+          overflow-y: scroll;
+      }
   }
 }
