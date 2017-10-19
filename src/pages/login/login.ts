@@ -44,7 +44,7 @@ export class LoginPage {
       dismissOnPageChange:true
     });
     this.loading.present();
-    setTimeout(()=>{
+    let idTime = setTimeout(()=>{
         this.loading.dismiss();
         this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
     }, 30000)
@@ -54,11 +54,13 @@ export class LoginPage {
         .then(user=>{
           this.navCtrl.setRoot(HomePage);
           this.loading.dismiss();
+          clearTimeout(idTime);
         })
         .catch(err=>{
           this.messagemToast('Não foi possivel efetuar o login');
           console.log(err);
           this.loading.dismiss();          
+          clearTimeout(idTime);
         })
     }else{
       this.loading.dismiss();
@@ -79,7 +81,7 @@ export class LoginPage {
       dismissOnPageChange:true
     });
     this.loading.present();
-    setTimeout(()=>{
+    let idTime = setTimeout(()=>{
         this.loading.dismiss();
         this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
     }, 30000)
@@ -87,11 +89,13 @@ export class LoginPage {
         .then(user=>{
           this.loading.dismiss();
           this.navCtrl.setRoot(HomePage)
+          clearTimeout(idTime);
         })
         .catch(err=>{
           this.messagemToast('Erro ao conectar ao Google');
           console.log(err);
           this.loading.dismiss();
+          clearTimeout(idTime);
         })
   }
   
@@ -101,7 +105,7 @@ export class LoginPage {
       dismissOnPageChange:true
     });
     this.loading.present();
-    setTimeout(()=>{
+    let idTime = setTimeout(()=>{
       this.loading.dismiss();
       this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
     }, 30000)
@@ -109,11 +113,13 @@ export class LoginPage {
         .then(user =>{
           console.log(user)
           this.navCtrl.setRoot(HomePage)
+          clearTimeout(idTime);
         })
         .catch(err=>{
           this.loading.dismiss();
           this.messagemToast('Não foi possivel conectar ao Facebook!');
           console.log(err);
+          clearTimeout(idTime);
         })
   }
 }
