@@ -40,6 +40,8 @@ export class HomePage {
     this.user = authFB.authState
     this.user.subscribe(user=>{
       this.dbProvider.regiterUserInDatabase(user);
+    }, err=>{
+      console.log(err);
     })
   }
   ngOnInit(){

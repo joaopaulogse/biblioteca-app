@@ -30,6 +30,8 @@ export class CallBooksProvider {
       this.db.getBooksInTheUser(user.uid).subscribe(books=>{
         this.books = books
         console.log(books);
+      }, err=>{
+        console.log(err);
       })
     })
   }

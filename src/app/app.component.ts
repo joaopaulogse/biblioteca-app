@@ -24,6 +24,8 @@ export class MyApp implements OnInit{
       }else{
         this.rootPage = LoginPage;
       }
+    }, err=>{
+      console.log(err);
     })
   }
 
