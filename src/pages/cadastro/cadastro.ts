@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms'
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -31,7 +31,8 @@ export class CadastroPage {
     public authService:AuthProvider,
     public authFB:AngularFireAuth,
     public ldCtrl: LoadingController,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public toast:ToastController
   ) { 
     this.meuForm = fb.group({
       username:  ['', Validators.required],
@@ -54,23 +55,50 @@ export class CadastroPage {
 
   cadastrarUsuario(){
     this.loading = this.ldCtrl.create({
-      content: 'Carregando...',
+      content: 'Loading...',
       dismissOnPageChange:true
     });
+    let idTime = setTimeout(()=>{
+      this.loading.dismiss();
+      this.messagemToast('Tempo de tentativa de cadastro ultrapassado')
+    },10000)
     let user = new UsuarioModel(this.usuario)
-    this.toBase64(this.foto).then(foto=>{
-      user.photoURL = foto.toString()
-    }).catch(err=>console.log(err))
-    console.log(user)
-    this.authService.signup(user.email, user.password).then((usuario:firebase.User)=>{
-     usuario.updateProfile({
-       displayName:user.username,
-       photoURL:user.photoURL,
-     });
-      this.navCtrl.setRoot(MyApp)
-    }).catch(err=>{
-      console.log("Erro no firebase", err);
-    })
+    if(!!user.username.trim() && !!user.password.trim()){
+      if(!!this.foto){
+
+        this.toBase64(this.foto).then(foto=>{
+          user.photoURL = foto.toString()
+        }).catch(err=>{
+          console.log(err)
+          clearTimeout(idTime);
+          this.messagemToast('Não foi possivel converter a imagem, tente outra.')
+          this.loading.dismiss()
+        })
+      }
+      console.log(user)
+      this.authService.signup(user.email, user.password).then((usuario:firebase.User)=>{
+            usuario.updateProfile({
+              displayName:user.username,
+              photoURL:!!user.photoURL?user.photoURL:'',
+            }).catch(err=>{
+              console.log(err);
+              clearTimeout(idTime);
+              this.loading.dismiss()
+              this.messagemToast('Erro ao cadastrar!');
+            });
+          clearTimeout(idTime);
+          this.navCtrl.setRoot(MyApp)
+        }).catch(err=>{
+          console.log("Erro no firebase", err);
+          this.loading.dismiss();
+          clearTimeout(idTime);
+          this.messagemToast('Erro ao cadastrar!')
+        })
+    }else{
+      clearTimeout(idTime);
+      this.messagemToast('Campos inválidos, preencha-os corretamente!');
+      this.loading.dismiss();
+    }
   }
   toBase64(file:File){
     let reader = new FileReader();
@@ -88,5 +116,13 @@ export class CadastroPage {
         reject(error);
       };
     })    
+  }
+  messagemToast(message:string){
+    this.toast.create({
+      message:message,
+      duration:5000,
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    }).present();
   }
 }

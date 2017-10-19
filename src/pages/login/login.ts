@@ -47,7 +47,7 @@ export class LoginPage {
     let idTime = setTimeout(()=>{
         this.loading.dismiss();
         this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
-    }, 30000)
+    }, 10000)
     let user = new UsuarioModel(this.usuario)
     if(!!user.email && !!user.password ){
      this.serviceAuth.login(user.email, user.password)
