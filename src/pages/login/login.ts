@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, ToastController } from 'ionic-angular';
 import { AuthProvider } from "../../providers/auth/auth";
 import { AngularFireAuth } from "angularfire2/auth";
 import { CadastroPage } from '../cadastro/cadastro';
@@ -26,7 +26,8 @@ export class LoginPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public serviceAuth: AuthProvider,
-    public ldCtrl: LoadingController
+    public ldCtrl: LoadingController,
+    public toast:ToastController
   ) { }
 
   ionViewDidLoad() {
@@ -39,28 +40,58 @@ export class LoginPage {
 
   login(){
     this.loading = this.ldCtrl.create({
-      content: 'Logando...',
+      content: 'Loading...',
       dismissOnPageChange:true
     });
     this.loading.present();
+    setTimeout(()=>{
+        this.loading.dismiss();
+        this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
+    }, 30000)
     let user = new UsuarioModel(this.usuario)
-    this.serviceAuth.login(user.email, user.password)
+    if(!!user.email && !!user.password ){
+     this.serviceAuth.login(user.email, user.password)
         .then(user=>{
-          console.log("@ID:",user.uid)
-          this.navCtrl.setRoot(HomePage)
+          this.navCtrl.setRoot(HomePage);
+          this.loading.dismiss();
         })
+        .catch(err=>{
+          this.messagemToast('Não foi possivel efetuar o login');
+          console.log(err);
+          this.loading.dismiss();          
+        })
+    }else{
+      this.loading.dismiss();
+      this.messagemToast(`Email e Senha em brancos`)
+    } 
+        
   }
-
+  messagemToast(message:string){
+    this.toast.create({
+      message:message,
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    }).present();
+  }
   loginGoogle(){
     this.loading = this.ldCtrl.create({
       content: 'Logando...',
       dismissOnPageChange:true
     });
     this.loading.present();
+    setTimeout(()=>{
+        this.loading.dismiss();
+        this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
+    }, 30000)
     this.serviceAuth.logginGoogle()
         .then(user=>{
-          console.log(user)
+          this.loading.dismiss();
           this.navCtrl.setRoot(HomePage)
+        })
+        .catch(err=>{
+          this.messagemToast('Erro ao conectar ao Google');
+          console.log(err);
+          this.loading.dismiss();
         })
   }
   
@@ -70,10 +101,19 @@ export class LoginPage {
       dismissOnPageChange:true
     });
     this.loading.present();
+    setTimeout(()=>{
+      this.loading.dismiss();
+      this.messagemToast('Verifique a sua conexão, tempo maximo de tentativa atingido');
+    }, 30000)
     this.serviceAuth.logginFacebook()
-    .then(user =>{
-      console.log(user)
-      this.navCtrl.setRoot(HomePage)
-    })
+        .then(user =>{
+          console.log(user)
+          this.navCtrl.setRoot(HomePage)
+        })
+        .catch(err=>{
+          this.loading.dismiss();
+          this.messagemToast('Não foi possivel conectar ao Facebook!');
+          console.log(err);
+        })
   }
 }
