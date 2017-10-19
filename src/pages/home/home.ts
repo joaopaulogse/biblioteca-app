@@ -14,6 +14,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { BooksUserPage } from '../books-user/books-user';
 import { WishListPage } from '../wish-list/wish-list';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -54,8 +55,11 @@ export class HomePage {
   }
 
   logOut(){
-    this.serviceAuth.logout();
-    this.navCtrl.setRoot(MyApp);
+    // this.serviceAuth.logout();
+    this.authFB.auth.signOut()
+      .then(()=>{
+        this.navCtrl.setRoot(LoginPage);
+      })
   }
 
   // this method takes to DataForSearchPage
