@@ -51,9 +51,12 @@ export class HomePage {
   }
 
   public redirectToHome(){
+    this.rootPage = BooksUserPage;
+    this.menu.close();
   }
   public redirectToWishList(){
-    this.modalCtrl.create(WishListPage).present();
+    this.rootPage = WishListPage;
+    this.menu.close();
   }
 
   logOut(){
