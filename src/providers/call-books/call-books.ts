@@ -18,7 +18,7 @@ import * as firebase from 'firebase'
 export class CallBooksProvider {
 
   user:Observable<firebase.User>
-  books_read: Observable<any[]>;
+  books_read: any;
   books_no_read:any;
   constructor(
     public navCtrl: NavController, 
