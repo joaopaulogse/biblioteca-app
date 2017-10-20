@@ -15,6 +15,7 @@ import { Camera } from '@ionic-native/camera';
 import { BooksUserPage } from '../books-user/books-user';
 import { WishListPage } from '../wish-list/wish-list';
 import { LoginPage } from '../login/login';
+import { Perfil } from '../perfil/perfil'
 
 @IonicPage()
 @Component({
@@ -56,6 +57,10 @@ export class HomePage {
   }
   public redirectToWishList(){
     this.rootPage = WishListPage;
+    this.menu.close();
+  }
+  public redirectToPerfil(){
+    this.rootPage = Perfil;
     this.menu.close();
   }
 

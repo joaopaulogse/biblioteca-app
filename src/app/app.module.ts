@@ -28,6 +28,7 @@ import { BooksReadPage } from '../pages/books-read/books-read';
 import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
 import { WishListPage } from '../pages/wish-list/wish-list';
 import { CallBooksProvider } from '../providers/call-books/call-books';
+import { Perfil } from '../pages/perfil/perfil';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CallBooksProvider } from '../providers/call-books/call-books';
     BookDetailsPage,
     BooksReadPage,
     BooksNoReadPage,
-    WishListPage
+    WishListPage,
+    Perfil
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ import { CallBooksProvider } from '../providers/call-books/call-books';
     BookDetailsPage,
     BooksReadPage,
     BooksNoReadPage,
-    WishListPage
+    WishListPage,
+    Perfil
   ],
   providers: [
     StatusBar,
