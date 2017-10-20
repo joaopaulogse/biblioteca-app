@@ -23,7 +23,6 @@ import * as firebase from 'firebase'
 export class BooksReadPage extends CallBooksProvider {
 
   user:Observable<firebase.User>
-  books = this.books;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,

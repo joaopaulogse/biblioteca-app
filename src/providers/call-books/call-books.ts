@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { Observable } from 'rxjs/Observable';
 import { NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../database/database';
@@ -17,7 +18,8 @@ import * as firebase from 'firebase'
 export class CallBooksProvider {
 
   user:Observable<firebase.User>
-  books = []
+  books_read: Observable<any[]>;
+  books_no_read:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -28,7 +30,8 @@ export class CallBooksProvider {
     this.user = authFB.authState;
     this.user.subscribe(user=>{
       this.db.getBooksInTheUser(user.uid).subscribe(books=>{
-        this.books = books
+        this.books_read = books.filter(book => book.read == true);
+        this.books_no_read = books.filter(book => book.read == false);
         console.log(books);
       }, err=>{
         console.log(err);

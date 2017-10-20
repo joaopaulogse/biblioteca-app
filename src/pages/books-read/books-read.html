@@ -30,16 +30,14 @@
 <ion-content class="grid">
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let book of books">
-        <div *ngIf="book.read === true">
+      <ion-col col-4 *ngFor="let book of books_read">
           <ion-thumbnail item-start *ngIf="!!book.image;else imageDefault ">
-            <img src="{{book.image}}" style='height: 145px;background-color:#FFFFFF; width:90px;'>
+            <img src="{{book.image}}" style='height: 123px;background-color:#FFFFFF; width:90px;'>
           </ion-thumbnail>
           <ng-template item-start #imageDefault>
-            <span id="unknown-img">?</span>
+            <img src="assets/images/book-default.png" style='height: 123px;background-color:#FFFFFF; width:90px;'>
           </ng-template>
           <p>{{ book.title }}</p>
-        </div>
       </ion-col>
     </ion-row>
   </ion-grid> 
