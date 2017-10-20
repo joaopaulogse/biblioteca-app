@@ -7,6 +7,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../database/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase'
+import { Book } from "../../models/Book";
 
 /*
   Generated class for the CallBooksProvider provider.
@@ -29,7 +30,7 @@ export class CallBooksProvider {
   ) {
     this.user = authFB.authState;
     this.user.subscribe(user=>{
-      this.db.getBooksInTheUser(user.uid).subscribe(books=>{
+      this.db.getBooksInTheUser(user.uid).subscribe((books:Book[])=>{
         this.books_read = books.filter(book => book.read == true);
         this.books_no_read = books.filter(book => book.read == false);
         console.log(books);
