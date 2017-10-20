@@ -13,15 +13,15 @@
 <ion-content padding>
   <form [formGroup]="meuForm" (submit)="cadastrarUsuario($event)">
         
-      <ion-item>
+      <div align="center">
           <ion-avatar item-start>
-            <img 
-              src="assets/images/contact.svg" 
+          <img 
+              src="assets/images/account-circle.svg" 
               id="imageCadastro" 
               style='height: 50%;background-color:#FFFFFF; width: 50%;'
               onclick="document.getElementById('selectFoto').click()">
           </ion-avatar>
-        </ion-item>
+        </div>
         <input formControlName="foto" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
                 
         <ion-item>
