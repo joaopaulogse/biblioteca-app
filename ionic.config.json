@@ -1,6 +1,6 @@
 {
   "name": "biblioteca-app",
-  "app_id": "",
+  "app_id": "8766f3e8",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
