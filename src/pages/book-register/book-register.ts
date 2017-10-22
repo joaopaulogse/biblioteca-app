@@ -42,8 +42,10 @@ export class BookRegisterPage {
     console.log(this.livro);
   }
   
-  registerBook(event, livro){
+  registerBook(livro, event){
     event.preventDefault();
+    console.log(livro)
+    console.log(event)
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks } = livro;
     if(!!this.foto){
       this.toBase64(this.foto).then(foto=>{
@@ -64,7 +66,8 @@ export class BookRegisterPage {
         // isbn_13:!!industryIdentifiers[0]?industryIdentifiers[0].identifier:"",
         image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail || this.imageBase64:""
       };
-      
+      console.log(book);
+      console.log("Livro",this.livro)
       this.user.subscribe(user=>{
         this.db.registerBookInUser(user.uid, book).then(obj=>{
           this.navCtrl.setRoot(HomePage);
