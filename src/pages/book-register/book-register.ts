@@ -48,7 +48,6 @@ export class BookRegisterPage {
     if(!!this.foto){
       this.toBase64(this.foto).then(foto=>{
         this.imageBase64 = foto.toString()
-        console.log(foto.toString())
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
     }
     try{
