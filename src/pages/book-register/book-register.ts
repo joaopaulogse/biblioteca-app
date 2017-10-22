@@ -22,7 +22,8 @@ export class BookRegisterPage {
 
   user: Observable<firebase.User>;
   livro = {};
-
+  foto:any;
+  foto_existente:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -82,5 +83,11 @@ export class BookRegisterPage {
         }
       ]
     }).present();
+  }
+  enviaImage(event){
+    if(event.target.files[0]){
+      this.foto = event.target.files[0];
+      (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
+    }
   }
 }

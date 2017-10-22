@@ -15,8 +15,25 @@
 
 <ion-content padding>
   <form (submit)="registerBook($event, livro)">
-    <div *ngIf="livro.imageLinks !== underfined">
-      <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks" ></ion-input>
+    <ng-template #imageEmpty>
+      <div align="center">
+        <ion-avatar item-start>
+          <img 
+          src="assets/images/book-open-page-variant.svg" 
+          id="imageCadastro" 
+          style='height: 50%;background-color:#FFFFFF; width: 50%;'
+          onclick="document.getElementById('selectFoto').click()">
+        </ion-avatar>
+      </div>
+    </ng-template>  
+      <input  type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+    <div *ngIf="livro.imageLinks !== underfined;else imageEmpty" align="center">
+      <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks"></ion-input>
+      <img 
+      id="imageCadastro"
+      [src]="livro.imageLinks.smallThumbnail || livro.imageLinks.thumbnail" 
+      style='height: 50%;background-color:#FFFFFF; width: 50%;'
+      onclick="document.getElementById('selectFoto').click()">
     </div>
     <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
