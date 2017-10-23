@@ -34,7 +34,7 @@ export class BookRegisterPage {
     public db:DatabaseProvider
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
-    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:''; //livro que o usuário escolhe na bookSearch
+    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{}; //livro que o usuário escolhe na bookSearch
   }
 
   //public book:string = this.livro.title
