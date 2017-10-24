@@ -1,10 +1,24 @@
 <ion-header>
-
-        <ion-title>Perfil</ion-title>
-    
+        <ion-navbar>
+            <ion-title>Perfil</ion-title>
+        </ion-navbar>
     </ion-header>
-    
-    
-    <ion-content padding>
-    
-    </ion-content>
+    <ion-content>
+            <ion-item>
+               <!--  <ion-label floating>Nome</ion-label>-->            
+                    <ion-input type="text" placeholder="{{(user|async)?.displayName}}"></ion-input>
+            </ion-item>
+            <div *ngIf="visivel==true" >
+                <ion-item>
+                    <ion-label floating>Senha</ion-label>
+                    <ion-input type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Confirmar senha</ion-label>
+                    <ion-input type="text"></ion-input>
+                </ion-item>
+            </div>
+                    <button ion-button color="default">Salvar</button>
+            <button ion-button color="secondary" (click)="chamarSenha()">Editar senha</button>
+            <button ion-button color="secondary">Foto</button>            
+        </ion-content>

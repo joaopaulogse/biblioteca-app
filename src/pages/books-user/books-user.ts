@@ -37,5 +37,4 @@ export class BooksUserPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BooksUserPage');
   }
-
 }
