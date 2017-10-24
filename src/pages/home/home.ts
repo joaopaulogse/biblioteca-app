@@ -59,6 +59,23 @@ export class HomePage {
     this.rootPage = WishListPage;
     this.menu.close();
   }
+  public exportLibrary(){
+    this.alertCtrl.create({
+      title: "Exportar biblioteca",
+      message: "Tem certeza que deseja exportar a biblioteca no formato <i>.xlsx</i>?",
+      buttons: [
+        {
+          text: "Cancelar",
+        },
+        {
+          text: "OK",
+          handler: () => {
+            console.log("exportação de biblioteca");
+          }
+        }
+      ]
+    }).present();
+  }
   public redirectToPerfil(){
     this.rootPage = Perfil;
     this.menu.close();

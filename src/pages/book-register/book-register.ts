@@ -19,10 +19,12 @@ import { AngularFireAuth } from 'angularfire2/auth';
   providers:[DatabaseProvider]
 })
 export class BookRegisterPage {
+  imageBase64: string;
 
   user: Observable<firebase.User>;
   livro = {};
-
+  foto:any;
+  foto_existente:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -32,7 +34,7 @@ export class BookRegisterPage {
     public db:DatabaseProvider
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
-    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:''; //livro que o usuário escolhe na bookSearch
+    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{}; //livro que o usuário escolhe na bookSearch
   }
 
   //public book:string = this.livro.title
@@ -40,28 +42,41 @@ export class BookRegisterPage {
     console.log(this.livro);
   }
   
-  registerBook(event, livro){
+  registerBook(livro, event){
     event.preventDefault();
+    console.log(livro)
+    console.log(event)
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks } = livro;
-    const book = {
-      title: !!title ? title:"", 
-      authors: !!authors ? authors:[], 
-      description: !!description ? description:"", 
-      categories: !!categories ? categories: "", 
-      pageCount: !!pageCount ? pageCount: 0, 
-      publisher: !!publisher ? publisher: "", 
-      publishedDate: !!publishedDate ? publishedDate: "", 
-      read: !!read ? read: false,
-      isbn_10:!!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
-      isbn_13:!!industryIdentifiers[0]?industryIdentifiers[0].identifier:"",
-      image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail:""
-    };
-    this.user.subscribe(user=>{
-      this.db.registerBookInUser(user.uid, book).then(obj=>{
-        this.navCtrl.setRoot(HomePage);
-        console.log(obj);
+    if(!!this.foto){
+      this.toBase64(this.foto).then(foto=>{
+        this.imageBase64 = foto.toString()
+      }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
+    }
+    try{
+      const book = {
+        title: !!title ? title:"", 
+        authors: !!authors ? authors:[], 
+        description: !!description ? description:"", 
+        categories: !!categories ? categories: "", 
+        pageCount: !!pageCount ? pageCount: 0, 
+        publisher: !!publisher ? publisher: "", 
+        publishedDate: !!publishedDate ? publishedDate: "", 
+        read: !!read ? read: false,
+        isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
+        isbn_13:!!industryIdentifiers?industryIdentifiers[0].identifier:"",
+        image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail || this.imageBase64:""
+      };
+      console.log(book);
+      console.log("Livro",this.livro)
+      this.user.subscribe(user=>{
+        this.db.registerBookInUser(user.uid, book).then(obj=>{
+          this.navCtrl.setRoot(HomePage);
+          console.log(obj);
+        });
       });
-    });
+    }catch(erro){
+      console.log(erro)
+    }
     
   }
 
@@ -82,5 +97,29 @@ export class BookRegisterPage {
         }
       ]
     }).present();
+  }
+  enviaImage(event){
+    if(event.target.files[0]){
+      this.foto = event.target.files[0];
+      (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
+
+    }
+  }
+  toBase64(file:File){
+    let reader = new FileReader();
+    console.log(file)
+    return new Promise((resolve, reject)=>{
+      if(file.size > 2000000){
+        reject({error:"Imagem superior a 2MB, tente uma menor"})
+      }
+      reader.readAsDataURL(file);
+      reader.onload = function (e) {
+        resolve(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+        reject(error);
+      };
+    })    
   }
 }
