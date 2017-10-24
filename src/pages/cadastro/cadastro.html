@@ -25,16 +25,18 @@
         <input formControlName="foto" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
                 
         <ion-item>
+          <ion-label floating>Nome</ion-label>
           <ion-input type="text" formControlName="username" name="username"
-            [(ngModel)]="usuario.username" placeholder="Nome de Usuário"></ion-input><br>
+            [(ngModel)]="usuario.username"></ion-input><br>
           </ion-item>
           <ion-row>
             <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>                                  
           </ion-row>
           
           <ion-item>
+            <ion-label floating>E-mail</ion-label>
             <ion-input type="email" formControlName="email" name="email"
-              [(ngModel)]="usuario.email" placeholder="E-mail"></ion-input>
+              [(ngModel)]="usuario.email"></ion-input>
           </ion-item>
           <ion-row>
             <div *ngIf="meuForm.controls.email.invalid">
@@ -51,8 +53,9 @@
           </ion-row>
 
           <ion-item>
+            <ion-label floating>Senha</ion-label>
             <ion-input type="password" formControlName="password" name="password"
-              [(ngModel)]="usuario.password" placeholder="Senha"></ion-input>
+              [(ngModel)]="usuario.password"></ion-input>
           </ion-item>
           <div *ngIf="meuForm.controls.password.invalid">
             <span style="color: red; padding-left: 16px;"
