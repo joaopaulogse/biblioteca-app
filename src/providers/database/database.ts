@@ -31,7 +31,7 @@ export class DatabaseProvider {
     return this.database.list(`users/${idUser}/livros`).push(objeto)
   }
   getBooksInTheUser(idUser){
-    return this.database.list(`users/${idUser}/livros`).valueChanges();
+    return this.database.list(`users/${idUser}/livros`);
   }
 
 }

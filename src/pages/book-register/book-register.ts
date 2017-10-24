@@ -62,8 +62,8 @@ export class BookRegisterPage {
         publisher: !!publisher ? publisher: "", 
         publishedDate: !!publishedDate ? publishedDate: "", 
         read: !!read ? read: false,
-        // isbn_10:!!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
-        // isbn_13:!!industryIdentifiers[0]?industryIdentifiers[0].identifier:"",
+        isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
+        isbn_13:!!industryIdentifiers?industryIdentifiers[0].identifier:"",
         image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail || this.imageBase64:""
       };
       console.log(book);

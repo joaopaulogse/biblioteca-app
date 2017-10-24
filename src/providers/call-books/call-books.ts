@@ -30,12 +30,11 @@ export class CallBooksProvider {
   ) {
     this.user = authFB.authState;
     this.user.subscribe(user=>{
-      this.db.getBooksInTheUser(user.uid).subscribe((books:Book[])=>{
+      this.db.getBooksInTheUser(user.uid).valueChanges().subscribe((books:Book[])=>{
         this.limitCharOfTitle(books);
         this.books_read = books.filter(book => book.read == true);
         this.books_no_read = books.filter(book => book.read == false);
-        //console.log(books);
-     }, err=>{
+      }, err=>{
         console.log(err);
       })
     })
