@@ -6,12 +6,12 @@
     <ion-content>
             <ion-item>
                     <ion-label floating>Nome</ion-label>           
-                    <ion-input type="text"></ion-input>
+                    <ion-input type="text"id="nome" [(ngModel)]="usuario.username" (ionFocus)="enableButton($event)" (focusout)="disableButton($event)"></ion-input>
             </ion-item>
             <div>
                 <ion-item>
                     <ion-label floating>Senha</ion-label>
-                    <ion-input type="text" [(ngModel)]="usuario.password"></ion-input>
+                    <ion-input type="text" [(ngModel)]="usuario.password" (ionFocus)="enableButton()" (focusout)="disableButton($event)"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating>Confirmar senha</ion-label>
@@ -19,6 +19,7 @@
                 </ion-item>
             </div>
             <div>
-                <button ion-button class="submit-btn" type="submit" (click)="alterarDados()" >Alterar Senha</button>
+                <button ion-button class="button-inner" type="submit" (click)="alterarDados(usuario)"
+                    [disabled]="button"  >Salvar</button>
             </div>    
             </ion-content>

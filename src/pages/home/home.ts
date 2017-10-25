@@ -79,8 +79,7 @@ export class HomePage {
     }).present();
   }
   public redirectToPerfil(){
-    this.rootPage = Perfil;
-    this.menu.close();
+    this.navCtrl.push(Perfil);
   }
 
   logOut(){

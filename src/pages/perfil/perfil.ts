@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { DatabaseProvider } from '../../providers/database/database';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase/app'
+import * as firebase from 'firebase'
 
 @IonicPage()
 @Component({
@@ -14,9 +14,9 @@ import * as firebase from 'firebase/app'
 })
 export class Perfil{
 
-    visivel: boolean = false;
     user: Observable<firebase.User>;
-    usuario:UsuarioModel;
+    usuario = {};
+    button:boolean = true
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -25,27 +25,66 @@ export class Perfil{
         public toastCtrl:ToastController
     ){
         this.user = autFB.authState;
+    
+    }
+/* Heitor mandou eu comentar o método. Então, gostaria de dizer que esse cara faz algo simplesmente absurdo.
+É simplesmente incrível como este cara altera os os valores de nome, senha e também permite a inserção de uma
+INACREDITÁVEL foto nova.
+*/
+    alterarDados(usuario){
         this.user.subscribe(user=>{
-            this.db.regiterUserInDatabase(user);
-            this.usuario = new UsuarioModel(user);
-            this.usuario.username = user.displayName;
-            this.usuario.photoURL = user.photoURL; 
+            if(!!usuario.password && !!usuario.username && !!usuario.photoURL){
+                user.updateProfile({
+                    displayName: usuario.username,
+                    photoURL: usuario.photoURL
+                });  
+                user.updatePassword(usuario.password);
+                this.toast("Dados alterados com sucesso!");      
+            }else{
+                if(!!usuario.username){
+                    user.updateProfile({
+                        displayName: usuario.username,
+                        photoURL: usuario.photoURL
+                    });
+                    user.reload()
+                    this.toast("Nome alterado com sucesso!");
+                }else{
+                    if(!!usuario.password){
+                        user.updatePassword(usuario.password);
+                        this.toast("Senha alterada com sucesso!");                        
+                    }else{
+                        if(!!usuario.photoURL){
+                            user.updateProfile({
+                                displayName: usuario.username,
+                                photoURL: usuario.photoURL
+                            });
+                            this.toast("Nome alterado com sucesso!");
+                        }
+                    }
+                }
+            }
         });
+        this.navCtrl.popToRoot()
     }
 
-    alterarDados(){
-        this.user.subscribe(user=>{
-            user.updatePassword(this.usuario.password);
-            user.updateProfile
-            this.navCtrl.setRoot(Perfil); 
-            this.toast();       
-        });
-    }
-    toast(){
+    toast(mensagem:string){
         this.toastCtrl.create({
-            message:"Senha alterada com sucesso.",
+            message:mensagem,
             showCloseButton: false,
             duration: 3000
           }).present();
+    }
+
+    enableButton(event){
+        this.button = false;
+        
+    }
+    disableButton(event){
+        if(!event.target.value){
+
+            this.button = true
+        }else{
+            this.button = false
+        }
     }
 }
