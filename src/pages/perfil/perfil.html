@@ -5,20 +5,20 @@
     </ion-header>
     <ion-content>
             <ion-item>
-               <!--  <ion-label floating>Nome</ion-label>-->            
-                    <ion-input type="text" placeholder="{{(user|async)?.displayName}}"></ion-input>
+                    <ion-label floating>Nome</ion-label>           
+                    <ion-input type="text"></ion-input>
             </ion-item>
-            <div *ngIf="visivel==true" >
+            <div>
                 <ion-item>
                     <ion-label floating>Senha</ion-label>
-                    <ion-input type="text"></ion-input>
+                    <ion-input type="text" [(ngModel)]="usuario.password"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating>Confirmar senha</ion-label>
                     <ion-input type="text"></ion-input>
                 </ion-item>
             </div>
-                    <button ion-button color="default">Salvar</button>
-            <button ion-button color="secondary" (click)="chamarSenha()">Editar senha</button>
-            <button ion-button color="secondary">Foto</button>            
-        </ion-content>
+            <div>
+                <button ion-button class="submit-btn" type="submit" (click)="alterarDados()" >Alterar Senha</button>
+            </div>    
+            </ion-content>
