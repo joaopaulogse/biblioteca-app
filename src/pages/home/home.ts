@@ -22,7 +22,7 @@ import { Perfil } from '../perfil/perfil'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers:[AngularFireAuth, AngularFireDatabase,Camera, BarcodeScanner]
+  providers:[AngularFireAuth, AngularFireDatabase,Camera, BarcodeScanner, QRScanner]
 })
 export class HomePage {
   rootPage: any;
