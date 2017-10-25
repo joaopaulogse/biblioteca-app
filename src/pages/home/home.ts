@@ -133,14 +133,21 @@ export class HomePage {
          // start scanning
          let scanSub = this.qrScanner.scan().subscribe((text: string) => {
            console.log('Scanned something', text);
-           
+           !!text ? 
+           this.navCtrl.push(BookSearchPage, {"isbn":text}): 
+           _alert => {
+             this.alertCtrl.create({
+               title: "Sem captura",
+               subTitle: "O scanner não conseguiu capturar o QR code",
+               buttons: ["OK"]
+             }).present();
   
            this.qrScanner.hide(); // hide camera preview
            scanSub.unsubscribe(); // stop scanning
-         });
+         }});
   
          // show camera preview
-         this.qrScanner.show();
+         //this.qrScanner.show();
   
          // wait for user to scan something, then the observable callback will be called
   
