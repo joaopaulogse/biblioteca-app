@@ -17,24 +17,18 @@
   <form (submit)="registerBook(livro, $event)">
     <div *ngIf="livro.imageLinks !== underfined;else imageEmpty" align="center">
       <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks"></ion-input>
-      <img 
-      id="imageCadastro"
-      [src]="livro.imageLinks.smallThumbnail || livro.imageLinks.thumbnail" 
-      style='height: 50%;background-color:#FFFFFF; width: 50%;'
-      onclick="document.getElementById('selectFoto').click()">
+      <img id="imageCadastro" [src]="livro.imageLinks.smallThumbnail || livro.imageLinks.thumbnail" style='height: 50%;background-color:#FFFFFF; width: 50%;'
+        onclick="document.getElementById('selectFoto').click()">
     </div>
     <ng-template #imageEmpty>
       <div align="center">
         <ion-avatar item-start>
-          <img 
-          src="assets/images/book-open-page-variant.svg" 
-          id="imageCadastro" 
-          style='height: 50%;background-color:#FFFFFF; width: 50%;'
-          onclick="document.getElementById('selectFoto').click()">
+          <img src="assets/images/book-open-page-variant.svg" id="imageCadastro" style='height: 50%;background-color:#FFFFFF; width: 50%;'
+            onclick="document.getElementById('selectFoto').click()">
         </ion-avatar>
       </div>
-    </ng-template>  
-      <input  type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+    </ng-template>
+    <input type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
     <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
       <ion-label floating>Título</ion-label>
@@ -44,30 +38,60 @@
       <ion-label floating>Autor</ion-label>
       <ion-input type="text" name="author" [(ngModel)]="livro.authors"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Descrição</ion-label>
-      <ion-textarea type="text" name="description" [(ngModel)]="livro.description"></ion-textarea>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item id="alignCorrect">
+            <ion-label floating>ISBN</ion-label>
+            <!--Não ouse mexer neste ngModel-->
+            <ion-input type="number" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
+                livro.industryIdentifiers[0].type === 'ISBN_13' ?
+                livro.industryIdentifiers[0].identifier:
+                livro.industryIdentifiers[0].type === 'ISBN_10'?
+                livro.industryIdentifiers[1].identifier:
+                livro.industryIdentifiers[0].identifier:livro.isbn_13"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <div id="lido">
+            <ion-label id="labelLido">Lido</ion-label>
+            <ion-toggle name="read" [(ngModel)]="livro.read" checked="false" id="toggle"></ion-toggle>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
     <ion-item>
       <ion-label floating>Categoria</ion-label>
       <ion-input type="text" name="categories" [(ngModel)]="livro.categories"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Nº de páginas</ion-label>
-      <ion-input type="number" name="pageCount" [(ngModel)]="livro.pageCount"></ion-input>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item id="alignCorrect">
+            <ion-label floating>Nº de páginas</ion-label>
+            <ion-input type="number" name="pageCount" [(ngModel)]="livro.pageCount"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Data de publicação</ion-label>
+            <ion-input type="text" name="publishedDate" [(ngModel)]="livro.publishedDate"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-item>
       <ion-label floating>Editora</ion-label>
       <ion-input type="text" name="publisher" [(ngModel)]="livro.publisher"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label floating>Data de publicação</ion-label>
-      <ion-input type="text" name="publishedDate" [(ngModel)]="livro.publishedDate"></ion-input>
+      <ion-label floating>Descrição</ion-label>
+      <ion-textarea type="text" name="description" [(ngModel)]="livro.description" rows="5"></ion-textarea>
     </ion-item>
-    <ion-item>
-      <ion-label>Lido</ion-label>
-      <ion-checkbox name="read" [(ngModel)]="livro.read" checked="false"></ion-checkbox>
-    </ion-item>
+
     <div align="right">
       <button ion-button round icon-start type="submit">
         <ion-icon name="ios-send"></ion-icon>

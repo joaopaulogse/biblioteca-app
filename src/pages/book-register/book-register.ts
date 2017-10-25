@@ -35,7 +35,12 @@ export class BookRegisterPage {
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{}; //livro que o usuário escolhe na bookSearch
+    /*this.livro.industryIdentifiers.lenght > 1 ? 
+    this.livro.industryIdentifiers[0].identifier > this.livro.industryIdentifiers[1].identifier ?
+    this.livro.industryIdentifiers[0].identifier:this.livro.industryIdentifiers[1].identifier:livro.isbn_13
+    livro.industryIdentifiers.lenght>1?livro.industryIdentifiers[0].identifier:livro.isbn_13*/
   }
+
 
   //public book:string = this.livro.title
   ionViewDidLoad() {
@@ -46,7 +51,7 @@ export class BookRegisterPage {
     event.preventDefault();
     console.log(livro)
     console.log(event)
-    const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks } = livro;
+    const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks, isbn } = livro;
     if(!!this.foto){
       this.toBase64(this.foto).then(foto=>{
         this.imageBase64 = foto.toString()
@@ -63,13 +68,13 @@ export class BookRegisterPage {
         publishedDate: !!publishedDate ? publishedDate: "", 
         read: !!read ? read: false,
         isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
-        isbn_13:!!industryIdentifiers?industryIdentifiers[0].identifier:"",
+        isbn_13:!!industryIdentifiers || !!isbn?industryIdentifiers[0].identifier || isbn:"",
         image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail || this.imageBase64:""
       };
       console.log(book);
       console.log("Livro",this.livro)
       this.user.subscribe(user=>{
-        this.db.registerBookInUser(user.uid, book).then(obj=>{
+        this.db.registerBookInUser(user.uid, book).then(obj=>{ 
           this.navCtrl.setRoot(HomePage);
           console.log(obj);
         });
