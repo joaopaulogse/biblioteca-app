@@ -1,13 +1,21 @@
 page-books-no-read {
-    #unknown-img {
-        color: #488aff;
-        text-align: center;
-        padding-left: 35px;
-        padding-right: 55px;
-        font-size: 500%;
-        -ms-user-select: none;
-        user-select: none;
-        width: 123px;
-        height: 90px;
-    }
+  #unknown-img {
+    color: #488aff;
+    text-align: center;
+    padding-left: 35px;
+    padding-right: 55px;
+    font-size: 500%;
+    -ms-user-select: none;
+    user-select: none;
+    width: 123px;
+    height: 90px;
+  }
+
+  #img {
+    height: 123px;
+    background-color: #ffffff;
+    width: 90px;
+  }
+  
+
 }

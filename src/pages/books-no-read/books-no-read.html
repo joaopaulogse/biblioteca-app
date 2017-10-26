@@ -9,7 +9,7 @@
         <ion-row>
           <ion-col col-4 *ngFor="let book of books_no_read">
               <ion-thumbnail item-start *ngIf="!!book.image;else imageDefault ">
-                <img src="{{book.image}}" style='height: 123px;background-color:#FFFFFF; width:90px;'>
+                <img src="{{book.image}}" id="img">
               </ion-thumbnail>
               <ng-template item-start #imageDefault>
                 <svg style="width:90px;height:123px" viewBox="0 0 24 24">
