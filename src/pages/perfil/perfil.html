@@ -11,15 +11,15 @@
             <div>
                 <ion-item>
                     <ion-label floating>Senha</ion-label>
-                    <ion-input type="text" [(ngModel)]="usuario.password" (ionFocus)="enableButton()" (focusout)="disableButton($event)"></ion-input>
+                    <ion-input type="password" [(ngModel)]="usuario.password" (ionFocus)="enableButton()" (focusout)="disableButton($event)"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating>Confirmar senha</ion-label>
-                    <ion-input type="text" [(ngModel)]="confirmaSenha"></ion-input>
+                    <ion-input type="password" [(ngModel)]="confirmaSenha"></ion-input>
                 </ion-item>
             </div>
             <div>
-                <button ion-button class="button-inner" type="submit" (click)="alterarDados(usuario)"
+                <button ion-button ion-start round id="botao" type="submit" (click)="alterarDados(usuario)"
                     [disabled]="button"  >Salvar</button>
             </div>    
             </ion-content>

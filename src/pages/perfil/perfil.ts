@@ -1,6 +1,7 @@
 import { Component} from '@angular/core'
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {UtilsProvider} from '../../providers/utils/utils'
 import { DatabaseProvider } from '../../providers/database/database';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +11,7 @@ import * as firebase from 'firebase'
 @Component({
     selector: 'perfil',
     templateUrl: 'perfil.html',
-    providers:[DatabaseProvider]
+    providers:[DatabaseProvider, UtilsProvider]
 })
 export class Perfil{
 
@@ -23,7 +24,8 @@ export class Perfil{
         public navParams: NavParams,
         public db:DatabaseProvider,
         public autFB:AngularFireAuth,
-        public toastCtrl:ToastController
+        public toastCtrl:ToastController,
+        public util:UtilsProvider
     ){
         this.user = autFB.authState;
     
@@ -38,23 +40,33 @@ INACREDITÁVEL foto nova.
                 user.updateProfile({
                     displayName: usuario.username,
                     photoURL: usuario.photoURL
+                }).then(()=>{
+                    user.updatePassword(usuario.password);
+                    this.toast("Dados alterados com sucesso!");
+                }).catch(err=>{
+                    this.toast("Erro ao salvar no servidor!")
                 });  
-                user.updatePassword(usuario.password);
-                this.toast("Dados alterados com sucesso!");
             }else{
                 if(!!usuario.username){
                     user.updateProfile({
                         displayName: usuario.username,
                         photoURL: usuario.photoURL
+                    }).then(()=>{
+                        user.reload()
+                        this.toast("Nome alterado com sucesso!");
+                    }).catch(err=>{
+                        this.toast("Erro ao salvar no servidor!")
                     });
-                    user.reload()
-                    this.toast("Nome alterado com sucesso!");
                 }else{
                     if(!!usuario.password ){
                         if(usuario.password == this.confirmaSenha){
-                            if(this.confirmaSenha.length > 6){
-                                user.updatePassword(usuario.password);
-                                this.toast("Senha alterada com sucesso!");
+                            if(this.confirmaSenha.length > 5){
+                                user.updatePassword(usuario.password).then(()=>{
+                                    this.toast("Senha alterada com sucesso!");
+                                }).catch(err=>{
+                                    console.log(err);
+                                    this.toast("Erro ao tentar salvar no servidor!");
+                                })
                             }else{
                                 this.toast("A senha deve ter mais de 6 dígitos!");
                             }
@@ -66,14 +78,17 @@ INACREDITÁVEL foto nova.
                             user.updateProfile({
                                 displayName: usuario.username,
                                 photoURL: usuario.photoURL
+                            }).then(()=>{
+                                this.toast("Nome alterado com sucesso!");
+                            }).catch(err=>{
+                                this.toast("Erro ao salvar no servidor!");
                             });
-                            this.toast("Nome alterado com sucesso!");
                         }
                     }
                 }
             }
         });
-        this.navCtrl.popToRoot()                                    
+        this.navCtrl.popToRoot()
     }
 
     toast(mensagem:string){
