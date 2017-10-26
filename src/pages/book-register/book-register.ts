@@ -25,7 +25,8 @@ export class BookRegisterPage {
   livro = {};
   foto:any;
   foto_existente:any;
-  edit:boolean = true;
+  edit:boolean = false;
+  input:boolean = true;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -36,7 +37,10 @@ export class BookRegisterPage {
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
-    this.edit = !this.navParams.get("edit");//negado por que ele vem true
+    this.edit = this.navParams.get("edit");//negado por que ele vem true
+    if(!this.edit){
+      this.input = false;
+    }
   }
 
 
@@ -82,7 +86,9 @@ export class BookRegisterPage {
     }
     
   }
-
+  disableInputs(){
+    this.input = false;
+  }
   public cancelRegister(event){
     event.preventDefault();
     this.alertCtrl.create({

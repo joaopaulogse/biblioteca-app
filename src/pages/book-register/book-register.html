@@ -8,8 +8,8 @@
 
   <ion-navbar>
     <ion-title>Registrar Livro</ion-title>
-    <ion-buttons end *ngIf="!edit">
-      <button ion-button icon-only round>
+    <ion-buttons end *ngIf="edit">
+      <button ion-button icon-only round (click)="disableInputs()">
         <ion-icon name="md-create"></ion-icon>
       </button>
     </ion-buttons>
@@ -33,15 +33,15 @@
         </ion-avatar>
       </div>
     </ng-template>
-    <input type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+    <input [disabled]="input" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
     <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
       <ion-label floating>Título</ion-label>
-      <ion-input type="text" name="title" [(ngModel)]="livro.title"></ion-input>
+      <ion-input [disabled]="input" type="text" name="title" [(ngModel)]="livro.title"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Autor</ion-label>
-      <ion-input type="text" name="author" [(ngModel)]="livro.authors"></ion-input>
+      <ion-input [disabled]="input" type="text" name="author" [(ngModel)]="livro.authors"></ion-input>
     </ion-item>
     <ion-grid>
       <ion-row>
@@ -49,7 +49,7 @@
           <ion-item id="alignCorrect">
             <ion-label floating>ISBN</ion-label>
             <!--Não ouse mexer neste ngModel-->
-            <ion-input type="number" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
+            <ion-input [disabled]="input" type="number" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
                 livro.industryIdentifiers[0].type === 'ISBN_13' ?
                 livro.industryIdentifiers[0].identifier:
                 livro.industryIdentifiers[0].type === 'ISBN_10'?
@@ -60,7 +60,7 @@
         <ion-col>
           <div id="lido">
             <ion-label id="labelLido">Lido</ion-label>
-            <ion-toggle name="read" [(ngModel)]="livro.read" checked="false" id="toggle"></ion-toggle>
+            <ion-toggle [disabled]="input" name="read" [(ngModel)]="livro.read" checked="false" id="toggle"></ion-toggle>
           </div>
         </ion-col>
       </ion-row>
@@ -69,40 +69,40 @@
 
     <ion-item>
       <ion-label floating>Categoria</ion-label>
-      <ion-input type="text" name="categories" [(ngModel)]="livro.categories"></ion-input>
+      <ion-input [disabled]="input" type="text" name="categories" [(ngModel)]="livro.categories"></ion-input>
     </ion-item>
     <ion-grid>
       <ion-row>
         <ion-col>
           <ion-item id="alignCorrect">
             <ion-label floating>Nº de páginas</ion-label>
-            <ion-input type="number" name="pageCount" [(ngModel)]="livro.pageCount"></ion-input>
+            <ion-input [disabled]="input" type="number" name="pageCount" [(ngModel)]="livro.pageCount"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item>
             <ion-label floating>Data de publicação</ion-label>
-            <ion-input type="text" name="publishedDate" [(ngModel)]="livro.publishedDate"></ion-input>
+            <ion-input [disabled]="input" type="text" name="publishedDate" [(ngModel)]="livro.publishedDate"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-item>
       <ion-label floating>Editora</ion-label>
-      <ion-input type="text" name="publisher" [(ngModel)]="livro.publisher"></ion-input>
+      <ion-input [disabled]="input" type="text" name="publisher" [(ngModel)]="livro.publisher"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Descrição</ion-label>
-      <ion-textarea type="text" name="description" [(ngModel)]="livro.description" rows="5"></ion-textarea>
+      <ion-textarea [disabled]="input" type="text" name="description" [(ngModel)]="livro.description" rows="5"></ion-textarea>
     </ion-item>
 
     <div align="right">
-      <button ion-button round icon-start type="submit">
+      <button [disabled]="input" ion-button round icon-start type="submit">
         <ion-icon name="ios-send"></ion-icon>
         Save
       </button>
-      <button ion-button round icon-start (click)="cancelRegister($event)">
+      <button [disabled]="input" ion-button round icon-start (click)="cancelRegister($event)">
         <ion-icon name="ios-close"></ion-icon>
         Cancel
       </button>
