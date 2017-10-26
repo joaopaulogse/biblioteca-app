@@ -63,27 +63,6 @@
             <span style="color: red; padding-left: 16px" 
               *ngIf="meuForm.controls.password.errors.minlength" >*Mínimo de 6 caracteres.</span>                    
           </div> 
-           <!--
-              <ion-item>
-                <input ion-input class="input-text" formControlName="username" 
-                  [(ngModel)]="usuario.username" name="username" placeholder="Nome do Usuário">
-                <span *ngIf="meuForm.controls.username.invalid" class="alert"><br>*Nome é obrigatório.</span>               
-              </ion-item> 
-             <ion-item>
-              <input ion-input class="input-text" formControlName="email" type="email" 
-                [(ngModel)]="usuario.email" name="email" placeholder="Email">
-                <span *ngIf="meuForm.controls.email.invalid" class="alert"><br>*E-mail é obrigatório.</span>
-            </ion-item>
-            <ion-item>
-              <input ion-input class="input-text" formControlName="password" type="password" 
-                [(ngModel)]="usuario.password" name="password" placeholder="Senha">
-              <div *ngIf="meuForm.controls.password.invalid">
-                  <span *ngIf="meuForm.controls.password.errors.required" 
-                    class="alert">*A senha é obrigatória.</span>
-                  <span *ngIf="meuForm.controls.password.errors.minlength" 
-                    class="alert">Mínimo de 6 caracteres.</span>                    
-              </div>              
-            </ion-item>-->
           <ion-row>
             <ion-col class="signup-col">
               <button ion-button class="submit-btn" full type="submit" [disabled]="meuForm.invalid" >Enviar</button>
