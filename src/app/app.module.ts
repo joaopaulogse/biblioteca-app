@@ -29,6 +29,7 @@ import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
 import { WishListPage } from '../pages/wish-list/wish-list';
 import { CallBooksProvider } from '../providers/call-books/call-books';
 import { Perfil } from '../pages/perfil/perfil';
+import { UtilsProvider } from '../providers/utils/utils';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { Perfil } from '../pages/perfil/perfil';
     DatabaseProvider,
     AngularFireDatabaseProvider,
     Camera,
-    CallBooksProvider
+    CallBooksProvider,
+    UtilsProvider
   ]
 })
 export class AppModule {}

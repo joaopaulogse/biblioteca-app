@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { DatabaseProvider } from '../../providers/database/database';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UtilsProvider } from '../../providers/utils/utils';
 /**
  * Generated class for the BookRegisterPage page.
  *
@@ -16,7 +17,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'page-book-register',
   templateUrl: 'book-register.html',
-  providers:[DatabaseProvider]
+  providers:[DatabaseProvider, UtilsProvider]
 })
 export class BookRegisterPage {
   imageBase64: string;
@@ -33,7 +34,8 @@ export class BookRegisterPage {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public authFB:AngularFireAuth,
-    public db:DatabaseProvider
+    public db:DatabaseProvider,
+    public utils:UtilsProvider
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
@@ -55,7 +57,7 @@ export class BookRegisterPage {
     console.log(event)
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks, isbn } = livro;
     if(!!this.foto){
-      this.toBase64(this.foto).then(foto=>{
+      this.utils.toBase64(this.foto).then(foto=>{
         this.imageBase64 = foto.toString()
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
     }
@@ -71,7 +73,7 @@ export class BookRegisterPage {
         read: !!read ? read: false,
         isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
         isbn_13:!!industryIdentifiers || !!isbn?industryIdentifiers[0].identifier || isbn:"",
-        image:!!imageLinks?imageLinks.thumbnail || imageLinks.smallThumbnail || this.imageBase64:""
+        image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:""
       };
       console.log(book);
       console.log("Livro",this.livro)
@@ -113,22 +115,5 @@ export class BookRegisterPage {
       (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
 
     }
-  }
-  toBase64(file:File){
-    let reader = new FileReader();
-    console.log(file)
-    return new Promise((resolve, reject)=>{
-      if(file.size > 2000000){
-        reject({error:"Imagem superior a 2MB, tente uma menor"})
-      }
-      reader.readAsDataURL(file);
-      reader.onload = function (e) {
-        resolve(reader.result);
-      };
-      reader.onerror = function (error) {
-        console.log('Error: ', error);
-        reject(error);
-      };
-    })    
   }
 }

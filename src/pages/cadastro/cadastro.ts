@@ -7,6 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import {ValidadorDeEmail} from './ValidadorDeEmail';
 import { MyApp } from '../../app/app.component';
 import * as firebase from 'firebase'
+import { UtilsProvider } from '../../providers/utils/utils';
 /**
  * Generated class for the CadastroPage page.
  *
@@ -18,7 +19,7 @@ import * as firebase from 'firebase'
 @Component({
   selector: 'page-cadastro',
   templateUrl: 'cadastro.html',
-  providers:[AngularFireAuth]
+  providers:[AngularFireAuth, UtilsProvider]
 })
 export class CadastroPage {
   usuario = {}
@@ -32,7 +33,8 @@ export class CadastroPage {
     public authFB:AngularFireAuth,
     public ldCtrl: LoadingController,
     public fb: FormBuilder,
-    public toast:ToastController
+    public toast:ToastController,
+    public utils:UtilsProvider
   ) { 
     this.meuForm = fb.group({
       username:  ['', Validators.required],
@@ -66,7 +68,7 @@ export class CadastroPage {
     if(!!user.username.trim() && !!user.password.trim()){
       if(!!this.foto){
 
-        this.toBase64(this.foto).then(foto=>{
+        this.utils.toBase64(this.foto).then(foto=>{
           user.photoURL = foto.toString()
         }).catch(err=>{
           console.log(err)
@@ -99,23 +101,6 @@ export class CadastroPage {
       this.messagemToast('Campos inválidos, preencha-os corretamente!');
       this.loading.dismiss();
     }
-  }
-  toBase64(file:File){
-    let reader = new FileReader();
-    console.log(file)
-    return new Promise((resolve, reject)=>{
-      if(file.size > 2000000){
-        reject({error:"Imagem superior a 2MB, tente uma menor"})
-      }
-      reader.readAsDataURL(file);
-      reader.onload = function (e) {
-        resolve(reader.result);
-      };
-      reader.onerror = function (error) {
-        console.log('Error: ', error);
-        reject(error);
-      };
-    })    
   }
   messagemToast(message:string){
     this.toast.create({
