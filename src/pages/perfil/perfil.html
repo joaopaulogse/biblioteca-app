@@ -4,6 +4,17 @@
         </ion-navbar>
     </ion-header>
     <ion-content>
+            <div align="center">
+                    <ion-avatar item-start>
+                    <img 
+                        [src]="photoURL || 'assets/images/account-circle.svg'" 
+                        id="imageCadastro" 
+                        style='height: 50%;background-color:#FFFFFF; width: 50%;'
+                        onclick="document.getElementById('selectFoto').click()">
+                    </ion-avatar>
+                  </div>
+                  <input type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+                      
             <ion-item>
                     <ion-label floating>Nome</ion-label>           
                     <ion-input type="text"id="nome" [(ngModel)]="usuario.username" (ionFocus)="enableButton($event)" (focusout)="disableButton($event)"></ion-input>
@@ -18,8 +29,6 @@
                     <ion-input type="password" [(ngModel)]="confirmaSenha"></ion-input>
                 </ion-item>
             </div>
-            <div>
                 <button ion-button ion-start round id="botao" type="submit" (click)="alterarDados(usuario)"
-                    [disabled]="button"  >Salvar</button>
-            </div>    
+                    [disabled]="button"  >Salvar</button>                    
             </ion-content>

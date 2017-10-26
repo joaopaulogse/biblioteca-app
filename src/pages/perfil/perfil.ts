@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angul
 import { AngularFireAuth } from 'angularfire2/auth';
 import {UtilsProvider} from '../../providers/utils/utils'
 import { DatabaseProvider } from '../../providers/database/database';
-import { UsuarioModel } from '../../models/UsuarioModel';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase'
 
@@ -17,6 +16,8 @@ export class Perfil{
 
     user: Observable<firebase.User>;
     usuario = {};
+    foto:any;    
+    photoURL:any;
     button:boolean = true
     confirmaSenha:string;
     constructor(
@@ -28,13 +29,26 @@ export class Perfil{
         public util:UtilsProvider
     ){
         this.user = autFB.authState;
-    
+        this.user.subscribe(user=>{
+            this.photoURL = user.photoURL
+        })
     }
+
+    enviaImage(event){
+        if(event.target.files[0]){
+          this.foto = event.target.files[0];
+          (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
+        }
+      }
 /* Heitor mandou eu comentar o método. Então, gostaria de dizer que esse cara faz algo simplesmente absurdo.
 É simplesmente incrível como este cara altera os os valores de nome, senha e também permite a inserção de uma
 INACREDITÁVEL foto nova.
 */
-    alterarDados(usuario){
+    async alterarDados(usuario){
+        await this.util.toBase64(this.foto).then(data=>{
+            usuario.photoURL = data.toString()
+            console.log(data.toString())
+        }).catch(err=>this.toast('erro ao alterar a foto!'))
         this.user.subscribe(user=>{
             if(!!usuario.password && !!usuario.username && !!usuario.photoURL){
                 user.updateProfile({
