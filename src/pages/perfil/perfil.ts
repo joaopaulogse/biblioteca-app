@@ -17,6 +17,7 @@ export class Perfil{
     user: Observable<firebase.User>;
     usuario = {};
     button:boolean = true
+    confirmaSenha:string;
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -39,7 +40,7 @@ INACREDITÁVEL foto nova.
                     photoURL: usuario.photoURL
                 });  
                 user.updatePassword(usuario.password);
-                this.toast("Dados alterados com sucesso!");      
+                this.toast("Dados alterados com sucesso!");
             }else{
                 if(!!usuario.username){
                     user.updateProfile({
@@ -49,9 +50,17 @@ INACREDITÁVEL foto nova.
                     user.reload()
                     this.toast("Nome alterado com sucesso!");
                 }else{
-                    if(!!usuario.password){
-                        user.updatePassword(usuario.password);
-                        this.toast("Senha alterada com sucesso!");                        
+                    if(!!usuario.password ){
+                        if(usuario.password == this.confirmaSenha){
+                            if(this.confirmaSenha.length > 6){
+                                user.updatePassword(usuario.password);
+                                this.toast("Senha alterada com sucesso!");
+                            }else{
+                                this.toast("A senha deve ter mais de 6 dígitos!");
+                            }
+                        }else{
+                            this.toast("Sua senha é diferente da confirmação de senha!");
+                        }                    
                     }else{
                         if(!!usuario.photoURL){
                             user.updateProfile({
@@ -64,7 +73,7 @@ INACREDITÁVEL foto nova.
                 }
             }
         });
-        this.navCtrl.popToRoot()
+        this.navCtrl.popToRoot()                                    
     }
 
     toast(mensagem:string){
