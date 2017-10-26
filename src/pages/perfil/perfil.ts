@@ -38,6 +38,7 @@ export class Perfil{
         if(event.target.files[0]){
           this.foto = event.target.files[0];
           (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
+            this.button = false;
         }
       }
 /* Heitor mandou eu comentar o método. Então, gostaria de dizer que esse cara faz algo simplesmente absurdo.
@@ -47,7 +48,6 @@ INACREDITÁVEL foto nova.
     async alterarDados(usuario){
         await this.util.toBase64(this.foto).then(data=>{
             usuario.photoURL = data.toString()
-            console.log(data.toString())
         }).catch(err=>this.toast('erro ao alterar a foto!'))
         this.user.subscribe(user=>{
             if(!!usuario.password && !!usuario.username && !!usuario.photoURL){
