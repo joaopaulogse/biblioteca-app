@@ -25,6 +25,7 @@ export class BookRegisterPage {
   livro = {};
   foto:any;
   foto_existente:any;
+  edit:boolean = true;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -34,11 +35,8 @@ export class BookRegisterPage {
     public db:DatabaseProvider
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
-    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{}; //livro que o usuário escolhe na bookSearch
-    /*this.livro.industryIdentifiers.lenght > 1 ? 
-    this.livro.industryIdentifiers[0].identifier > this.livro.industryIdentifiers[1].identifier ?
-    this.livro.industryIdentifiers[0].identifier:this.livro.industryIdentifiers[1].identifier:livro.isbn_13
-    livro.industryIdentifiers.lenght>1?livro.industryIdentifiers[0].identifier:livro.isbn_13*/
+    this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
+    this.edit = !this.navParams.get("edit");//negado por que ele vem true
   }
 
 

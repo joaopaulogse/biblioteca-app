@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>Registrar Livro</ion-title>
+    <ion-buttons end *ngIf="!edit">
+      <button ion-button icon-only round>
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -23,7 +28,7 @@
     <ng-template #imageEmpty>
       <div align="center">
         <ion-avatar item-start>
-          <img src="assets/images/book-open-page-variant.svg" id="imageCadastro" style='height: 50%;background-color:#FFFFFF; width: 50%;'
+          <img [src]="livro.image || 'assets/images/book-open-page-variant.svg'" id="imageCadastro" style='height: 50%;background-color:#FFFFFF; width: 50%;'
             onclick="document.getElementById('selectFoto').click()">
         </ion-avatar>
       </div>

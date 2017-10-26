@@ -1,7 +1,7 @@
 <ion-content class="grid">
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let book of books_read">
+      <ion-col col-4 *ngFor="let book of books_read" (click)="viewBook(book)">
           <ion-thumbnail item-start *ngIf="!!book.image;else imageDefault ">
             <img src="{{book.image}}" style='height: 140px;background-color:#FFFFFF; width:100px;'>
           </ion-thumbnail>
