@@ -22,11 +22,11 @@ export class AuthProvider {
     this.user = firebaseAuth.authState;
   }
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string): Promise<firebase.User> {
      return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Promise<firebase.User> {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
