@@ -93,7 +93,7 @@ INACREDITÁVEL foto nova.
                                 displayName: usuario.username,
                                 photoURL: usuario.photoURL
                             }).then(()=>{
-                                this.toast("Nome alterado com sucesso!");
+                                this.toast("Foto alterada com sucesso!");
                             }).catch(err=>{
                                 this.toast("Erro ao salvar no servidor!");
                             });
