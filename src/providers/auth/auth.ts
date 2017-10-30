@@ -22,11 +22,11 @@ export class AuthProvider {
     this.user = firebaseAuth.authState;
   }
 
-  signup(email: string, password: string): Promise<firebase.User> {
+  signup(email: string, password: string) {
      return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: string, password: string): Promise<firebase.User> {
+  login(email: string, password: string) {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -34,13 +34,13 @@ export class AuthProvider {
     return this.user;
   }
 
-  logginGoogle() {
+  logginGoogle(): Promise<void> {
     return this.firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
   }
 
-  logginFacebook(){
+  logginFacebook(): Promise<void>{
     return this.firebaseAuth.auth.signInWithPopup(
       new firebase.auth.FacebookAuthProvider()
     );

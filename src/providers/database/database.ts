@@ -19,7 +19,7 @@ export class DatabaseProvider {
   ) {
     console.log('Hello DatabaseProvider Provider');
   }
-  regiterUserInDatabase(user:firebase.User){
+  regiterUserInDatabase(user:firebase.User):Promise<void>{
     //nao pode enviar a foto
     return this.database.object(`users/${user.uid}`).update({
       username:user.displayName,
