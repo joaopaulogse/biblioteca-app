@@ -5,7 +5,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DataForSearchPage } from '../data-for-search/data-for-search';
 import { BookRegisterPage } from '../book-register/book-register';
-
+import { WishListPage } from '../wish-list/wish-list'
+import { DatabaseProvider } from '../../providers/database/database';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the BookSearchPage page.
  *
@@ -19,11 +23,13 @@ import { BookRegisterPage } from '../book-register/book-register';
   templateUrl: 'book-search.html',
   providers: [
     AngularFireAuth,
-    BooksProvider
+    BooksProvider,
+    DatabaseProvider
   ]
 })
 export class BookSearchPage {
 
+  user: Observable<firebase.User>;
   public list_books = new Array<any>();
   loading:Loading
   constructor(
@@ -34,8 +40,10 @@ export class BookSearchPage {
     public booksProvider: BooksProvider,
     public ldCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public db:DatabaseProvider,
   ) {
+    this.user = authFB.authState;
   }
 
   ionViewDidLoad() {
@@ -82,7 +90,30 @@ export class BookSearchPage {
       this.modalCtrl.create(BookRegisterPage,{"livro":this.livro}).present();
     }
     public addToWishList(book:any):any{
-      //redirecionar à lista de desejos 
+      const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks, isbn } = book.volumeInfo;
+        const livro = {
+          title: !!title ? title:"", 
+          authors: !!authors ? authors:[], 
+          description: !!description ? description:"", 
+          categories: !!categories ? categories: "", 
+          pageCount: !!pageCount ? pageCount: 0, 
+          publisher: !!publisher ? publisher: "", 
+          publishedDate: !!publishedDate ? publishedDate: "", 
+          read: !!read ? read: false,
+          isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
+          isbn_13:!!industryIdentifiers || !!isbn?industryIdentifiers[0].identifier || isbn:"",
+          image:!!imageLinks? imageLinks.thumbnail || imageLinks.smallThumbnail:""
+        };
+        this.user.subscribe(user=>{
+          this.db.inserirLivroListaDesejo(user.uid, livro).then(()=>{
+            this.navCtrl.setRoot(HomePage).then(page=>{
+              console.log(page)
+            })
+            .catch(err=>{
+              console.log(err)
+            })
+          })
+        })
     }
     public buscaAuthor(author:string){
       this.navCtrl.push(BookSearchPage, {"author":author});
