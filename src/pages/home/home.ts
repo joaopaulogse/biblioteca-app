@@ -17,7 +17,6 @@ import { WishListPage } from '../wish-list/wish-list';
 import { LoginPage } from '../login/login';
 import { Perfil } from '../perfil/perfil'
 import * as Papa from 'papaparse'
-import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -41,8 +40,7 @@ export class HomePage {
     public dbProvider:DatabaseProvider,
     public barcodeScanner: BarcodeScanner,
     public alertCtrl: AlertController,
-    public modalCtrl: ModalController,
-    public file: File
+    public modalCtrl: ModalController
   ) {
     this.menu.enable(false);
     this.user = authFB.authState
@@ -91,8 +89,7 @@ export class HomePage {
         let csv = Papa.unparse(books);
 
         var blob = new Blob([csv]);
-        this.file.writeFile(this.file.applicationStorageDirectory, "library.csv", blob);
-        /*if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+        if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
             window.navigator.msSaveBlob(blob, "library.csv");
         else
         {
@@ -102,7 +99,7 @@ export class HomePage {
             document.body.appendChild(a);
             a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
             document.body.removeChild(a);
-        }*/
+        }
       })
     });
     
