@@ -119,7 +119,12 @@ export class BookRegisterPage {
 
     }
   }
-  alterar(book, key){
+  async alterar(book, key){
+    if(!!this.foto){
+      await this.utils.toBase64(this.foto).then(foto=>{
+        book.image = foto.toString()
+      }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
+    }
     this.user.subscribe(user=>{
       this.db.alterarLivro(user.uid, key, book)
       .then(()=>{
