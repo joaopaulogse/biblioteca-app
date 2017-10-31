@@ -33,5 +33,8 @@ export class DatabaseProvider {
   getBooksInTheUser(idUser){
     return this.database.list(`users/${idUser}/livros`);
   }
+  alterarLivro(idUser, key, book){
+    return this.database.object(`users/${idUser}/livros/${key}`).update({...book})
+  }
 
 }

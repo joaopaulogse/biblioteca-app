@@ -30,19 +30,19 @@ export class CallBooksProvider {
   ) {
     this.user = authFB.authState;
     this.user.subscribe(user=>{
-      this.db.getBooksInTheUser(user.uid).valueChanges().subscribe((books:Book[])=>{
+      this.db.getBooksInTheUser(user.uid).auditTrail().subscribe((books)=>{
         this.limitCharOfTitle(books);
-        this.books_read = books.filter(book => book.read == true);
-        this.books_no_read = books.filter(book => book.read == false);
+        this.books_read = books.filter(book => book.payload.val().read == true);
+        this.books_no_read = books.filter(book => book.payload.val().read == false);
       }, err=>{
         console.log(err);
       })
     })
   }
 
-  public limitCharOfTitle(books: Book[]){
-      return books.map(book => book.title =  book.title.length > 20 ? 
-      book.title.substr(0,21)+"...":
-      book.title);
+  public limitCharOfTitle(books){
+      return books.map(book => book.payload.val().title =  book.payload.val().title.length > 20 ? 
+      book.payload.val().title.substr(0,21)+"...":
+      book.payload.val().title);
   }
 }

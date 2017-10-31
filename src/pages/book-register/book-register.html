@@ -7,7 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Registrar Livro</ion-title>
+    <ion-title *ngIf="!edit;else tituloAlterar">Registrar Livro</ion-title>
+    <ng-template #tituloAlterar> 
+        <img src="../assets/images/close.svg" left padding (click)="close()">
+      <ion-title>
+        Livro
+      </ion-title> 
+    </ng-template>
     <ion-buttons end *ngIf="edit">
       <button ion-button icon-only round (click)="disableInputs()">
         <ion-icon name="md-create"></ion-icon>
@@ -19,7 +25,8 @@
 
 
 <ion-content padding>
-  <form (submit)="registerBook(livro, $event)">
+  <form>
+    <input type="text" hidden name="key" [(ngModel)]="key">
     <div *ngIf="livro.imageLinks !== underfined;else imageEmpty" align="center">
       <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks"></ion-input>
       <img id="imageCadastro" [src]="livro.imageLinks.smallThumbnail || livro.imageLinks.thumbnail" style='height: 50%;background-color:#FFFFFF; width: 50%;'
@@ -98,11 +105,17 @@
     </ion-item>
 
     <div align="right">
-      <button [disabled]="input" ion-button round icon-start type="submit">
+      <button [disabled]="input" ion-button round icon-start *ngIf="!edit;else botaoAlterar" (click)="registerBook(livro, $event)">
         <ion-icon name="ios-send"></ion-icon>
-        Save
+        Enviar
       </button>
-      <button ion-button round icon-start (click)="cancelRegister($event)">
+      <ng-template #botaoAlterar>
+          <button [disabled]="input" ion-button round icon-start  (click)="alterar(livro, key)">
+              <ion-icon name="ios-send"></ion-icon>
+              Salvar
+            </button>
+      </ng-template>
+      <button ion-button round icon-start *ngIf="!edit" (click)="cancelRegister($event)">
         <ion-icon name="ios-close"></ion-icon>
         Cancel
       </button>

@@ -39,7 +39,7 @@ export class BooksNoReadPage extends CallBooksProvider {
     console.log('ionViewDidLoad BooksNoReadPage');
   }
 
-  viewBook(book){
-    this.modal.create(BookRegisterPage,{"livro":{volumeInfo:book},"edit":true}).present();
+  viewBook(book_no_read){
+    this.modal.create(BookRegisterPage,{"livro":{volumeInfo:book_no_read.payload.val()}, "edit":true,"book":book_no_read}).present();
   }
 }

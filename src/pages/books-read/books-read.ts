@@ -39,6 +39,6 @@ export class BooksReadPage extends CallBooksProvider {
   }
 
   viewBook(book_read){
-    this.modal.create(BookRegisterPage,{"livro":{volumeInfo:book_read}, "edit":true}).present();
+    this.modal.create(BookRegisterPage,{"livro":{volumeInfo:book_read.payload.val()}, "edit":true,"book":book_read}).present();
   }
 }

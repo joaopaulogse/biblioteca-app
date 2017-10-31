@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -28,6 +28,7 @@ export class BookRegisterPage {
   foto_existente:any;
   edit:boolean = false;
   input:boolean = true;
+  key:any
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,10 +36,12 @@ export class BookRegisterPage {
     public alertCtrl: AlertController,
     public authFB:AngularFireAuth,
     public db:DatabaseProvider,
-    public utils:UtilsProvider
+    public utils:UtilsProvider,
+    public toast:ToastController
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
+    this.key = !!this.navParams.get("book")?this.navParams.get("book").key:"";
     this.edit = this.navParams.get("edit");//negado por que ele vem true
     if(!this.edit){
       this.input = false;
@@ -91,7 +94,7 @@ export class BookRegisterPage {
   disableInputs(){
     this.input = false;
   }
-  public cancelRegister(event){
+  public cancelRegister(){
     event.preventDefault();
     this.alertCtrl.create({
       title: "Do you want to cancel?",
@@ -114,6 +117,34 @@ export class BookRegisterPage {
       this.foto = event.target.files[0];
       (<HTMLImageElement>document.querySelector('#imageCadastro')).src = URL.createObjectURL(event.target.files[0]);
 
+    }
+  }
+  alterar(book, key){
+    this.user.subscribe(user=>{
+      this.db.alterarLivro(user.uid, key, book)
+      .then(()=>{
+       this.messagemToast('Livro alterado!')
+       this.navCtrl.setRoot(HomePage)
+      })
+      .catch(err=>{
+        this.messagemToast('Livro não alterado!')
+        console.log(err);
+      })
+    })
+  }
+  messagemToast(message:string){
+    this.toast.create({
+      message:message,
+      duration:3000,
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    }).present();
+  }
+  close(){
+    if(!this.input){
+      this.cancelRegister();
+    }else{
+      this.viewCtrl.dismiss()
     }
   }
 }
