@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the WishListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {HomePage} from '../home/home'
+import {DataForSearchPage} from '../data-for-search/data-for-search'
 
 @IonicPage()
 @Component({
@@ -14,12 +9,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'wish-list.html',
 })
 export class WishListPage {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+  ) {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public goToBookSearch(){
+    this.navCtrl.push(DataForSearchPage);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WishListPage');
-  }
-
 }
