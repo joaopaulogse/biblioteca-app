@@ -36,5 +36,8 @@ export class DatabaseProvider {
   alterarLivro(idUser, key, book){
     return this.database.object(`users/${idUser}/livros/${key}`).update({...book})
   }
+  excluirLivro(idUser, key){
+    return this.database.object(`users/${idUser}/livros/${key}`).remove()
+  }
 
 }

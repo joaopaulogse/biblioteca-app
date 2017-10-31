@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, ToastController, ActionSheetController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -37,7 +37,8 @@ export class BookRegisterPage {
     public authFB:AngularFireAuth,
     public db:DatabaseProvider,
     public utils:UtilsProvider,
-    public toast:ToastController
+    public toast:ToastController,
+    public actionSheetCtrl: ActionSheetController
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
@@ -145,5 +146,62 @@ export class BookRegisterPage {
     }else{
       this.viewCtrl.dismiss()
     }
+  }
+  excluirLivro(){
+    this.user.subscribe(user=>{
+      if(!!this.key){
+        this.db.excluirLivro(user.uid, this.key)
+          .then(()=>{
+            this.messagemToast("Livro Excluido com Sucesso!");
+            this.navCtrl.setRoot(HomePage);
+          })
+          .catch(err=>{
+            this.messagemToast("Opa, Livro não excluido!");
+            console.log(err)
+          })
+      }else{
+        this.messagemToast('Não sei que livro é esse!');
+      }
+    })
+  }
+  options(){
+    this.actionSheetCtrl.create({
+      title:"Opções",
+      buttons:[
+        {
+          text:"Editar",
+          handler:()=>{
+            this.disableInputs()
+          }
+        },
+        {
+          text:"Excluir Livro",
+          handler:()=>{
+            this.alertCtrl.create({
+              title: "Deseja realmente excluir esse livro?",
+              buttons: [
+                {
+                  text: "Não",
+                  role:'cancel'
+                },
+                {
+                  text: "Sim",
+                  handler: () => {
+                    this.excluirLivro()
+                  }
+                }
+              ]
+            }).present();
+          }
+        },
+        {
+         text: 'Cancelar',
+         role: 'cancel',
+         handler: () => {
+           console.log('Cancel clicked');
+         }
+       }
+      ]
+    }).present()
   }
 }
