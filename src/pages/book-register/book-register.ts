@@ -95,7 +95,6 @@ export class BookRegisterPage {
     this.input = false;
   }
   public cancelRegister(){
-    event.preventDefault();
     this.alertCtrl.create({
       title: "Do you want to cancel?",
       message: "If you cancel, your changes will be lost.",
