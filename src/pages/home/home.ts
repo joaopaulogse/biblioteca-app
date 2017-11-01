@@ -61,7 +61,7 @@ export class HomePage {
     this.menu.close();
   }
   public redirectToWishList(){
-    this.navCtrl.push(WishListPage);
+    this.rootPage = WishListPage;
   }
   public exportLibrary(){
     this.alertCtrl.create({
