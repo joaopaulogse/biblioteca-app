@@ -31,6 +31,7 @@ export class BookRegisterPage {
   input:boolean = true;
   key:any
   desejo:boolean = false;
+  inferior:boolean = false;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -173,23 +174,43 @@ export class BookRegisterPage {
     })
   }
   excluirLivroDesejo(){
-    this.user.subscribe(user=>{
-      if(!!this.key){
-        this.db.excluirLivroListaDesejo(user.uid, this.key)
-          .then(()=>{
-            this.messagemToast("Livro Excluido com Sucesso!");
-            this.navCtrl.push(WishListPage);
-          })
-          .catch(err=>{
-            this.messagemToast("Opa, Livro não excluido!");
-            console.log(err)
-          })
-      }else{
-        this.messagemToast('Não sei que livro é esse!');
+    if(this.inferior==false){
+      this.user.subscribe(user=>{
+        if(!!this.key){
+          this.db.excluirLivroListaDesejo(user.uid, this.key)
+            .then(()=>{
+              this.messagemToast("Livro Excluido com Sucesso!");
+              this.navCtrl.push(WishListPage);
+            })
+            .catch(err=>{
+              this.messagemToast("Opa, Livro não excluido!");
+              console.log(err)
+            })
+        }else{
+          this.messagemToast('Não sei que livro é esse!');
+        }
+      })
+    }else{
+      if(this.inferior==true){
+        this.user.subscribe(user=>{
+          if(!!this.key){
+            this.db.excluirLivroListaDesejo(user.uid, this.key)
+              .then(()=>{
+                this.messagemToast("Livro movido com sucesso!");
+                this.navCtrl.push(HomePage);
+              })
+              .catch(err=>{
+                this.messagemToast("Opa, Livro não movido!");
+                console.log(err)
+              })
+          }else{
+            this.messagemToast('Não sei que livro é esse!');
+          }
+        })
       }
-    })
+    }
   }
-
+  
   options(){
     if(!this.desejo){
     this.actionSheetCtrl.create({
@@ -234,6 +255,14 @@ export class BookRegisterPage {
       this.actionSheetCtrl.create({
         title:"Opções",
         buttons:[
+          {
+            text:"Adicionar a biblioteca",
+            handler:()=>{
+              this.inferior=true;
+              this.registerBook(this.livro, event);
+              this.excluirLivroDesejo();
+            }
+          },
           {
             text:"Excluir Livro",
             handler:()=>{
