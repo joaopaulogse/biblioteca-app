@@ -174,13 +174,17 @@ export class BookRegisterPage {
     })
   }
   excluirLivroDesejo(){
-    if(this.inferior==false){
       this.user.subscribe(user=>{
         if(!!this.key){
           this.db.excluirLivroListaDesejo(user.uid, this.key)
             .then(()=>{
-              this.messagemToast("Livro Excluido com Sucesso!");
-              this.navCtrl.push(WishListPage);
+              if(this.inferior==false){
+                this.messagemToast("Livro Excluido com Sucesso!");
+                this.navCtrl.push(WishListPage);
+              } else{
+                this.messagemToast("Livro movido com Sucesso!");
+                //this.navCtrl.push(WishListPage);
+              }             
             })
             .catch(err=>{
               this.messagemToast("Opa, Livro não excluido!");
@@ -190,25 +194,6 @@ export class BookRegisterPage {
           this.messagemToast('Não sei que livro é esse!');
         }
       })
-    }else{
-      if(this.inferior==true){
-        this.user.subscribe(user=>{
-          if(!!this.key){
-            this.db.excluirLivroListaDesejo(user.uid, this.key)
-              .then(()=>{
-                this.messagemToast("Livro movido com sucesso!");
-                this.navCtrl.push(HomePage);
-              })
-              .catch(err=>{
-                this.messagemToast("Opa, Livro não movido!");
-                console.log(err)
-              })
-          }else{
-            this.messagemToast('Não sei que livro é esse!');
-          }
-        })
-      }
-    }
   }
   
   options(){
