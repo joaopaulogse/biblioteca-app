@@ -72,7 +72,8 @@ export class LoginPage {
     this.toast.create({
       message:message,
       showCloseButton: true,
-      closeButtonText: 'Ok'
+      closeButtonText: 'Ok',
+      duration:5000
     }).present();
   }
   loginGoogle(){

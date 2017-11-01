@@ -7,7 +7,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../database/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase'
-import { Book } from "../../models/Book";
 
 /*
   Generated class for the CallBooksProvider provider.
