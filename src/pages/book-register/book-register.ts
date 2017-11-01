@@ -6,6 +6,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UtilsProvider } from '../../providers/utils/utils';
+import { WishListPage } from '../wish-list/wish-list';
 /**
  * Generated class for the BookRegisterPage page.
  *
@@ -29,6 +30,7 @@ export class BookRegisterPage {
   edit:boolean = false;
   input:boolean = true;
   key:any
+  desejo:boolean = false;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -44,6 +46,7 @@ export class BookRegisterPage {
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
     this.key = !!this.navParams.get("book")?this.navParams.get("book").key:"";
     this.edit = this.navParams.get("edit");//negado por que ele vem true
+    this.desejo = this.navParams.data.desejo;
     if(!this.edit){
       this.input = false;
     }
@@ -169,7 +172,26 @@ export class BookRegisterPage {
       }
     })
   }
+  excluirLivroDesejo(){
+    this.user.subscribe(user=>{
+      if(!!this.key){
+        this.db.excluirLivroListaDesejo(user.uid, this.key)
+          .then(()=>{
+            this.messagemToast("Livro Excluido com Sucesso!");
+            this.navCtrl.push(WishListPage);
+          })
+          .catch(err=>{
+            this.messagemToast("Opa, Livro não excluido!");
+            console.log(err)
+          })
+      }else{
+        this.messagemToast('Não sei que livro é esse!');
+      }
+    })
+  }
+
   options(){
+    if(!this.desejo){
     this.actionSheetCtrl.create({
       title:"Opções",
       buttons:[
@@ -208,5 +230,39 @@ export class BookRegisterPage {
        }
       ]
     }).present()
+    }else{
+      this.actionSheetCtrl.create({
+        title:"Opções",
+        buttons:[
+          {
+            text:"Excluir Livro",
+            handler:()=>{
+              this.alertCtrl.create({
+                title: "Deseja realmente excluir esse livro?",
+                buttons: [
+                  {
+                    text: "Não",
+                    role:'cancel'
+                  },
+                  {
+                    text: "Sim",
+                    handler: () => {
+                      this.excluirLivroDesejo();
+                    }
+                  }
+                ]
+              }).present();
+            }
+          },
+          {
+           text: 'Cancelar',
+           role: 'cancel',
+           handler: () => {
+             console.log('Cancel clicked');
+           }
+         }
+        ]
+      }).present()
+    }
   }
 }

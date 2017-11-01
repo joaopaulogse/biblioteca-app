@@ -39,12 +39,14 @@ export class DatabaseProvider {
   excluirLivro(idUser, key){
     return this.database.object(`users/${idUser}/livros/${key}`).remove()
   }
-  
   inserirLivroListaDesejo(idUser, book){
     return this.database.list(`users/${idUser}/lista_de_desejos`).push(book);
   }
   getLivroListaDeDesejo(idUser){
     return this.database.list(`users/${idUser}/lista_de_desejos`);
+  }
+  excluirLivroListaDesejo(idUser, key){
+    return this.database.object(`users/${idUser}/lista_de_desejos/${key}`).remove();
   }
 
 }

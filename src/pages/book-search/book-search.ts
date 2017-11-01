@@ -106,8 +106,7 @@ export class BookSearchPage {
         };
         this.user.subscribe(user=>{
           this.db.inserirLivroListaDesejo(user.uid, livro).then(()=>{
-            this.navCtrl.setRoot(HomePage).then(page=>{
-              console.log(page)
+            this.navCtrl.push(WishListPage).then(page=>{
             })
             .catch(err=>{
               console.log(err)

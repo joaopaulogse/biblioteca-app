@@ -7,7 +7,7 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let book of listaDesejo" >
+      <ion-col col-4 *ngFor="let book of listaDesejo" (click)="viewBook(book)">
         <ion-thumbnail item-start *ngIf="!!book.payload.val().image;else imageDefault">
           <img src="{{book.payload.val().image}}" style="height: 140px;background-color:#FFFFFF; width:100px">
         </ion-thumbnail>
