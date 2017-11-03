@@ -45,10 +45,12 @@
         <h4> {{(user|async)?.email}} </h4>
       </ion-item>
       <ion-card-content>
-
-        <button ion-item (click)="redirectToPerfil()">
-          <ion-icon name="create"></ion-icon> Editar perfil
-        </button>
+            <button ion-item (click)="redirectToPerfil()">
+              <ion-icon name="create"></ion-icon> Editar perfil
+            </button>
+            <button ion-item (click)="logOut()">
+              <ion-icon name="log-out"></ion-icon> Log out
+            </button>
       </ion-card-content>
     </ion-card>
     <br>
@@ -57,9 +59,6 @@
       <button ion-item (click)="redirectToWishList()">Lista de Desejos</button>
       <button ion-item (click)="exportLibrary()">
         <ion-icon name="download"></ion-icon> Exportar biblioteca
-      </button>
-      <button ion-item (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon> Log out
       </button>
     </ion-list>
   </ion-content>
