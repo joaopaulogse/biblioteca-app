@@ -91,6 +91,8 @@ export class BookSearchPage {
       this.modalCtrl.create(BookRegisterPage,{"livro":this.livro}).present();
     }
     public addToWishList(book:any):any{
+      try{
+
       const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks, isbn } = book.volumeInfo;
         const livro = {
           title: !!title ? title:"", 
@@ -114,6 +116,11 @@ export class BookSearchPage {
             })
           })
         })
+      }catch(e){
+        this.messagemToast('Não foi possível adicionar à lista de desejos!');
+        console.log(e);
+      }        
+        
     }
     public buscaAuthor(author:string){
       this.navCtrl.push(BookSearchPage, {"author":author});

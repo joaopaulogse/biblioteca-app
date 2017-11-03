@@ -79,8 +79,8 @@ export class BookRegisterPage {
         publisher: !!publisher ? publisher: "", 
         publishedDate: !!publishedDate ? publishedDate: "", 
         read: !!read ? read: false,
-        isbn_10:!!industryIdentifiers?industryIdentifiers[1].identifier:"",
-        isbn_13:!!industryIdentifiers || !!isbn?industryIdentifiers[0].identifier || isbn:"",
+        isbn_10:!!industryIdentifiers && !!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
+        isbn_13:(!!industryIdentifiers && !!industryIdentifiers[0]) || !!isbn?industryIdentifiers[0].identifier || isbn:"",
         image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:""
       };
       console.log(book);
@@ -92,6 +92,7 @@ export class BookRegisterPage {
         });
       });
     }catch(erro){
+      this.messagemToast('Não foi possível adicionar esse livro, verifique se os campos estão preenchidos corretamente!');
       console.log(erro)
     }
     
