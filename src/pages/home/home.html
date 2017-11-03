@@ -14,7 +14,7 @@
     </ion-buttons>
 
     <ion-title>
-      Biblioteca
+      {{title}}
     </ion-title>
 
   </ion-navbar>
@@ -74,7 +74,7 @@
       <button ion-fab><ion-icon name="md-book"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>-->
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="title != 'Lista de Desejos'">
     <button ion-fab color="blue">
       <ion-icon name="add"></ion-icon>
     </button>

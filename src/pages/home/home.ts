@@ -31,6 +31,7 @@ import * as Papa from 'papaparse'
 export class HomePage {
   rootPage: any;
   user: Observable<firebase.User>;
+  title:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -52,16 +53,20 @@ export class HomePage {
   }
   ngOnInit(){
     this.rootPage = BooksUserPage;
+    this.title = 'Biblioteca';
   }
   ionViewDidLoad() {
   }
 
   public redirectToHome(){
     this.rootPage = BooksUserPage;
+    this.title = 'Biblioteca';
     this.menu.close();
   }
   public redirectToWishList(){
     this.rootPage = WishListPage;
+    this.title = 'Lista de Desejos'
+    this.menu.close();
   }
   public exportLibrary(){
     this.alertCtrl.create({
