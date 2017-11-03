@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, ModalController, ToastController } from 'ionic-angular';
 import { BooksProvider } from '../../providers/books/books';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -42,6 +42,7 @@ export class BookSearchPage {
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public db:DatabaseProvider,
+    public toast:ToastController
   ) {
     this.user = authFB.authState;
   }
@@ -106,8 +107,8 @@ export class BookSearchPage {
         };
         this.user.subscribe(user=>{
           this.db.inserirLivroListaDesejo(user.uid, livro).then(()=>{
-            this.navCtrl.setRoot(WishListPage).then(page=>{
-            })
+            this.messagemToast('Livro adicionado a lista de desejos!');
+            this.navCtrl.setRoot(HomePage)
             .catch(err=>{
               console.log(err)
             })
@@ -117,5 +118,12 @@ export class BookSearchPage {
     public buscaAuthor(author:string){
       this.navCtrl.push(BookSearchPage, {"author":author});
     }
-
+    messagemToast(message:string){
+      this.toast.create({
+        message:message,
+        duration:3000,
+        showCloseButton: true,
+        closeButtonText: 'Ok'
+      }).present();
+    }
 }
