@@ -58,7 +58,7 @@
           <ion-item id="alignCorrect">
             <ion-label floating>ISBN</ion-label>
             <!--Não ouse mexer neste ngModel-->
-            <ion-input [disabled]="input" type="text" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
+            <ion-input [disabled]="input" type="number" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
                 livro.industryIdentifiers[0].type === 'ISBN_13' ?
                 livro.industryIdentifiers[0].identifier:
                 livro.industryIdentifiers[0].type === 'ISBN_10'?
