@@ -7,12 +7,7 @@ import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UtilsProvider } from '../../providers/utils/utils';
 import { WishListPage } from '../wish-list/wish-list';
-/**
- * Generated class for the BookRegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -53,12 +48,6 @@ export class BookRegisterPage {
     }
   }
 
-
-  //public book:string = this.livro.title
-  ionViewDidLoad() {
-    console.log(this.livro);
-  }
-  
   registerBook(livro, event){
     event.preventDefault();
     console.log(livro)
@@ -101,7 +90,9 @@ export class BookRegisterPage {
       }
     }
   }
-  disableInputs(){
+
+  /*Habilitar formulário*/
+  enableInputs(){
     this.input = false;
   }
   public cancelRegister(){
@@ -201,6 +192,7 @@ export class BookRegisterPage {
       })
   }
   
+  /* Abre modal para habilitar edição ou exclusão de livro*/
   options(){
     if(!this.desejo){
     this.actionSheetCtrl.create({
@@ -209,7 +201,7 @@ export class BookRegisterPage {
         {
           text:"Editar",
           handler:()=>{
-            this.disableInputs()
+            this.enableInputs()
           }
         },
         {

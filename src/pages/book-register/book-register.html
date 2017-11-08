@@ -1,12 +1,7 @@
-<!--
-  Generated template for the BookRegisterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
+    <!--Título da página dinâmico-->
     <ion-title *ngIf="!edit;else tituloAlterar">Registrar Livro</ion-title>
     <ng-template #tituloAlterar> 
         <img src="../assets/images/close.svg" left padding (click)="close()">
@@ -14,6 +9,7 @@
         Livro
       </ion-title> 
     </ng-template>
+    <!--Habilita edição ou exclusão de livro-->
     <ion-buttons end *ngIf="edit">
       <button ion-button icon-only round (click)="options()">
         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -28,7 +24,9 @@
 
 <ion-content padding>
   <form>
+    <!--Input key firebase-->
     <input type="text" hidden name="key" [(ngModel)]="key">
+    <!--Capa do livro do google books ou img padrão-->
     <div *ngIf="livro.imageLinks !== underfined;else imageEmpty" align="center">
       <ion-input hidden type="text" name="image" [(ngModel)]="livro.imageLinks"></ion-input>
       <img id="imageCadastro" [src]="livro.imageLinks.smallThumbnail || livro.imageLinks.thumbnail" style='height: 50%;background-color:#FFFFFF; width: 50%;'
@@ -42,8 +40,9 @@
         </ion-avatar>
       </div>
     </ng-template>
-    
+    <!--Upload de capa-->
     <input [disabled]="input" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
+    <!--Dados do livro-->
     <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
       <ion-label floating>Título</ion-label>
@@ -59,6 +58,7 @@
           <ion-item id="alignCorrect">
             <ion-label floating>ISBN</ion-label>
             <!--Não ouse mexer neste ngModel-->
+            <!--Seleciona o ISBN-->
             <ion-input [disabled]="input" type="number" name="isbn" [(ngModel)]="!!livro.industryIdentifiers ? 
                 livro.industryIdentifiers[0].type === 'ISBN_13' ?
                 livro.industryIdentifiers[0].identifier:
@@ -106,7 +106,7 @@
       <ion-label floating>Descrição</ion-label>
       <ion-textarea [disabled]="input" type="text" name="description" [(ngModel)]="livro.description" rows="5"></ion-textarea>
     </ion-item>
-
+    <!--Botões Enviar, Salvar e Cancelar-->
     <div align="right">
       <button [disabled]="input" ion-button round icon-start *ngIf="!edit;else botaoAlterar" (click)="registerBook(livro, $event)">
         <ion-icon name="ios-send"></ion-icon>
