@@ -41,7 +41,7 @@ export class BookRegisterPage {
     public db:DatabaseProvider,
     public utils:UtilsProvider,
     public toast:ToastController,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
@@ -69,33 +69,37 @@ export class BookRegisterPage {
         this.imageBase64 = foto.toString()
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
     }
-    try{
-      const book = {
-        title: !!title ? title:"", 
-        authors: !!authors ? authors:[], 
-        description: !!description ? description:"", 
-        categories: !!categories ? categories: "", 
-        pageCount: !!pageCount ? pageCount: 0, 
-        publisher: !!publisher ? publisher: "", 
-        publishedDate: !!publishedDate ? publishedDate: "", 
-        read: !!read ? read: false,
-        isbn_10:!!industryIdentifiers && !!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
-        isbn_13:(!!industryIdentifiers && !!industryIdentifiers[0]) || !!isbn?industryIdentifiers[0].identifier || isbn:"",
-        image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:""
-      };
-      console.log(book);
-      console.log("Livro",this.livro)
-      this.user.subscribe(user=>{
-        this.db.registerBookInUser(user.uid, book).then(obj=>{ 
-          this.navCtrl.setRoot(HomePage);
-          console.log(obj);
+    if(!!!title){
+      this.messagemToast("Título é obrigatório!");
+      }else{    
+      try{
+        const book = {
+          title: !!title ? title:"", 
+          authors: !!authors ? authors:[], 
+          description: !!description ? description:"", 
+          categories: !!categories ? categories: "", 
+          pageCount: !!pageCount ? pageCount: 0, 
+          publisher: !!publisher ? publisher: "", 
+          publishedDate: !!publishedDate ? publishedDate: "", 
+          read: !!read ? read: false,
+          isbn_10:!!industryIdentifiers && !!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
+          isbn_13:(!!industryIdentifiers && !!industryIdentifiers[0]) || !!isbn?industryIdentifiers[0].identifier || isbn:"",
+          image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:""
+        };
+      
+        console.log(book);
+        console.log("Livro",this.livro)
+        this.user.subscribe(user=>{
+          this.db.registerBookInUser(user.uid, book).then(obj=>{ 
+            this.navCtrl.setRoot(HomePage);
+            console.log(obj);
+          });
         });
-      });
-    }catch(erro){
-      this.messagemToast('Não foi possível adicionar esse livro, verifique se os campos estão preenchidos corretamente!');
-      console.log(erro)
+      }catch(erro){
+        this.messagemToast('Não foi possível adicionar esse livro, verifique se os campos estão preenchidos corretamente!');
+        console.log(erro)
+      }
     }
-    
   }
   disableInputs(){
     this.input = false;

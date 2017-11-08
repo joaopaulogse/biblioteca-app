@@ -42,6 +42,7 @@
         </ion-avatar>
       </div>
     </ng-template>
+    
     <input [disabled]="input" type="file" id="selectFoto" (change)="enviaImage($event)" hidden accept="image/*">
     <ion-input hidden type="text" name="isbn" [(ngModel)]="livro.industryIdentifiers"></ion-input>
     <ion-item>
@@ -50,7 +51,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Autor</ion-label>
-      <ion-input [disabled]="input" type="text" name="author" [(ngModel)]="livro.authors"></ion-input>
+      <ion-input [disabled]="input" type="text" name="author" [(ngModel)]="livro.authors" required></ion-input>
     </ion-item>
     <ion-grid>
       <ion-row>
