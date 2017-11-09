@@ -107,11 +107,19 @@
       <ion-textarea [disabled]="input" type="text" name="description" [(ngModel)]="livro.description" rows="5"></ion-textarea>
     </ion-item>
     <!--Botões Enviar, Salvar e Cancelar-->
+    <input [disabled]="input" type="file" id="pdf" (change)="enviaPDF($event)" hidden accept="application/pdf">
     <div align="right">
-      <button [disabled]="input" ion-button round icon-start *ngIf="!edit;else botaoAlterar" (click)="registerBook(livro, $event)">
-        <ion-icon name="ios-send"></ion-icon>
-        Enviar
-      </button>
+      <div *ngIf="!edit;else botaoAlterar" >
+
+        <button [disabled]="input" ion-button round icon-start onclick="document.getElementById('pdf').click()">
+          <ion-icon name="md-cloud-upload"></ion-icon>
+          Importar PDF
+        </button>
+        <button [disabled]="input" ion-button round icon-start (click)="registerBook(livro, $event)">
+          <ion-icon name="ios-send"></ion-icon>
+          Enviar
+        </button>
+      </div>
       <ng-template #botaoAlterar>
           <button [disabled]="input" ion-button round icon-start  (click)="alterar(livro, key)">
               <ion-icon name="ios-send"></ion-icon>

@@ -7,13 +7,14 @@ import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UtilsProvider } from '../../providers/utils/utils';
 import { WishListPage } from '../wish-list/wish-list';
+import { StorageProvider } from '../../providers/storage/storage';
 
 
 @IonicPage()
 @Component({
   selector: 'page-book-register',
   templateUrl: 'book-register.html',
-  providers:[DatabaseProvider, UtilsProvider]
+  providers:[DatabaseProvider, UtilsProvider, StorageProvider]
 })
 export class BookRegisterPage {
   imageBase64: string;
@@ -37,6 +38,7 @@ export class BookRegisterPage {
     public utils:UtilsProvider,
     public toast:ToastController,
     public actionSheetCtrl: ActionSheetController,
+    public storage:StorageProvider
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
@@ -90,7 +92,36 @@ export class BookRegisterPage {
       }
     }
   }
-
+  enviaPDF(event){
+    let file = event.target.files[0];
+    if(!!file && file.name.endsWith('.pdf')){
+      this.user.subscribe(user=>{
+        this.storage.enviarPDF(user.uid, file).on('state_changed', (snapshot)=>{
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        })
+        // .then(arquivo=>{
+        //   console.log(arquivo);
+        //   this.messagemToast('ta lá!!!!!')
+        // }).catch(err=>{
+        //   this.messagemToast('deu ruim!!')
+        //   console.log(err)
+        // })
+      })
+    }else{
+      this.messagemToast('Isso não é um PDF!');
+    }
+  }
   /*Habilitar formulário*/
   enableInputs(){
     this.input = false;

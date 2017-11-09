@@ -30,6 +30,7 @@ import { WishListPage } from '../pages/wish-list/wish-list';
 import { CallBooksProvider } from '../providers/call-books/call-books';
 import { Perfil } from '../pages/perfil/perfil';
 import { UtilsProvider } from '../providers/utils/utils';
+import { StorageProvider } from '../providers/storage/storage';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { UtilsProvider } from '../providers/utils/utils';
     AngularFireDatabaseProvider,
     Camera,
     CallBooksProvider,
-    UtilsProvider
+    UtilsProvider,
+    StorageProvider
   ]
 })
 export class AppModule {}
