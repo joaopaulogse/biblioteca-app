@@ -14,9 +14,10 @@ export class StorageProvider {
 
   constructor(
     public http: Http,
+    public database:AngularFireDatabase
   ) {
   }
   enviarPDF(idUser, file){
-    return firebase.storage().ref(`pdfs/${idUser}`).put(file);
+    return this.database.app.storage().ref(`pdfs/${idUser}`).put(file);
   }
 }
