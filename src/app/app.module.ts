@@ -23,7 +23,6 @@ import { AngularFireDatabaseProvider } from 'angularfire2/database';
 import { DataForSearchPage } from '../pages/data-for-search/data-for-search';
 import { Camera } from '@ionic-native/camera';
 import { BooksUserPage } from '../pages/books-user/books-user';
-import { BookDetailsPage } from '../pages/book-details/book-details';
 import { BooksReadPage } from '../pages/books-read/books-read';
 import { BooksNoReadPage } from '../pages/books-no-read/books-no-read';
 import { WishListPage } from '../pages/wish-list/wish-list';
@@ -42,7 +41,6 @@ import { StorageProvider } from '../providers/storage/storage';
     BookRegisterPage,
     DataForSearchPage,
     BooksUserPage,
-    BookDetailsPage,
     BooksReadPage,
     BooksNoReadPage,
     WishListPage,
@@ -66,7 +64,6 @@ import { StorageProvider } from '../providers/storage/storage';
     BookRegisterPage,
     DataForSearchPage,
     BooksUserPage,
-    BookDetailsPage,
     BooksReadPage,
     BooksNoReadPage,
     WishListPage,

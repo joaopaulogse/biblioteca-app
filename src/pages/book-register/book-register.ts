@@ -8,13 +8,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { UtilsProvider } from '../../providers/utils/utils';
 import { WishListPage } from '../wish-list/wish-list';
 import { StorageProvider } from '../../providers/storage/storage';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 
 
 @IonicPage()
 @Component({
   selector: 'page-book-register',
   templateUrl: 'book-register.html',
-  providers:[DatabaseProvider, UtilsProvider, StorageProvider]
+  providers:[DatabaseProvider, UtilsProvider, StorageProvider, DocumentViewer]
 })
 export class BookRegisterPage {
   imageBase64: string;
@@ -38,7 +39,8 @@ export class BookRegisterPage {
     public utils:UtilsProvider,
     public toast:ToastController,
     public actionSheetCtrl: ActionSheetController,
-    public storage:StorageProvider
+    public storage:StorageProvider,
+    public document: DocumentViewer
   ) {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
@@ -226,16 +228,17 @@ export class BookRegisterPage {
       title:"Opções",
       buttons:[
         {
-          text:"Editar",
+          text:"Editar livro",
           handler:()=>{
             this.enableInputs()
           }
         },
         {
-          text:"Excluir Livro",
+          text:"Excluir livro",
           handler:()=>{
             this.alertCtrl.create({
-              title: "Deseja realmente excluir esse livro?",
+              title: "Excluir livro",
+              message: "Deseja realmente excluir esse livro?",
               buttons: [
                 {
                   text: "Não",
@@ -249,6 +252,16 @@ export class BookRegisterPage {
                 }
               ]
             }).present();
+          }
+        },
+        {
+          text: "Abrir PDF",
+          handler:()=>{
+            const options: DocumentViewerOptions = {
+              title: 'My PDF'
+            }
+            
+            this.document.viewDocument('assets/myPdf.pdf', 'application/pdf', options)
           }
         },
         {
