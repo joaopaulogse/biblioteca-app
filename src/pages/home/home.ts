@@ -55,19 +55,33 @@ export class HomePage {
     this.rootPage = BooksUserPage;
     this.title = 'Biblioteca';
   }
-  ionViewDidLoad() {
-  }
 
+  /*Redireciona para a página de Biblioteca*/
   public redirectToHome(){
     this.rootPage = BooksUserPage;
     this.title = 'Biblioteca';
     this.menu.close();
   }
+  /*Redireciona para página de Lista de desejos*/
   public redirectToWishList(){
     this.rootPage = WishListPage;
     this.title = 'Lista de Desejos'
     this.menu.close();
   }
+  /*Redireciona para a página de Perfil*/
+  public redirectToPerfil(){
+    this.navCtrl.push(Perfil);
+  }
+  /*Redireciona para a página de Registro de Livro*/
+  goToBookRegister(){
+    this.navCtrl.push(BookRegisterPage,{user:this.user})
+  }
+  /*Redireciona para a */
+  public goToBookSearch(){
+    this.navCtrl.push(DataForSearchPage);
+  }
+
+  /*Exportar biblioteca para csv*/
   public exportLibrary(){
     this.alertCtrl.create({
       title: "Exportar biblioteca",
@@ -86,7 +100,7 @@ export class HomePage {
     }).present();
   }
 
-  /*this method convert json to csv and does download file*/
+  /*Conversão JSON para CSV*/
   public convertToCSV(){
     this.user.subscribe(user=>{
       this.dbProvider.getBooksInTheUser(user.uid).valueChanges().subscribe(books=>{
@@ -108,27 +122,16 @@ export class HomePage {
     });
     
   }
-  public redirectToPerfil(){
-    this.navCtrl.push(Perfil);
-  }
-
+  
+  /*Efetua logout*/
   logOut(){
-    // this.serviceAuth.logout();
     this.authFB.auth.signOut()
       .then(()=>{
         this.navCtrl.setRoot(LoginPage);
       })
   }
 
-  // this method takes to DataForSearchPage
-  public goToBookSearch(){
-    this.navCtrl.push(DataForSearchPage);
-  }
-
-  /* this method try scanner some barcode
-     if it can, the isbn is redirected to book search page
-     else, an alert will be shown to user
-  */
+  /*Abre a câmera (leitor de código de barras)*/
   public goToBarcode(){
     this.barcodeScanner.scan().then((barcodeData) => {
       !!barcodeData.text ? 
@@ -151,10 +154,4 @@ export class HomePage {
         this.navCtrl.popTo(HomePage);
       }});
   }
-
-  //this method redirect to book register page
-  goToBookRegister(){
-    this.navCtrl.push(BookRegisterPage,{user:this.user})
-  }
-  
 }
