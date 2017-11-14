@@ -96,27 +96,23 @@ export class BookRegisterPage {
     let file = event.target.files[0];
     if(!!file && file.name.endsWith('.pdf')){
       this.user.subscribe(user=>{
-        this.storage.enviarPDF(user.uid, file).on('state_changed', (snapshot)=>{
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-         /* var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log('Upload is running');
-              break;
-          }
-        })*/
-        // .then(arquivo=>{
-        //   console.log(arquivo);
-        //   this.messagemToast('ta lá!!!!!')
-        // }).catch(err=>{
-        //   this.messagemToast('deu ruim!!')
-        //   console.log(err)
-         })
+          let uploadFile = this.storage.enviarPDF(user.email, file)
+          uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            console.log(snapshot)
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          },err=>{
+            console.log(err)
+          })
+          // this.storage.enviarPDF(user.uid, file)
       })
     }else{
       this.messagemToast('Isso não é um PDF!');
