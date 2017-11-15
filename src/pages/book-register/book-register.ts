@@ -53,13 +53,13 @@ export class BookRegisterPage {
     }
   }
 
-  registerBook(livro, event){
+  async registerBook(livro, event){
     event.preventDefault();
     console.log(livro)
     console.log(event)
     const {title, authors, description, categories, pageCount, publisher, publishedDate, read, industryIdentifiers, imageLinks, isbn } = livro;
     if(!!this.foto){
-      this.utils.toBase64(this.foto).then(foto=>{
+      await this.utils.toBase64(this.foto).then(foto=>{
         this.imageBase64 = foto.toString()
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
     }
@@ -84,16 +84,16 @@ export class BookRegisterPage {
       
         console.log(book);
         console.log("Livro",this.livro)
-        this.user.subscribe(user=>{
+        await this.user.subscribe(user=>{
           console.log(this.pdf)
           if(this.pdf){
-            let uploadFile = this.storage.enviarPDF(user.email, this.pdf)
-                uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-              },err=>{
-                console.log(err)
-              })
+              this.storage.enviarPDF(user.email, this.pdf)
+                .on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
+                  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  console.log('Upload is ' + progress + '% done');
+                },err=>{
+                  console.log(err)
+                })
           }
           this.db.registerBookInUser(user.uid, book).then(obj=>{ 
             this.navCtrl.setRoot(HomePage);
@@ -109,25 +109,6 @@ export class BookRegisterPage {
   enviaPDF(event){
     let file = event.target.files[0];
     if(!!file && file.name.endsWith('.pdf')){
-      // this.user.subscribe(user=>{
-      //     let uploadFile = 
-      //     uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
-      //       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //       console.log('Upload is ' + progress + '% done');
-      //       console.log(snapshot)
-      //       switch (snapshot.state) {
-      //         case firebase.storage.TaskState.PAUSED: // or 'paused'
-      //           console.log('Upload is paused');
-      //           break;
-      //         case firebase.storage.TaskState.RUNNING: // or 'running'
-      //           console.log('Upload is running');
-      //           break;
-      //       }
-      //     },err=>{
-      //       console.log(err)
-      //     })
-      //     // this.storage.enviarPDF(user.uid, file)
-      // })
       this.pdf = file;
     }else{
       this.messagemToast('Isso não é um PDF!');
@@ -167,17 +148,21 @@ export class BookRegisterPage {
         book.image = foto.toString()
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
     }
-    this.user.subscribe(user=>{
-      this.db.alterarLivro(user.uid, key, book)
-      .then(()=>{
-       this.messagemToast('Livro alterado!')
-       this.navCtrl.setRoot(HomePage)
+    if(!!!book.title){
+      this.messagemToast("Título é obrigatório!");
+    }else{
+      this.user.subscribe(user=>{
+        this.db.alterarLivro(user.uid, key, book)
+        .then(()=>{
+        this.messagemToast('Livro alterado!')
+        this.navCtrl.setRoot(HomePage)
+        })
+        .catch(err=>{
+          this.messagemToast('Livro não alterado!')
+          console.log(err);
+        })
       })
-      .catch(err=>{
-        this.messagemToast('Livro não alterado!')
-        console.log(err);
-      })
-    })
+    }
   }
   messagemToast(message:string){
     this.toast.create({
