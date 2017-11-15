@@ -18,6 +18,7 @@ import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vi
   providers:[DatabaseProvider, UtilsProvider, StorageProvider, DocumentViewer]
 })
 export class BookRegisterPage {
+  pdf: any;
   imageBase64: string;
 
   user: Observable<firebase.User>;
@@ -77,12 +78,23 @@ export class BookRegisterPage {
           read: !!read ? read: false,
           isbn_10:!!industryIdentifiers && !!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
           isbn_13:(!!industryIdentifiers && !!industryIdentifiers[0]) || !!isbn?industryIdentifiers[0].identifier || isbn:"",
-          image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:""
+          image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:"",
+          pdf:''
         };
       
         console.log(book);
         console.log("Livro",this.livro)
         this.user.subscribe(user=>{
+          console.log(this.pdf)
+          if(this.pdf){
+            let uploadFile = this.storage.enviarPDF(user.email, this.pdf)
+                uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+              },err=>{
+                console.log(err)
+              })
+          }
           this.db.registerBookInUser(user.uid, book).then(obj=>{ 
             this.navCtrl.setRoot(HomePage);
             console.log(obj);
@@ -97,25 +109,26 @@ export class BookRegisterPage {
   enviaPDF(event){
     let file = event.target.files[0];
     if(!!file && file.name.endsWith('.pdf')){
-      this.user.subscribe(user=>{
-          let uploadFile = this.storage.enviarPDF(user.email, file)
-          uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            console.log(snapshot)
-            switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
-                break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
-                break;
-            }
-          },err=>{
-            console.log(err)
-          })
-          // this.storage.enviarPDF(user.uid, file)
-      })
+      // this.user.subscribe(user=>{
+      //     let uploadFile = 
+      //     uploadFile.on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
+      //       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //       console.log('Upload is ' + progress + '% done');
+      //       console.log(snapshot)
+      //       switch (snapshot.state) {
+      //         case firebase.storage.TaskState.PAUSED: // or 'paused'
+      //           console.log('Upload is paused');
+      //           break;
+      //         case firebase.storage.TaskState.RUNNING: // or 'running'
+      //           console.log('Upload is running');
+      //           break;
+      //       }
+      //     },err=>{
+      //       console.log(err)
+      //     })
+      //     // this.storage.enviarPDF(user.uid, file)
+      // })
+      this.pdf = file;
     }else{
       this.messagemToast('Isso não é um PDF!');
     }

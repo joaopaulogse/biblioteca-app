@@ -126,6 +126,10 @@
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-4.3.0.tgz#0d613bb6c8779146949514299ca1c02611e308a9"
 
+"@ionic-native/document-viewer@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/document-viewer/-/document-viewer-4.4.0.tgz#8c1cbaf81f7b21bdb09acf4a3580f189a6253695"
+
 "@ionic-native/file@^4.3.2":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@ionic-native/file/-/file-4.3.2.tgz#f666950fb6b8e74f08dded7b1e4aa37ae9ec5312"
@@ -879,6 +883,10 @@ cordova-plugin-compat@^1.2.0:
 cordova-plugin-device@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/cordova-plugin-device/-/cordova-plugin-device-1.1.6.tgz#2d21764cad7c9b801523e4e09a30e024b249334b"
+
+cordova-plugin-document-viewer@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-document-viewer/-/cordova-plugin-document-viewer-0.9.7.tgz#1b93b42aa6d8d7666e000da9e9e312459d47a4cf"
 
 cordova-plugin-file@^4.3.3:
   version "4.3.3"
