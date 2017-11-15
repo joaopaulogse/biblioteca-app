@@ -270,11 +270,16 @@ export class BookRegisterPage {
         {
           text: "Abrir PDF",
           handler:()=>{
-            const options: DocumentViewerOptions = {
-              title: 'My PDF'
-            }
-            
-            this.document.viewDocument('assets/myPdf.pdf', 'application/pdf', options)
+            // const options: DocumentViewerOptions = {
+            //   title: 'My PDF'
+            // }
+            this.user.subscribe(user=>{
+
+              this.authFB.app.storage().ref(`pdfs/${user.email}`).getDownloadURL().then(value=>{
+                console.log(value)
+              })
+            })
+            //this.document.viewDocument(, 'application/pdf', options)
           }
         },
         {
