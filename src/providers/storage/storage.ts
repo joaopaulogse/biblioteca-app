@@ -24,6 +24,6 @@ export class StorageProvider {
   enviarPDF(email, file){
     console.log(file);
     
-    return this.firebaseApp.storage().ref(`pdfs/${email}/${file.name}`).put(file, {contentType:file.type});
+    return this.database.app.storage().ref(`pdfs/${email}/${file.name}`).put(file, {contentType:file.type});
   }
 }
