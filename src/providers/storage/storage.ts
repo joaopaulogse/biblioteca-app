@@ -5,6 +5,7 @@ import { FirebaseApp } from 'angularfire2'
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase'
 import 'firebase/storage'
+import { UtilsProvider } from '../utils/utils';
 /*
   Generated class for the StorageProvider provider.
 
@@ -17,13 +18,17 @@ export class StorageProvider {
   constructor(
     public fireApp:FirebaseApp,
     public http: Http,
-    public database:AngularFireDatabase
+    public database:AngularFireDatabase,
+    public util:UtilsProvider
   ) {
     this.firebaseApp = fireApp;
   }
   enviarPDF(email, file){
     console.log(file);
+    return this.util.toBase64(file).then(fileBase64=>{
+      // return this.database.app.storage().ref().child(`pdfs/${email}/${file.name}.png`).put(fileBase64.toString(), {contentType:"image/png"});
+
+    })
     
-    return this.database.app.storage().ref(`pdfs/${email}/${file.name}`).put(file, {contentType:file.type});
   }
 }

@@ -27,7 +27,7 @@ export class UtilsProvider {
         resolve(reader.result);
       };
       reader.onerror = function (error) {
-        console.log('Error: ', error);
+        console.log('Error ao converter o file: ', error);
         reject(error);
       };
     })    

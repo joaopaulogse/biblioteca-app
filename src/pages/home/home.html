@@ -57,7 +57,7 @@
     <ion-list>
       <button ion-item (click)="redirectToHome()">Biblioteca</button>
       <button ion-item (click)="redirectToWishList()">Lista de Desejos</button>
-      <button ion-item (click)="exportLibrary()">
+      <button ion-item hidden (click)="exportLibrary()">
         <ion-icon name="download"></ion-icon> Exportar biblioteca
       </button>
     </ion-list>

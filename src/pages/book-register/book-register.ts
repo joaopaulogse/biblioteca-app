@@ -20,7 +20,8 @@ import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vi
 export class BookRegisterPage {
   pdf: any;
   imageBase64: string;
-
+  pdfBase64: string;
+  pdfBase64Book:any;
   user: Observable<firebase.User>;
   livro = {};
   foto:any;
@@ -46,8 +47,12 @@ export class BookRegisterPage {
     this.user = authFB.authState;//this.navParams.get("user")//usuario da home
     this.livro = !!this.navParams.get("livro") ? this.navParams.get("livro").volumeInfo:{};
     this.key = !!this.navParams.get("book")?this.navParams.get("book").key:"";
+    this.pdfBase64Book = !!this.navParams.get("livro")?this.navParams.get("livro").volumeInfo.pdf:"";
     this.edit = this.navParams.get("edit");//negado por que ele vem true
     this.desejo = this.navParams.data.desejo;
+    // console.log(this.pdfBase64Book)
+    // console.log(this.livro)
+    // console.log(this.navParams.get('book'))
     if(!this.edit){
       this.input = false;
     }
@@ -62,6 +67,13 @@ export class BookRegisterPage {
       await this.utils.toBase64(this.foto).then(foto=>{
         this.imageBase64 = foto.toString()
       }).catch(err=>console.log(`nao foi possivel converter a foto: ${err}`))
+    }
+    if(this.pdf){
+      await this.utils.toBase64(this.pdf).then(pdf=>{
+        this.pdfBase64 = pdf.toString()
+      }).catch(err=>{
+        console.log("Erro no pdf: ", err)
+      })
     }
     if(!!!title){
       this.messagemToast("Título é obrigatório!");
@@ -79,22 +91,14 @@ export class BookRegisterPage {
           isbn_10:!!industryIdentifiers && !!industryIdentifiers[1]?industryIdentifiers[1].identifier:"",
           isbn_13:(!!industryIdentifiers && !!industryIdentifiers[0]) || !!isbn?industryIdentifiers[0].identifier || isbn:"",
           image:!!imageLinks?this.imageBase64 || imageLinks.thumbnail || imageLinks.smallThumbnail:"",
-          pdf:''
+          pdf:!!this.pdfBase64?this.pdfBase64:""
         };
       
         console.log(book);
         console.log("Livro",this.livro)
         await this.user.subscribe(user=>{
           console.log(this.pdf)
-          if(this.pdf){
-              this.storage.enviarPDF(user.email, this.pdf)
-                .on('state_changed', (snapshot:firebase.storage.UploadTaskSnapshot)=>{
-                  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  console.log('Upload is ' + progress + '% done');
-                },err=>{
-                  console.log(err)
-                })
-          }
+          
           this.db.registerBookInUser(user.uid, book).then(obj=>{ 
             this.navCtrl.setRoot(HomePage);
             console.log(obj);
@@ -203,7 +207,7 @@ export class BookRegisterPage {
             .then(()=>{
               if(this.inferior==false){
                 this.messagemToast("Livro Excluido com Sucesso!");
-                this.navCtrl.push(WishListPage);
+                this.navCtrl.setRoot(HomePage);
               } else{
                 this.messagemToast("Livro movido com Sucesso!");
                 //this.navCtrl.push(WishListPage);
@@ -255,16 +259,14 @@ export class BookRegisterPage {
         {
           text: "Abrir PDF",
           handler:()=>{
-            // const options: DocumentViewerOptions = {
-            //   title: 'My PDF'
-            // }
-            this.user.subscribe(user=>{
+            const options: DocumentViewerOptions = {
+              title: 'My PDF'
+            }
+            // this.user.subscribe(user=>{
 
-              this.authFB.app.storage().ref(`pdfs/${user.email}`).getDownloadURL().then(value=>{
-                console.log(value)
-              })
-            })
-            //this.document.viewDocument(, 'application/pdf', options)
+              // this.db.getBooksInTheUser
+            // })
+            this.document.viewDocument(this.pdfBase64Book, 'application/pdf', options)
           }
         },
         {
